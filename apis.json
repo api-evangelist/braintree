@@ -1,0 +1,119 @@
+{
+    "name": "Braintree",
+    "description": "An all-in-one solution to accept, process, and split payments in your mobile app or online -- from small business to large enterprise.",
+    "image": "http:\/\/kinlane-productions.s3.amazonaws.com\/screen-capture-api\/163-braintree.jpg",
+    "tags": [
+        "api lifeycle",
+        "api provider",
+        "billing",
+        "has api",
+        "have api",
+        "no api definition",
+        "payments",
+        "profile",
+        "webhook implementations"
+    ],
+    "created": "2019-12-19",
+    "modified": "2019-12-19",
+    "url": "https:\/\/raw.githubusercontent.com\/api-evangelist\/braintree\/master\/apis.json",
+    "specificationVersion": "0.14",
+    "apis": [],
+    "x-common": [
+        {
+            "type": "Website",
+            "url": "http:\/\/www.braintreepayments.com\/"
+        },
+        {
+            "type": "Authentication",
+            "url": "https:\/\/www.braintreepayments.com\/products\/braintree-auth"
+        },
+        {
+            "type": "Blog",
+            "url": "https:\/\/www.braintreepayments.com\/blog\/"
+        },
+        {
+            "type": "Blog RSS",
+            "url": "https:\/\/www.braintreepayments.com\/blog\/rss\/"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "http:\/\/www.crunchbase.com\/company\/braintree-payment-solutions"
+        },
+        {
+            "type": "Crunchbase",
+            "url": "https:\/\/crunchbase.com\/organization\/braintree-payment-solutions"
+        },
+        {
+            "type": "Email",
+            "url": "sales@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "accounts@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "general_inquiries@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "partnerships@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "info@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "partners@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "eusalessupport@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "australia@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "apacsales@braintreepayments.com"
+        },
+        {
+            "type": "Email",
+            "url": "newzealand@braintreepayments.com"
+        },
+        {
+            "type": "FAQ",
+            "url": "https:\/\/www.braintreepayments.com\/faq"
+        },
+        {
+            "type": "Github",
+            "url": "https:\/\/github.com\/braintree"
+        },
+        {
+            "type": "Pricing",
+            "url": "https:\/\/www.braintreepayments.com\/braintree-pricing"
+        },
+        {
+            "type": "Pricing",
+            "url": "https:\/\/www.braintreepayments.com\/braintree-pricing"
+        },
+        {
+            "type": "Sandbox",
+            "url": "https:\/\/www.braintreepayments.com\/sandbox"
+        },
+        {
+            "type": "Twitter",
+            "url": "https:\/\/twitter.com\/braintree"
+        },
+        {
+            "type": "Webhooks",
+            "url": "https:\/\/developers.braintreepayments.com\/guides\/webhooks\/overview"
+        },
+        {
+            "type": "Website",
+            "url": "https:\/\/www.braintreepayments.com"
+        }
+    ]
+}
