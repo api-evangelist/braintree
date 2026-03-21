@@ -1,0 +1,486 @@
+asyncapi: 2.6.0
+info:
+  title: Braintree Webhooks
+  description: >-
+    Braintree Webhooks deliver automated HTTP POST notifications to a
+    merchant-configured destination URL when specific events occur within the
+    payment gateway. Webhook notifications are triggered by transaction
+    settlements, subscription lifecycle changes, dispute events, disbursements,
+    sub-merchant account updates, and other gateway events. Each notification
+    payload is sent as a form-encoded POST with a bt_signature field and a
+    bt_payload field, where the payload is a Base64-encoded signed XML document.
+    Merchants must verify the signature using their API keys before processing
+    the payload. Webhooks are configured in the Braintree Control Panel by
+    specifying a destination URL and selecting the event types to monitor.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+servers:
+  merchantServer:
+    url: '{webhookDestinationUrl}'
+    protocol: https
+    description: >-
+      The merchant-configured HTTPS endpoint that receives webhook
+      notifications from Braintree. The URL is set in the Braintree
+      Control Panel and must be publicly accessible.
+    variables:
+      webhookDestinationUrl:
+        description: The HTTPS URL of the merchant's webhook handler endpoint.
+channels:
+  /webhook:
+    description: >-
+      The merchant's webhook endpoint that receives HTTP POST notifications
+      from Braintree. All event types are delivered to the same configured
+      URL. The bt_payload contains a Base64-encoded, signed XML document
+      with the event details. Merchants must verify the bt_signature against
+      the payload using their private API key before processing.
+    publish:
+      operationId: receiveBraintreeWebhook
+      summary: Receive a Braintree webhook notification
+      description: >-
+        Braintree sends an HTTP POST to the configured webhook URL when a
+        monitored event occurs. The request is form-encoded with two fields:
+        bt_signature (HMAC-SHA1 signature) and bt_payload (Base64-encoded XML).
+        Merchants parse the notification using a Braintree server SDK to
+        obtain the notification kind and associated object. A 200 response
+        from the destination URL is required to acknowledge receipt; non-200
+        responses cause Braintree to retry delivery.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/SubscriptionChargedSuccessfully'
+          - $ref: '#/components/messages/SubscriptionChargedUnsuccessfully'
+          - $ref: '#/components/messages/SubscriptionWentActive'
+          - $ref: '#/components/messages/SubscriptionWentPastDue'
+          - $ref: '#/components/messages/SubscriptionExpired'
+          - $ref: '#/components/messages/SubscriptionCanceled'
+          - $ref: '#/components/messages/SubscriptionTrialEnded'
+          - $ref: '#/components/messages/SubscriptionBillingSkipped'
+          - $ref: '#/components/messages/TransactionSettled'
+          - $ref: '#/components/messages/TransactionSettlementDeclined'
+          - $ref: '#/components/messages/DisputeOpened'
+          - $ref: '#/components/messages/DisputeWon'
+          - $ref: '#/components/messages/DisputeLost'
+          - $ref: '#/components/messages/DisputeAccepted'
+          - $ref: '#/components/messages/DisputeAutoAccepted'
+          - $ref: '#/components/messages/DisputeDisputed'
+          - $ref: '#/components/messages/DisputeExpired'
+          - $ref: '#/components/messages/DisputeUnderReview'
+          - $ref: '#/components/messages/Disbursement'
+          - $ref: '#/components/messages/TransactionDisbursed'
+          - $ref: '#/components/messages/SubMerchantAccountApproved'
+          - $ref: '#/components/messages/SubMerchantAccountDeclined'
+components:
+  securitySchemes:
+    hmacSignature:
+      type: httpApiKey
+      in: header
+      name: bt_signature
+      description: >-
+        HMAC-SHA1 signature computed over the bt_payload value using the
+        merchant's private API key. Merchants must verify this signature
+        before processing any webhook payload to prevent forgery.
+  messages:
+    SubscriptionChargedSuccessfully:
+      name: subscription_charged_successfully
+      title: Subscription Charged Successfully
+      summary: A subscription billing cycle completed with a successful charge.
+      description: >-
+        Sent when a subscription advances to its next billing cycle and the
+        associated transaction is successfully authorized. Also sent when a
+        mid-cycle upgrade generates a prorated charge. The notification payload
+        includes the full subscription object with up to 20 recent transactions.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionChargedUnsuccessfully:
+      name: subscription_charged_unsuccessfully
+      title: Subscription Charged Unsuccessfully
+      summary: A subscription billing cycle charge attempt failed.
+      description: >-
+        Sent when a subscription billing cycle charge fails, such as when
+        the customer's payment method is declined. The subscription transitions
+        to Past Due status. The notification includes the subscription object
+        with the failed transaction.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionWentActive:
+      name: subscription_went_active
+      title: Subscription Went Active
+      summary: A subscription transitioned to Active status.
+      description: >-
+        Sent when a subscription's first authorized transaction is created,
+        or when a subscription transitions from Past Due back to Active status.
+        Indicates the subscription is in good standing and billing normally.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionWentPastDue:
+      name: subscription_went_past_due
+      title: Subscription Went Past Due
+      summary: A subscription transitioned from Active to Past Due status.
+      description: >-
+        Sent when a subscription fails to charge successfully and moves from
+        Active to Past Due status. Merchants should use this event to notify
+        customers and prompt them to update their payment method.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionExpired:
+      name: subscription_expired
+      title: Subscription Expired
+      summary: A subscription reached its configured number of billing cycles.
+      description: >-
+        Sent when a subscription completes all of its configured billing
+        cycles and expires. The subscription status transitions to Expired.
+        No further charges will be made. Merchants may create a new
+        subscription to continue billing.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionCanceled:
+      name: subscription_canceled
+      title: Subscription Canceled
+      summary: A subscription was canceled.
+      description: >-
+        Sent when a subscription is canceled either by the merchant via the
+        API or Control Panel. The subscription status transitions to Canceled
+        and no further charges will be made.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionTrialEnded:
+      name: subscription_trial_ended
+      title: Subscription Trial Ended
+      summary: A subscription's trial period ended.
+      description: >-
+        Sent when a subscription's trial period concludes. This event fires
+        before the first billing charge occurs, allowing merchants to send
+        advance notice to customers that billing is about to begin.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubscriptionBillingSkipped:
+      name: subscription_billing_skipped
+      title: Subscription Billing Skipped
+      summary: A subscription billing cycle was skipped due to a zero or negative balance.
+      description: >-
+        Sent when a subscription's billing cycle is skipped because the
+        customer has a credit balance from previous add-ons or discounts
+        that covers the entire cost of the subscription for that cycle.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/SubscriptionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    TransactionSettled:
+      name: transaction_settled
+      title: Transaction Settled
+      summary: A transaction settled successfully.
+      description: >-
+        Sent when an ACH or SEPA Direct Debit transaction completes
+        settlement. This webhook fires after the funds have moved. Applicable
+        specifically to ACH and SEPA Direct Debit sale and refund transactions
+        where settlement is asynchronous.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/TransactionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    TransactionSettlementDeclined:
+      name: transaction_settlement_declined
+      title: Transaction Settlement Declined
+      summary: Settlement for a transaction was declined.
+      description: >-
+        Sent when settlement is declined for an ACH or SEPA Direct Debit
+        transaction. May also fire after a transaction_settled event if the
+        customer's bank returns the funds after initial settlement. The
+        original transaction status updates to settlement_declined.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/TransactionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeOpened:
+      name: dispute_opened
+      title: Dispute Opened
+      summary: A new dispute was opened against a transaction.
+      description: >-
+        Sent when a cardholder or issuing bank initiates a chargeback or
+        retrieval against one of the merchant's transactions. The notification
+        includes the dispute object with the associated transaction, disputed
+        amount, reason, and reply-by deadline.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeWon:
+      name: dispute_won
+      title: Dispute Won
+      summary: A dispute was resolved in the merchant's favor.
+      description: >-
+        Sent when a dispute is resolved in the merchant's favor, meaning
+        the funds are returned to the merchant. The dispute status transitions
+        to Won.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeLost:
+      name: dispute_lost
+      title: Dispute Lost
+      summary: A dispute was resolved in the cardholder's favor.
+      description: >-
+        Sent when a dispute is resolved in the cardholder's favor, meaning
+        the merchant loses the disputed funds. The dispute status transitions
+        to Lost.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeAccepted:
+      name: dispute_accepted
+      title: Dispute Accepted
+      summary: A dispute was accepted by the merchant.
+      description: >-
+        Sent when a merchant explicitly accepts a dispute without contesting
+        it. The dispute status transitions to Accepted and the funds are
+        surrendered to the cardholder.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeAutoAccepted:
+      name: dispute_auto_accepted
+      title: Dispute Auto-Accepted
+      summary: A dispute was automatically accepted after the reply deadline passed.
+      description: >-
+        Sent when a dispute is automatically accepted because the reply-by
+        deadline passed without the merchant submitting a response or evidence.
+        The dispute status transitions to Accepted.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeDisputed:
+      name: dispute_disputed
+      title: Dispute Disputed
+      summary: Evidence was submitted and the dispute is under review.
+      description: >-
+        Sent when the merchant submits evidence to contest a dispute and
+        the dispute transitions to the Disputed status, indicating it is
+        being reviewed by the card network.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeExpired:
+      name: dispute_expired
+      title: Dispute Expired
+      summary: A dispute expired without resolution.
+      description: >-
+        Sent when a dispute expires without being resolved or responded to
+        within the allowed timeframe. The dispute status transitions to
+        Expired.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    DisputeUnderReview:
+      name: dispute_under_review
+      title: Dispute Under Review
+      summary: A dispute is under internal review with PayPal.
+      description: >-
+        Sent when a dispute enters an internal review state with PayPal.
+        This status indicates Braintree or PayPal is actively investigating
+        the dispute before it is presented to the card network.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisputeNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    Disbursement:
+      name: disbursement
+      title: Disbursement
+      summary: Funds were disbursed to the merchant's bank account.
+      description: >-
+        Sent once per merchant account per day when Braintree sends a
+        disbursement to the merchant's bank account. Applicable only to
+        Braintree-funded merchant accounts. The notification includes a
+        disbursement object with the total amount and transaction count.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/DisbursementNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    TransactionDisbursed:
+      name: transaction_disbursed
+      title: Transaction Disbursed
+      summary: >-
+        A transaction was marked for disbursement. Deprecated in favor of
+        the Disbursement event.
+      description: >-
+        Deprecated. Sent when a transaction is marked for disbursement from
+        Braintree's bank account to the merchant. This event type is
+        superseded by the Disbursement event and is only sent for legacy
+        Braintree-funded merchant accounts.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/TransactionNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubMerchantAccountApproved:
+      name: sub_merchant_account_approved
+      title: Sub-Merchant Account Approved
+      summary: A Braintree Marketplace sub-merchant account was approved.
+      description: >-
+        Sent when a sub-merchant account created through the Braintree
+        Marketplace API completes underwriting review and is approved for
+        payment processing. The notification includes the merchant account
+        object for the approved sub-merchant.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/MerchantAccountNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+    SubMerchantAccountDeclined:
+      name: sub_merchant_account_declined
+      title: Sub-Merchant Account Declined
+      summary: A Braintree Marketplace sub-merchant account application was declined.
+      description: >-
+        Sent when a sub-merchant account created through the Braintree
+        Marketplace API is declined during underwriting review. The
+        notification includes the merchant account object and the reason
+        for the decline.
+      contentType: application/x-www-form-urlencoded
+      payload:
+        $ref: '#/components/schemas/MerchantAccountNotificationPayload'
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+  schemas:
+    WebhookHeaders:
+      type: object
+      description: >-
+        HTTP headers included in webhook POST requests from Braintree.
+      properties:
+        Content-Type:
+          type: string
+          description: Content type of the webhook request body.
+          const: application/x-www-form-urlencoded
+    WebhookFormPayload:
+      type: object
+      description: >-
+        The form-encoded body of all Braintree webhook HTTP POST requests.
+        Merchants use a Braintree server SDK to parse and verify the payload.
+      required:
+        - bt_signature
+        - bt_payload
+      properties:
+        bt_signature:
+          type: string
+          description: >-
+            HMAC-SHA1 signature of the bt_payload value, computed using the
+            merchant's private API key. Must be verified before processing
+            the payload.
+        bt_payload:
+          type: string
+          description: >-
+            Base64-encoded, signed XML document containing the webhook
+            notification kind, timestamp, and associated Braintree object.
+    WebhookNotification:
+      type: object
+      description: >-
+        The parsed webhook notification object returned by the Braintree
+        server SDK after verifying and decoding the bt_payload.
+      required:
+        - kind
+        - timestamp
+      properties:
+        kind:
+          type: string
+          description: >-
+            The event type that triggered this webhook notification.
+          enum:
+            - subscription_billing_skipped
+            - subscription_canceled
+            - subscription_charged_successfully
+            - subscription_charged_unsuccessfully
+            - subscription_expired
+            - subscription_trial_ended
+            - subscription_went_active
+            - subscription_went_past_due
+            - transaction_settled
+            - transaction_settlement_declined
+            - dispute_opened
+            - dispute_won
+            - dispute_lost
+            - dispute_accepted
+            - dispute_auto_accepted
+            - dispute_disputed
+            - dispute_expired
+            - dispute_under_review
+            - disbursement
+            - transaction_disbursed
+            - sub_merchant_account_approved
+            - sub_merchant_account_declined
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the webhook event was triggered.
+    SubscriptionNotificationPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookFormPayload'
+      description: >-
+        Webhook payload for subscription lifecycle events. The parsed
+        notification contains a subscription object with up to 20 recent
+        associated transactions.
+    TransactionNotificationPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookFormPayload'
+      description: >-
+        Webhook payload for transaction settlement events. The parsed
+        notification contains the full transaction object including current
+        status, amounts, and settlement details.
+    DisputeNotificationPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookFormPayload'
+      description: >-
+        Webhook payload for dispute lifecycle events. The parsed notification
+        contains the dispute object with the associated transaction, disputed
+        amount, reason code, and current status.
+    DisbursementNotificationPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookFormPayload'
+      description: >-
+        Webhook payload for disbursement events. The parsed notification
+        contains a disbursement object with the total amount disbursed and
+        the list of associated transaction identifiers.
+    MerchantAccountNotificationPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookFormPayload'
+      description: >-
+        Webhook payload for sub-merchant account status events. The parsed
+        notification contains the merchant account object for the
+        sub-merchant including approval status and any decline reason.

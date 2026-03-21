@@ -1,0 +1,365 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "braintree": "https://api-evangelist.github.io/braintree/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "gr": "http://purl.org/goodrelations/v1#",
+
+    "Transaction": {
+      "@id": "braintree:Transaction",
+      "@context": {
+        "id": "dcterms:identifier",
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "status": "braintree:transactionStatus",
+        "type": "braintree:transactionType",
+        "currency_iso_code": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "order_id": "schema:orderNumber",
+        "merchant_account_id": {
+          "@id": "braintree:merchantAccountId",
+          "@type": "xsd:string"
+        },
+        "customer_id": {
+          "@id": "braintree:customerId",
+          "@type": "xsd:string"
+        },
+        "payment_method_token": {
+          "@id": "braintree:paymentMethodToken",
+          "@type": "xsd:string"
+        },
+        "payment_method_nonce": {
+          "@id": "braintree:paymentMethodNonce",
+          "@type": "xsd:string"
+        },
+        "processor_response_code": "braintree:processorResponseCode",
+        "processor_response_text": "braintree:processorResponseText",
+        "gateway_rejection_reason": "braintree:gatewayRejectionReason",
+        "tax_amount": {
+          "@id": "schema:taxValue",
+          "@type": "xsd:string"
+        },
+        "shipping_amount": {
+          "@id": "schema:shippingDetails",
+          "@type": "xsd:string"
+        },
+        "transaction_source": "braintree:transactionSource",
+        "billing": {
+          "@id": "schema:billingAddress",
+          "@type": "@id"
+        },
+        "shipping": {
+          "@id": "schema:deliveryAddress",
+          "@type": "@id"
+        },
+        "customer_details": {
+          "@id": "schema:customer",
+          "@type": "@id"
+        },
+        "credit_card_details": {
+          "@id": "braintree:creditCardDetails",
+          "@type": "@id"
+        },
+        "descriptor": {
+          "@id": "braintree:descriptor",
+          "@type": "@id"
+        },
+        "refund_ids": {
+          "@id": "braintree:refundId",
+          "@container": "@set"
+        },
+        "refunded_transaction_id": {
+          "@id": "braintree:refundedTransactionId",
+          "@type": "xsd:string"
+        },
+        "subscription_id": {
+          "@id": "braintree:subscriptionId",
+          "@type": "xsd:string"
+        },
+        "line_items": {
+          "@id": "schema:orderedItem",
+          "@container": "@set"
+        },
+        "disbursement_details": {
+          "@id": "braintree:disbursementDetails",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Customer": {
+      "@id": "schema:Person",
+      "@context": {
+        "id": "dcterms:identifier",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "email": "schema:email",
+        "phone": "schema:telephone",
+        "company": "schema:worksFor",
+        "website": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "fax": "schema:faxNumber",
+        "payment_methods": {
+          "@id": "braintree:paymentMethod",
+          "@container": "@set"
+        },
+        "addresses": {
+          "@id": "schema:address",
+          "@container": "@set"
+        },
+        "custom_fields": "braintree:customFields",
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "PaymentMethod": {
+      "@id": "schema:PaymentMethod",
+      "@context": {
+        "token": "dcterms:identifier",
+        "customer_id": {
+          "@id": "schema:customer",
+          "@type": "xsd:string"
+        },
+        "default": "braintree:isDefault",
+        "image_url": {
+          "@id": "schema:image",
+          "@type": "@id"
+        },
+        "subscriptions": {
+          "@id": "braintree:subscription",
+          "@container": "@set"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Subscription": {
+      "@id": "schema:Subscription",
+      "@context": {
+        "id": "dcterms:identifier",
+        "plan_id": {
+          "@id": "braintree:planId",
+          "@type": "xsd:string"
+        },
+        "status": "braintree:subscriptionStatus",
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "merchant_account_id": {
+          "@id": "braintree:merchantAccountId",
+          "@type": "xsd:string"
+        },
+        "payment_method_token": {
+          "@id": "braintree:paymentMethodToken",
+          "@type": "xsd:string"
+        },
+        "current_billing_cycle": "braintree:currentBillingCycle",
+        "number_of_billing_cycles": "braintree:numberOfBillingCycles",
+        "never_expires": "braintree:neverExpires",
+        "trial_period": "braintree:trialPeriod",
+        "trial_duration": "braintree:trialDuration",
+        "trial_duration_unit": "braintree:trialDurationUnit",
+        "first_billing_date": {
+          "@id": "braintree:firstBillingDate",
+          "@type": "xsd:date"
+        },
+        "next_billing_date": {
+          "@id": "braintree:nextBillingDate",
+          "@type": "xsd:date"
+        },
+        "next_billing_amount": {
+          "@id": "braintree:nextBillingAmount",
+          "@type": "xsd:string"
+        },
+        "paid_through_date": {
+          "@id": "braintree:paidThroughDate",
+          "@type": "xsd:date"
+        },
+        "billing_day_of_month": "braintree:billingDayOfMonth",
+        "failure_count": "braintree:failureCount",
+        "add_ons": {
+          "@id": "braintree:addOn",
+          "@container": "@set"
+        },
+        "discounts": {
+          "@id": "braintree:discount",
+          "@container": "@set"
+        },
+        "transactions": {
+          "@id": "schema:orderHistory",
+          "@container": "@set"
+        },
+        "descriptor": {
+          "@id": "braintree:descriptor",
+          "@type": "@id"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Plan": {
+      "@id": "braintree:BillingPlan",
+      "@context": {
+        "id": "dcterms:identifier",
+        "name": "schema:name",
+        "description": "dcterms:description",
+        "price": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "currency_iso_code": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "billing_frequency": "braintree:billingFrequency",
+        "number_of_billing_cycles": "braintree:numberOfBillingCycles",
+        "trial_period": "braintree:trialPeriod",
+        "trial_duration": "braintree:trialDuration",
+        "trial_duration_unit": "braintree:trialDurationUnit",
+        "add_ons": {
+          "@id": "braintree:addOn",
+          "@container": "@set"
+        },
+        "discounts": {
+          "@id": "braintree:discount",
+          "@container": "@set"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Dispute": {
+      "@id": "braintree:PaymentDispute",
+      "@context": {
+        "id": "dcterms:identifier",
+        "amount": {
+          "@id": "schema:price",
+          "@type": "xsd:string"
+        },
+        "currency_iso_code": {
+          "@id": "schema:priceCurrency",
+          "@type": "xsd:string"
+        },
+        "status": "braintree:disputeStatus",
+        "reason": "braintree:disputeReason",
+        "received_date": {
+          "@id": "dcterms:date",
+          "@type": "xsd:date"
+        },
+        "reply_by_date": {
+          "@id": "braintree:replyByDate",
+          "@type": "xsd:date"
+        },
+        "transaction_id": {
+          "@id": "braintree:transactionId",
+          "@type": "xsd:string"
+        },
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Address": {
+      "@id": "schema:PostalAddress",
+      "@context": {
+        "id": "dcterms:identifier",
+        "first_name": "schema:givenName",
+        "last_name": "schema:familyName",
+        "company": "schema:name",
+        "street_address": "schema:streetAddress",
+        "extended_address": "schema:streetAddress",
+        "locality": "schema:addressLocality",
+        "region": "schema:addressRegion",
+        "postal_code": "schema:postalCode",
+        "country_code_alpha2": "schema:addressCountry",
+        "country_name": "schema:addressCountry",
+        "created_at": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updated_at": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WebhookNotification": {
+      "@id": "braintree:WebhookNotification",
+      "@context": {
+        "kind": "braintree:notificationKind",
+        "timestamp": {
+          "@id": "dcterms:date",
+          "@type": "xsd:dateTime"
+        },
+        "subscription": {
+          "@id": "braintree:subscription",
+          "@type": "@id"
+        },
+        "transaction": {
+          "@id": "braintree:transaction",
+          "@type": "@id"
+        },
+        "dispute": {
+          "@id": "braintree:dispute",
+          "@type": "@id"
+        },
+        "merchant_account": {
+          "@id": "braintree:merchantAccount",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}
