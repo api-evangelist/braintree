@@ -1,16 +1,14 @@
 aid: braintree
-url: 
-  https://raw.githubusercontent.com/api-evangelist/braintree/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/braintree/refs/heads/main/apis.yml
 apis:
   - aid: braintree:payments-api
     name: Braintree Payments API
     tags:
-      - Payments
-      - Transactions
       - Credit Cards
+      - Payments
       - PayPal
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Transactions
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.braintreegateway.com
     humanURL: https://developer.paypal.com/braintree/docs/
     properties:
@@ -31,11 +29,10 @@ apis:
     name: Braintree GraphQL API
     tags:
       - GraphQL
+      - Payment Methods
       - Payments
       - Transactions
-      - Payment Methods
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://payments.braintree-api.com/graphql
     humanURL: https://developer.paypal.com/braintree/graphql/
     properties:
@@ -54,19 +51,16 @@ apis:
   - aid: braintree:javascript-client-sdk
     name: Braintree JavaScript Client SDK
     tags:
-      - JavaScript
-      - Client SDK
       - Browser
-      - Payments
+      - Client SDK
       - Drop-In UI
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - JavaScript
+      - Payments
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
+    humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
+      - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
         type: Documentation
     description: >-
       The Braintree JavaScript Client SDK enables secure collection of payment information
@@ -81,17 +75,14 @@ apis:
     tags:
       - iOS
       - Mobile
-      - Swift
       - Objective-C
       - Payments
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Swift
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
+    humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
+      - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
         type: Documentation
     description: >-
       The Braintree iOS SDK is a native library for accepting card and
@@ -106,18 +97,15 @@ apis:
     name: Braintree Android SDK
     tags:
       - Android
-      - Mobile
       - Java
       - Kotlin
+      - Mobile
       - Payments
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
+    humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
+      - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
         type: Documentation
     description: >-
       The Braintree Android SDK provides a native library for integrating payment
@@ -131,19 +119,16 @@ apis:
   - aid: braintree:webhooks
     name: Braintree Webhooks
     tags:
-      - Webhooks
+      - Disputes
       - Events
       - Notifications
       - Subscriptions
-      - Disputes
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Webhooks
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/webhooks/overview
+    humanURL: https://developer.paypal.com/braintree/docs/guides/webhooks/overview
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/webhooks/overview
+      - url: https://developer.paypal.com/braintree/docs/guides/webhooks/overview
         type: Documentation
       - url: asyncapi/braintree-webhooks-asyncapi.yml
         type: AsyncAPI
@@ -158,19 +143,16 @@ apis:
   - aid: braintree:vault-api
     name: Braintree Vault API
     tags:
-      - Vault
       - Customers
       - Payment Methods
-      - Storage
       - PCI Compliance
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Storage
+      - Vault
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.braintreegateway.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/customers/overview
+    humanURL: https://developer.paypal.com/braintree/docs/guides/customers/overview
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/customers/overview
+      - url: https://developer.paypal.com/braintree/docs/guides/customers/overview
         type: Documentation
       - url: openapi/braintree-payments-openapi.yml
         type: OpenAPI
@@ -185,18 +167,15 @@ apis:
   - aid: braintree:subscriptions-api
     name: Braintree Subscriptions API
     tags:
-      - Subscriptions
-      - Recurring Billing
-      - Plans
       - Payments
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Plans
+      - Recurring Billing
+      - Subscriptions
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.braintreegateway.com
-    humanURL: 
-      https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+    humanURL: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
     properties:
-      - url: 
-          https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+      - url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
         type: Documentation
       - url: openapi/braintree-subscriptions-openapi.yml
         type: OpenAPI

@@ -32,29 +32,25 @@ servers:
         description: The unique identifier for the sandbox merchant account.
         default: your_merchant_id
 tags:
-  - name: Transactions
-    description: >-
-      Operations for creating, capturing, voiding, refunding, and retrieving
-      payment transactions.
   - name: Client Tokens
     description: >-
       Operations for generating client tokens used to initialize Braintree
       client SDKs on web and mobile.
-  - name: Payment Methods
-    description: >-
-      Operations for creating, retrieving, updating, and deleting vaulted
-      payment methods associated with customers.
   - name: Customers
     description: >-
       Operations for creating, retrieving, updating, and deleting customer
       records in the Braintree Vault.
-  - name: Addresses
-    description: >-
-      Operations for managing billing and shipping addresses associated with
-      customer records.
   - name: Disputes
     description: >-
       Operations for retrieving and managing payment disputes and chargebacks.
+  - name: Payment Methods
+    description: >-
+      Operations for creating, retrieving, updating, and deleting vaulted
+      payment methods associated with customers.
+  - name: Transactions
+    description: >-
+      Operations for creating, capturing, voiding, refunding, and retrieving
+      payment transactions.
 security:
   - basicAuth: []
 paths:

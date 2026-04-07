@@ -32,6 +32,14 @@ servers:
         description: The unique identifier for the sandbox merchant account.
         default: your_merchant_id
 tags:
+  - name: Add-Ons
+    description: >-
+      Operations for retrieving add-on definitions that can be applied to
+      subscriptions to increase their price.
+  - name: Discounts
+    description: >-
+      Operations for retrieving discount definitions that can be applied to
+      subscriptions to reduce their price.
   - name: Plans
     description: >-
       Operations for retrieving billing plan definitions configured in the
@@ -40,14 +48,6 @@ tags:
     description: >-
       Operations for creating, retrieving, updating, canceling, and retrying
       customer subscriptions to recurring billing plans.
-  - name: Add-ons
-    description: >-
-      Operations for retrieving add-on definitions that can be applied to
-      subscriptions to increase their price.
-  - name: Discounts
-    description: >-
-      Operations for retrieving discount definitions that can be applied to
-      subscriptions to reduce their price.
 security:
   - basicAuth: []
 paths:
@@ -88,7 +88,7 @@ paths:
         the Braintree Control Panel and referenced by their identifier when
         creating or updating subscriptions.
       tags:
-        - Add-ons
+        - Add-Ons
       responses:
         '200':
           description: List of add-on definitions retrieved successfully.
