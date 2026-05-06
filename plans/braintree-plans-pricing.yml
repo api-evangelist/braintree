@@ -1,176 +1,193 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: braintree
+provider: Braintree
 providerId: braintree
 created: '2026-05-04'
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - Payments
+  - Credit Cards
+  - PayPal
+  - Venmo
+  - ACH
+  - Fraud Prevention
+description: Braintree (a PayPal service) is product-priced per transaction with no monthly subscription
+  fee on standard accounts. Cards and digital wallets carry one rate, Venmo a higher rate, and ACH Direct
+  Debit a percentage capped per transaction. Surcharges apply for non-USD presentment and non-US issued
+  cards. Custom rates are available for established merchants and verified 501(c)(3) charities.
+sources:
+  - https://www.paypal.com/us/enterprise/paypal-braintree-fees
 plans:
-  - id: braintree-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the braintree API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: braintree-cards-and-digital-wallets
+    name: Cards and Digital Wallets - Standard
+    type: usage-based
+    description: Standard per-transaction pricing for cards and digital wallets.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Braintree Payments API
-      - name: Braintree GraphQL API
-      - name: Braintree JavaScript Client SDK
-      - name: Braintree iOS SDK
-      - name: Braintree Android SDK
-      - name: Braintree Webhooks
-      - name: Braintree Vault API
-      - name: Braintree Subscriptions API
-  - id: braintree-pro
-    name: Professional
-    type: paid
-    description: Production tier for braintree. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Card / digital wallet transaction
+        name: tx_card_digital_wallet
         type: metered
-        metric: requests
+        metric: transaction
         limit: -1
-        timeFrame: month
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 2.89% + $0.29
+        userMultiplied: false
+      - label: Non-USD presentment surcharge
+        name: tx_non_usd_surcharge
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
         geo: global
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
-        unit: 1000
-        price: TBD
+        unit: 1
+        price: +1%
         userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Braintree Payments API
-      - name: Braintree GraphQL API
-      - name: Braintree JavaScript Client SDK
-      - name: Braintree iOS SDK
-      - name: Braintree Android SDK
-      - name: Braintree Webhooks
-      - name: Braintree Vault API
-      - name: Braintree Subscriptions API
-  - id: braintree-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for braintree. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Non-US issued card surcharge
+        name: tx_non_us_card_surcharge
+        type: metered
+        metric: transaction
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
+        timeFrame: usage
+        geo: non-US
         unit: 1
-        price: custom
+        price: +1%
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.braintreegateway.com
-          - https://payments.braintree-api.com/graphql
-          - https://api.example.com
+      - label: American Express pass-through
+        name: tx_amex_passthrough
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: US
         unit: 1
-        price: custom
+        price: $0.15
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Braintree Payments API
-      - name: Braintree GraphQL API
-      - name: Braintree JavaScript Client SDK
-      - name: Braintree iOS SDK
-      - name: Braintree Android SDK
-      - name: Braintree Webhooks
-      - name: Braintree Vault API
-      - name: Braintree Subscriptions API
-maintainers: []
+      - name: Cards (Visa, Mastercard, American Express, Discover)
+      - name: Digital Wallets (PayPal, Apple Pay, Google Pay)
+      - name: Custom rates available for established merchants
+  - id: braintree-venmo
+    name: Venmo
+    type: usage-based
+    description: Per-transaction pricing for Venmo (US only).
+    entries:
+      - label: Venmo transaction
+        name: tx_venmo
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 3.49% + $0.49
+        userMultiplied: false
+    elements:
+      - name: Venmo (US only)
+  - id: braintree-ach-direct-debit
+    name: ACH Direct Debit
+    type: usage-based
+    description: Per-transaction pricing for ACH Direct Debit, capped per transaction.
+    entries:
+      - label: ACH Direct Debit transaction
+        name: tx_ach
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 0.75% (capped at $5.00)
+        userMultiplied: false
+      - label: ACH return / unauthorized claim
+        name: ach_return
+        type: metered
+        metric: incident
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: $5.00
+        userMultiplied: false
+    elements:
+      - name: ACH Direct Debit
+  - id: braintree-charity
+    name: Charity Rates
+    type: usage-based
+    description: Reduced card processing rates for verified 501(c)(3) organizations.
+    entries:
+      - label: Charity card transaction
+        name: tx_charity
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 2.19% + $0.29
+        userMultiplied: false
+    elements:
+      - name: 501(c)(3) Verified Charity Pricing
+  - id: braintree-disputes
+    name: Disputes and Chargebacks
+    type: usage-based
+    description: Per-incident chargeback fees and value-added dispute services.
+    entries:
+      - label: Chargeback
+        name: chargeback
+        type: metered
+        metric: dispute
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $15.00
+        userMultiplied: false
+      - label: Chargeback Protection
+        name: chargeback_protection
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: starting at 0.4%
+        userMultiplied: false
+      - label: Fraud Protection Lite
+        name: fraud_protection_lite
+        type: metered
+        metric: inquiry
+        limit: -1
+        timeFrame: usage
+        geo: global
+        unit: 1
+        price: $0.05
+        userMultiplied: false
+    elements:
+      - name: Chargeback Handling
+      - name: Chargeback Protection (add-on)
+      - name: Fraud Protection Lite (add-on)
+  - id: braintree-enterprise
+    name: Enterprise / Custom
+    type: enterprise
+    description: Custom interchange-plus and volume pricing for established merchants.
+    entries:
+      - label: Custom transaction pricing
+        name: tx_custom
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: usage
+        geo: configurable
+        unit: 1
+        price: custom (interchange-plus / volume-discounted)
+        userMultiplied: false
+    elements:
+      - name: Negotiated Rates
+      - name: Dedicated Account Management
+      - name: Volume Discounts
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
