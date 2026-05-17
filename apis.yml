@@ -187,7 +187,7 @@ apis:
       for mid-cycle changes, add-ons and discounts, and subscription lifecycle events.
 
 common:
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/braintree-context.jsonld
   - type: JSONSchema
     url: json-schema/braintree-transaction-schema.json
