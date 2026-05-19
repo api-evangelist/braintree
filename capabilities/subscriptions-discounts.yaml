@@ -1,0 +1,71 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Braintree Subscriptions API — Discounts
+  description: 'Braintree Subscriptions API — Discounts. 1 operations. Lead operation: List discounts. Self-contained Naftiko
+    capability covering one Braintree business surface.'
+  tags:
+  - Braintree
+  - Discounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BRAINTREE_API_KEY: BRAINTREE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: subscriptions-discounts
+    baseUri: https://api.braintreegateway.com/merchants/{merchantId}
+    description: Braintree Subscriptions API — Discounts business capability. Self-contained, no shared references.
+    resources:
+    - name: discounts
+      path: /discounts
+      operations:
+      - name: listdiscounts
+        method: GET
+        description: List discounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: basic
+      username: '{{env.BRAINTREE_USER}}'
+      password: '{{env.BRAINTREE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: subscriptions-discounts-rest
+    port: 8080
+    description: REST adapter for Braintree Subscriptions API — Discounts. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/discounts
+      name: discounts
+      description: REST surface for discounts.
+      operations:
+      - method: GET
+        name: listdiscounts
+        description: List discounts
+        call: subscriptions-discounts.listdiscounts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: subscriptions-discounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Braintree Subscriptions API — Discounts. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-discounts
+      description: List discounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: subscriptions-discounts.listdiscounts
+      outputParameters:
+      - type: object
+        mapping: $.

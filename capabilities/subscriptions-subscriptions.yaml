@@ -1,0 +1,222 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Braintree Subscriptions API — Subscriptions
+  description: 'Braintree Subscriptions API — Subscriptions. 5 operations. Lead operation: Create a subscription. Self-contained
+    Naftiko capability covering one Braintree business surface.'
+  tags:
+  - Braintree
+  - Subscriptions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BRAINTREE_API_KEY: BRAINTREE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: subscriptions-subscriptions
+    baseUri: https://api.braintreegateway.com/merchants/{merchantId}
+    description: Braintree Subscriptions API — Subscriptions business capability. Self-contained, no shared references.
+    resources:
+    - name: subscriptions
+      path: /subscriptions
+      operations:
+      - name: createsubscription
+        method: POST
+        description: Create a subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: subscriptions-subscriptionId
+      path: /subscriptions/{subscriptionId}
+      operations:
+      - name: getsubscription
+        method: GET
+        description: Get a subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatesubscription
+        method: PUT
+        description: Update a subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: subscriptions-subscriptionId-cancel
+      path: /subscriptions/{subscriptionId}/cancel
+      operations:
+      - name: cancelsubscription
+        method: PUT
+        description: Cancel a subscription
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: subscriptions-subscriptionId-retry_charge
+      path: /subscriptions/{subscriptionId}/retry_charge
+      operations:
+      - name: retrysubscriptioncharge
+        method: POST
+        description: Retry a subscription charge
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: basic
+      username: '{{env.BRAINTREE_USER}}'
+      password: '{{env.BRAINTREE_PASS}}'
+  exposes:
+  - type: rest
+    namespace: subscriptions-subscriptions-rest
+    port: 8080
+    description: REST adapter for Braintree Subscriptions API — Subscriptions. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/subscriptions
+      name: subscriptions
+      description: REST surface for subscriptions.
+      operations:
+      - method: POST
+        name: createsubscription
+        description: Create a subscription
+        call: subscriptions-subscriptions.createsubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/subscriptions/{subscriptionid}
+      name: subscriptions-subscriptionid
+      description: REST surface for subscriptions-subscriptionId.
+      operations:
+      - method: GET
+        name: getsubscription
+        description: Get a subscription
+        call: subscriptions-subscriptions.getsubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatesubscription
+        description: Update a subscription
+        call: subscriptions-subscriptions.updatesubscription
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/subscriptions/{subscriptionid}/cancel
+      name: subscriptions-subscriptionid-cancel
+      description: REST surface for subscriptions-subscriptionId-cancel.
+      operations:
+      - method: PUT
+        name: cancelsubscription
+        description: Cancel a subscription
+        call: subscriptions-subscriptions.cancelsubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/subscriptions/{subscriptionid}/retry-charge
+      name: subscriptions-subscriptionid-retry-charge
+      description: REST surface for subscriptions-subscriptionId-retry_charge.
+      operations:
+      - method: POST
+        name: retrysubscriptioncharge
+        description: Retry a subscription charge
+        call: subscriptions-subscriptions.retrysubscriptioncharge
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: subscriptions-subscriptions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Braintree Subscriptions API — Subscriptions. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: create-subscription
+      description: Create a subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: subscriptions-subscriptions.createsubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscription
+      description: Get a subscription
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: subscriptions-subscriptions.getsubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-subscription
+      description: Update a subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: subscriptions-subscriptions.updatesubscription
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: cancel-subscription
+      description: Cancel a subscription
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: subscriptions-subscriptions.cancelsubscription
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retry-subscription-charge
+      description: Retry a subscription charge
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: subscriptions-subscriptions.retrysubscriptioncharge
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
