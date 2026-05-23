@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TransactionOptions",
+  "title": "TransactionOptions",
+  "type": "object",
+  "description": "Configuration options that modify transaction processing behavior.",
+  "properties": {
+    "submit_for_settlement": {
+      "type": "boolean",
+      "description": "If true, the transaction is automatically submitted for settlement after authorization. Defaults to false.",
+      "default": false
+    },
+    "store_in_vault": {
+      "type": "boolean",
+      "description": "If true, the payment method is stored in the Braintree Vault after the transaction is created.",
+      "default": false
+    },
+    "store_in_vault_on_success": {
+      "type": "boolean",
+      "description": "If true, the payment method is stored in the Vault only if the transaction is successfully authorized.",
+      "default": false
+    },
+    "skip_avs": {
+      "type": "boolean",
+      "description": "Skip the address verification check for this transaction.",
+      "default": false
+    },
+    "skip_cvv": {
+      "type": "boolean",
+      "description": "Skip the CVV verification check for this transaction.",
+      "default": false
+    },
+    "hold_in_escrow": {
+      "type": "boolean",
+      "description": "If true, funds are held in escrow rather than disbursed immediately. Applicable to Braintree Marketplace transactions only.",
+      "default": false
+    }
+  }
+}

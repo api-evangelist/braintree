@@ -1,0 +1,15 @@
+name: Braintree Domain Vocabulary
+provider: Braintree
+providerId: braintree
+description: Tag-derived vocabulary for the Braintree API surface; sourced from openapi/ tags.
+terms:
+- term: Client Tokens
+  description: Operations for generating client tokens used to initialize Braintree client SDKs on web and mobile.
+- term: Customers
+  description: Operations for creating, retrieving, updating, and deleting customer records in the Braintree Vault.
+- term: Disputes
+  description: Operations for retrieving and managing payment disputes and chargebacks.
+- term: Payment Methods
+  description: Operations for creating, retrieving, updating, and deleting vaulted payment methods associated with customers.
+- term: Transactions
+  description: Operations for creating, capturing, voiding, refunding, and retrieving payment transactions.

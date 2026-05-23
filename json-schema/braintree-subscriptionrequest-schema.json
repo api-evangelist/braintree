@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionRequest",
+  "title": "SubscriptionRequest",
+  "type": "object",
+  "required": [
+    "plan_id"
+  ],
+  "description": "Request body for creating a new subscription. A payment_method_token or payment_method_nonce is required along with the plan_id.",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "The identifier of the billing plan to subscribe the customer to. Must match a plan configured in the Braintree Control Panel."
+    },
+    "payment_method_token": {
+      "type": "string",
+      "description": "Token of a vaulted payment method to use for subscription billing. Either this or payment_method_nonce is required."
+    },
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A one-time-use nonce representing a payment method to vault and use for billing. Either this or payment_method_token is required."
+    },
+    "id": {
+      "type": "string",
+      "description": "Custom identifier for the subscription. If omitted, Braintree generates a unique identifier. Maximum 36 characters.",
+      "maxLength": 36
+    },
+    "price": {
+      "type": "string",
+      "description": "Override the plan's base price. Must be a positive decimal string. If omitted, the plan price is used.",
+      "example": "9.99"
+    },
+    "merchant_account_id": {
+      "type": "string",
+      "description": "The merchant account to use for subscription billing. If omitted, the default merchant account is used."
+    },
+    "trial_period": {
+      "type": "boolean",
+      "description": "Whether to apply a trial period before the first billing cycle. Inherits the plan trial period settings if true."
+    },
+    "trial_duration": {
+      "type": "integer",
+      "description": "Duration of the trial period in trial_duration_unit units.",
+      "minimum": 1
+    },
+    "trial_duration_unit": {
+      "type": "string",
+      "description": "Unit for the trial duration.",
+      "enum": [
+        "day",
+        "month"
+      ]
+    },
+    "first_billing_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The date of the first billing charge. If provided, the subscription begins in a pending state until this date. Must be a future date."
+    },
+    "billing_day_of_month": {
+      "type": "integer",
+      "description": "Day of the month on which recurring charges occur. Valid values are 1\u201328 or 31 (31 means the last day of each month).",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Total number of billing cycles before the subscription expires. If omitted and never_expires is not set, uses the plan default.",
+      "minimum": 1
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, the subscription continues indefinitely regardless of the plan's number_of_billing_cycles setting."
+    },
+    "add_ons": {
+      "$ref": "#/components/schemas/ModificationCollection"
+    },
+    "discounts": {
+      "$ref": "#/components/schemas/ModificationCollection"
+    },
+    "descriptor": {
+      "$ref": "#/components/schemas/Descriptor"
+    },
+    "options": {
+      "type": "object",
+      "description": "Options that modify subscription creation behavior.",
+      "properties": {
+        "start_immediately": {
+          "type": "boolean",
+          "description": "If true, the first billing cycle starts immediately even if a first_billing_date is set in the future."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TransactionRequest",
+  "title": "TransactionRequest",
+  "type": "object",
+  "description": "Request body for creating a new payment transaction. Either payment_method_nonce, payment_method_token, or customer_id is required.",
+  "properties": {
+    "amount": {
+      "type": "string",
+      "description": "The billing amount for the transaction as a decimal string. Must be greater than 0 and match the currency decimal format.",
+      "example": "10.00"
+    },
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A one-time-use reference to payment information collected by the Braintree client SDK. Consumed upon transaction creation."
+    },
+    "payment_method_token": {
+      "type": "string",
+      "description": "The token of a vaulted payment method to charge for this transaction."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The identifier of a customer whose default vaulted payment method will be used for this transaction.",
+      "maxLength": 36
+    },
+    "order_id": {
+      "type": "string",
+      "description": "A merchant-defined order identifier associated with this transaction for reconciliation.",
+      "maxLength": 255
+    },
+    "merchant_account_id": {
+      "type": "string",
+      "description": "The identifier of the merchant account to process this transaction. If omitted, the default merchant account is used."
+    },
+    "device_data": {
+      "type": "string",
+      "description": "Customer device data string collected by the Braintree data collector for fraud prevention analysis."
+    },
+    "descriptor": {
+      "$ref": "#/components/schemas/Descriptor"
+    },
+    "billing": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "shipping": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "options": {
+      "$ref": "#/components/schemas/TransactionOptions"
+    },
+    "tax_amount": {
+      "type": "string",
+      "description": "The tax amount included in the transaction total for Level 2 and Level 3 processing.",
+      "example": "1.00"
+    },
+    "shipping_amount": {
+      "type": "string",
+      "description": "The shipping amount included in the transaction total for Level 3 processing.",
+      "example": "2.00"
+    },
+    "customer": {
+      "$ref": "#/components/schemas/CustomerRequest"
+    },
+    "line_items": {
+      "type": "array",
+      "description": "Line items for Level 3 processing. Up to 249 line items may be included.",
+      "maxItems": 249,
+      "items": {
+        "$ref": "#/components/schemas/LineItem"
+      }
+    },
+    "transaction_source": {
+      "type": "string",
+      "description": "Indicates the origin of this transaction for network reporting.",
+      "enum": [
+        "recurring",
+        "recurring_first",
+        "unscheduled",
+        "moto"
+      ]
+    }
+  }
+}

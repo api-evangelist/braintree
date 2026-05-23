@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Plan",
+  "title": "Plan",
+  "type": "object",
+  "description": "Represents a billing plan template defined in the Braintree Control Panel. Plans specify the recurring price, currency, billing frequency, and optional trial period that subscriptions inherit.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the plan used when creating subscriptions."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for the plan."
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the plan."
+    },
+    "price": {
+      "type": "string",
+      "description": "Base price per billing cycle as a decimal string.",
+      "example": "9.99"
+    },
+    "currency_iso_code": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the plan price.",
+      "example": "USD"
+    },
+    "billing_frequency": {
+      "type": "integer",
+      "description": "How often the plan bills, in units of billing_frequency_unit. For example, 1 with billing_frequency_unit \"month\" means monthly.",
+      "minimum": 1
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Default number of billing cycles. Null means the plan continues indefinitely."
+    },
+    "trial_period": {
+      "type": "boolean",
+      "description": "Whether subscriptions to this plan include a trial period by default."
+    },
+    "trial_duration": {
+      "type": "integer",
+      "description": "Default trial duration for subscriptions to this plan."
+    },
+    "trial_duration_unit": {
+      "type": "string",
+      "description": "Unit for the default trial duration.",
+      "enum": [
+        "day",
+        "month"
+      ]
+    },
+    "add_ons": {
+      "type": "array",
+      "description": "Add-ons automatically applied to subscriptions using this plan.",
+      "items": {
+        "$ref": "#/components/schemas/AppliedModification"
+      }
+    },
+    "discounts": {
+      "type": "array",
+      "description": "Discounts automatically applied to subscriptions using this plan.",
+      "items": {
+        "$ref": "#/components/schemas/AppliedModification"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the plan was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the plan was last updated."
+    }
+  }
+}

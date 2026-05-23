@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LineItem",
+  "title": "LineItem",
+  "type": "object",
+  "description": "A line item representing a single product or service in a transaction, used for Level 3 processing data.",
+  "required": [
+    "name",
+    "quantity",
+    "unit_amount",
+    "total_amount",
+    "kind"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name or description of the product or service.",
+      "maxLength": 127
+    },
+    "description": {
+      "type": "string",
+      "description": "Additional description of the line item.",
+      "maxLength": 127
+    },
+    "kind": {
+      "type": "string",
+      "description": "Whether this item is a debit (charge) or credit (discount).",
+      "enum": [
+        "debit",
+        "credit"
+      ]
+    },
+    "quantity": {
+      "type": "string",
+      "description": "Quantity of the line item as a decimal string.",
+      "example": "1.0000"
+    },
+    "unit_amount": {
+      "type": "string",
+      "description": "Unit price of the line item as a decimal string.",
+      "example": "5.00"
+    },
+    "total_amount": {
+      "type": "string",
+      "description": "Total amount for this line item (quantity * unit_amount) as a decimal.",
+      "example": "5.00"
+    },
+    "unit_of_measure": {
+      "type": "string",
+      "description": "Unit of measure for the quantity, such as \"each\" or \"kg\".",
+      "maxLength": 12
+    },
+    "commodity_code": {
+      "type": "string",
+      "description": "Commodity code for Level 3 processing.",
+      "maxLength": 12
+    },
+    "tax_amount": {
+      "type": "string",
+      "description": "Tax amount for this line item as a decimal string."
+    }
+  }
+}

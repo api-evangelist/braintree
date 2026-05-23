@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Address",
+  "title": "Address",
+  "type": "object",
+  "description": "A billing or shipping address associated with a transaction or customer.",
+  "properties": {
+    "first_name": {
+      "type": "string",
+      "description": "First name of the address holder.",
+      "maxLength": 255
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Last name of the address holder.",
+      "maxLength": 255
+    },
+    "company": {
+      "type": "string",
+      "description": "Company or organization name at this address.",
+      "maxLength": 255
+    },
+    "street_address": {
+      "type": "string",
+      "description": "Primary street address line.",
+      "maxLength": 255
+    },
+    "extended_address": {
+      "type": "string",
+      "description": "Secondary address line such as apartment or suite number.",
+      "maxLength": 255
+    },
+    "locality": {
+      "type": "string",
+      "description": "City or locality of the address.",
+      "maxLength": 255
+    },
+    "region": {
+      "type": "string",
+      "description": "State, province, or region code of the address.",
+      "maxLength": 255
+    },
+    "postal_code": {
+      "type": "string",
+      "description": "Postal or ZIP code of the address.",
+      "maxLength": 9
+    },
+    "country_code_alpha2": {
+      "type": "string",
+      "description": "Two-letter ISO 3166-1 alpha-2 country code.",
+      "pattern": "^[A-Z]{2}$"
+    }
+  }
+}

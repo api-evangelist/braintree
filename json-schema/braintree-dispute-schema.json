@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Dispute",
+  "title": "Dispute",
+  "type": "object",
+  "description": "Represents a chargeback or retrieval dispute filed by a cardholder or issuing bank against a Braintree transaction.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the dispute."
+    },
+    "amount": {
+      "type": "string",
+      "description": "The disputed amount as a decimal string."
+    },
+    "currency_iso_code": {
+      "type": "string",
+      "description": "ISO 4217 currency code for the disputed amount."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the dispute.",
+      "enum": [
+        "open",
+        "lost",
+        "won",
+        "accepted",
+        "disputed",
+        "expired"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "description": "The reason code or category provided by the card network for the dispute."
+    },
+    "received_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the dispute was received by Braintree."
+    },
+    "reply_by_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Deadline date by which the merchant must respond to the dispute."
+    },
+    "transaction_id": {
+      "type": "string",
+      "description": "The identifier of the original transaction that was disputed."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the dispute was created, in ISO 8601 format."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when the dispute was last updated, in ISO 8601 format."
+    }
+  }
+}

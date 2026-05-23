@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModificationUpdate",
+  "title": "ModificationUpdate",
+  "type": "object",
+  "required": [
+    "existing_id"
+  ],
+  "description": "An existing add-on or discount on a subscription to update.",
+  "properties": {
+    "existing_id": {
+      "type": "string",
+      "description": "Identifier of the existing applied modification to update."
+    },
+    "amount": {
+      "type": "string",
+      "description": "New amount override for this modification.",
+      "example": "1.00"
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "New number of billing cycles for this modification.",
+      "minimum": 1
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, this modification applies indefinitely."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Updated quantity for this add-on.",
+      "minimum": 1
+    }
+  }
+}

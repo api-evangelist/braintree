@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CustomerRequest",
+  "title": "CustomerRequest",
+  "type": "object",
+  "description": "Request body for creating or updating a customer record in the Braintree Vault. All fields are optional.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Custom customer identifier. If omitted, Braintree generates a unique ID. Alphanumeric, hyphens, and underscores only.",
+      "maxLength": 36,
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Customer's first name.",
+      "maxLength": 255
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Customer's last name.",
+      "maxLength": 255
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Customer's email address. ASCII characters only.",
+      "maxLength": 255
+    },
+    "phone": {
+      "type": "string",
+      "description": "Customer's phone number.",
+      "maxLength": 255
+    },
+    "company": {
+      "type": "string",
+      "description": "Customer's company or organization name.",
+      "maxLength": 255
+    },
+    "website": {
+      "type": "string",
+      "format": "uri",
+      "description": "Customer's website URL. Must be a well-formed URL.",
+      "maxLength": 255
+    },
+    "fax": {
+      "type": "string",
+      "description": "Customer's fax number.",
+      "maxLength": 255
+    },
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A one-time nonce representing a payment method to vault for the customer at creation time."
+    },
+    "custom_fields": {
+      "type": "object",
+      "description": "Custom key-value pairs. Keys must be pre-configured in the Braintree Control Panel.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModificationAdd",
+  "title": "ModificationAdd",
+  "type": "object",
+  "required": [
+    "inherited_from_id"
+  ],
+  "description": "An add-on or discount to add to a subscription.",
+  "properties": {
+    "inherited_from_id": {
+      "type": "string",
+      "description": "Identifier of the base add-on or discount definition to inherit from."
+    },
+    "amount": {
+      "type": "string",
+      "description": "Override the base amount for this add-on or discount on this subscription.",
+      "example": "1.00"
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Override the number of billing cycles for this add-on or discount.",
+      "minimum": 1
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, override to apply this modification indefinitely."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "Number of times this add-on is applied per billing cycle.",
+      "minimum": 1
+    }
+  }
+}

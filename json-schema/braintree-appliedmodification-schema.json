@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AppliedModification",
+  "title": "AppliedModification",
+  "type": "object",
+  "description": "An add-on or discount currently applied to a subscription, including the inherited or overridden values.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Identifier of the base add-on or discount definition."
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the modification."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the modification."
+    },
+    "amount": {
+      "type": "string",
+      "description": "Amount applied per billing cycle as a decimal string.",
+      "example": "1.00"
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, this modification applies indefinitely."
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Number of billing cycles this modification will apply."
+    },
+    "current_billing_cycle": {
+      "type": "integer",
+      "description": "The billing cycle on which this modification began."
+    }
+  }
+}

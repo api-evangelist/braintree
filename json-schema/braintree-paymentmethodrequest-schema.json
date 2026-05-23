@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentMethodRequest",
+  "title": "PaymentMethodRequest",
+  "type": "object",
+  "required": [
+    "customer_id",
+    "payment_method_nonce"
+  ],
+  "description": "Request body for vaulting a new payment method for an existing customer.",
+  "properties": {
+    "customer_id": {
+      "type": "string",
+      "description": "The identifier of the customer to associate this payment method with.",
+      "maxLength": 36
+    },
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A one-time-use reference to payment information provided by the Braintree client SDK. Consumed upon vaulting."
+    },
+    "token": {
+      "type": "string",
+      "description": "Custom token to assign to this payment method. If omitted, Braintree generates a unique token.",
+      "maxLength": 36
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "options": {
+      "type": "object",
+      "description": "Options that modify the payment method vaulting behavior.",
+      "properties": {
+        "make_default": {
+          "type": "boolean",
+          "description": "If true, this payment method becomes the customer's default payment method.",
+          "default": false
+        },
+        "fail_on_duplicate_payment_method": {
+          "type": "boolean",
+          "description": "If true, the request fails if a duplicate payment method already exists in the customer's vault.",
+          "default": false
+        },
+        "verify_card": {
+          "type": "boolean",
+          "description": "If true, runs a card verification before vaulting the payment method.",
+          "default": false
+        }
+      }
+    }
+  }
+}

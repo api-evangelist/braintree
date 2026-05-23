@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentMethodUpdateRequest",
+  "title": "PaymentMethodUpdateRequest",
+  "type": "object",
+  "description": "Request body for updating an existing vaulted payment method.",
+  "properties": {
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A new one-time nonce to replace the underlying payment details while preserving the existing token."
+    },
+    "billing_address": {
+      "$ref": "#/components/schemas/Address"
+    },
+    "options": {
+      "type": "object",
+      "description": "Options for the payment method update.",
+      "properties": {
+        "make_default": {
+          "type": "boolean",
+          "description": "If true, this payment method becomes the customer's default."
+        },
+        "update_existing_token": {
+          "type": "string",
+          "description": "Token of an existing payment method to update rather than creating a new one."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Modification",
+  "title": "Modification",
+  "type": "object",
+  "description": "A reusable add-on or discount definition configured in the Braintree Control Panel and available to apply to subscriptions.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the add-on or discount."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable name for this modification."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what this add-on or discount represents."
+    },
+    "amount": {
+      "type": "string",
+      "description": "The price adjustment amount as a decimal string.",
+      "example": "1.00"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Whether this is an add_on or a discount.",
+      "enum": [
+        "add_on",
+        "discount"
+      ]
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, this modification applies indefinitely with no limit on number of billing cycles."
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Number of billing cycles this modification applies.",
+      "minimum": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this modification was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this modification was last updated."
+    }
+  }
+}

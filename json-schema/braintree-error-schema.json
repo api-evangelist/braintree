@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "Standard error response returned by the Braintree API.",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Human-readable description of the error."
+    },
+    "errors": {
+      "type": "object",
+      "description": "Nested object containing field-level validation errors organized by resource type.",
+      "additionalProperties": true
+    }
+  }
+}

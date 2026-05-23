@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionUpdateRequest",
+  "title": "SubscriptionUpdateRequest",
+  "type": "object",
+  "description": "Request body for updating an existing subscription.",
+  "properties": {
+    "payment_method_token": {
+      "type": "string",
+      "description": "New payment method token to use for future billing cycles."
+    },
+    "payment_method_nonce": {
+      "type": "string",
+      "description": "A nonce for a new payment method to vault and use for future billing cycles."
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Change the subscription to a different billing plan."
+    },
+    "price": {
+      "type": "string",
+      "description": "Override the subscription price for future billing cycles.",
+      "example": "9.99"
+    },
+    "number_of_billing_cycles": {
+      "type": "integer",
+      "description": "Update the total number of billing cycles for the subscription.",
+      "minimum": 1
+    },
+    "never_expires": {
+      "type": "boolean",
+      "description": "If true, the subscription continues indefinitely."
+    },
+    "billing_day_of_month": {
+      "type": "integer",
+      "description": "Update the day of the month on which charges occur.",
+      "minimum": 1,
+      "maximum": 31
+    },
+    "add_ons": {
+      "$ref": "#/components/schemas/ModificationCollection"
+    },
+    "discounts": {
+      "$ref": "#/components/schemas/ModificationCollection"
+    },
+    "options": {
+      "type": "object",
+      "description": "Options for the subscription update behavior.",
+      "properties": {
+        "prorate_charges": {
+          "type": "boolean",
+          "description": "If true, applies prorated charges or credits for the current billing cycle when the price changes mid-cycle."
+        },
+        "replace_all_add_ons": {
+          "type": "boolean",
+          "description": "If true, replaces all existing add-ons on the subscription with the provided add-ons collection."
+        },
+        "replace_all_discounts": {
+          "type": "boolean",
+          "description": "If true, replaces all existing discounts on the subscription with the provided discounts collection."
+        },
+        "revert_subscription_on_proration_failure": {
+          "type": "boolean",
+          "description": "If true, reverts the subscription update if the prorated charge fails."
+        }
+      }
+    }
+  }
+}

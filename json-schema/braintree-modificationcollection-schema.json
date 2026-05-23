@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ModificationCollection",
+  "title": "ModificationCollection",
+  "type": "object",
+  "description": "A collection of add-on or discount operations to apply when creating or updating a subscription.",
+  "properties": {
+    "add": {
+      "type": "array",
+      "description": "Add-ons or discounts to add to the subscription.",
+      "items": {
+        "$ref": "#/components/schemas/ModificationAdd"
+      }
+    },
+    "update": {
+      "type": "array",
+      "description": "Existing add-ons or discounts to update on the subscription.",
+      "items": {
+        "$ref": "#/components/schemas/ModificationUpdate"
+      }
+    },
+    "remove": {
+      "type": "array",
+      "description": "Identifiers of add-ons or discounts to remove from the subscription.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

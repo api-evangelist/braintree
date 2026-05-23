@@ -1,0 +1,258 @@
+{
+  "provider": "Braintree",
+  "providerId": "braintree",
+  "kind": "json-structure",
+  "description": "Structural overview of the Braintree API surface; extracted from openapi/.",
+  "schemaCount": 14,
+  "operationCount": 17,
+  "schemas": [
+    {
+      "name": "TransactionRequest",
+      "type": "object",
+      "propertyCount": 16,
+      "required": []
+    },
+    {
+      "name": "TransactionOptions",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "Transaction",
+      "type": "object",
+      "propertyCount": 22,
+      "required": []
+    },
+    {
+      "name": "CustomerRequest",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Customer",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "PaymentMethodRequest",
+      "type": "object",
+      "propertyCount": 5,
+      "required": [
+        "customer_id",
+        "payment_method_nonce"
+      ]
+    },
+    {
+      "name": "PaymentMethodUpdateRequest",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PaymentMethod",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "CreditCardDetails",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Descriptor",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Address",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "LineItem",
+      "type": "object",
+      "propertyCount": 9,
+      "required": [
+        "name",
+        "quantity",
+        "unit_amount",
+        "total_amount",
+        "kind"
+      ]
+    },
+    {
+      "name": "Dispute",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/transactions",
+      "operationId": "createTransaction",
+      "summary": "Create a transaction",
+      "tags": [
+        "Transactions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/transactions/{transactionId}",
+      "operationId": "getTransaction",
+      "summary": "Get a transaction",
+      "tags": [
+        "Transactions"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/transactions/{transactionId}/submit_for_settlement",
+      "operationId": "submitTransactionForSettlement",
+      "summary": "Submit transaction for settlement",
+      "tags": [
+        "Transactions"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/transactions/{transactionId}/void",
+      "operationId": "voidTransaction",
+      "summary": "Void a transaction",
+      "tags": [
+        "Transactions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/transactions/{transactionId}/refund",
+      "operationId": "refundTransaction",
+      "summary": "Refund a transaction",
+      "tags": [
+        "Transactions"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/client_token",
+      "operationId": "generateClientToken",
+      "summary": "Generate a client token",
+      "tags": [
+        "Client Tokens"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "operationId": "createCustomer",
+      "summary": "Create a customer",
+      "tags": [
+        "Customers"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/customers/{customerId}",
+      "operationId": "getCustomer",
+      "summary": "Get a customer",
+      "tags": [
+        "Customers"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/{customerId}",
+      "operationId": "updateCustomer",
+      "summary": "Update a customer",
+      "tags": [
+        "Customers"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/{customerId}",
+      "operationId": "deleteCustomer",
+      "summary": "Delete a customer",
+      "tags": [
+        "Customers"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/payment_methods",
+      "operationId": "createPaymentMethod",
+      "summary": "Create a payment method",
+      "tags": [
+        "Payment Methods"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/payment_methods/any/{paymentMethodToken}",
+      "operationId": "getPaymentMethod",
+      "summary": "Get a payment method",
+      "tags": [
+        "Payment Methods"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/payment_methods/any/{paymentMethodToken}",
+      "operationId": "updatePaymentMethod",
+      "summary": "Update a payment method",
+      "tags": [
+        "Payment Methods"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/payment_methods/any/{paymentMethodToken}",
+      "operationId": "deletePaymentMethod",
+      "summary": "Delete a payment method",
+      "tags": [
+        "Payment Methods"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/disputes",
+      "operationId": "listDisputes",
+      "summary": "List disputes",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/disputes/{disputeId}",
+      "operationId": "getDispute",
+      "summary": "Get a dispute",
+      "tags": [
+        "Disputes"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/disputes/{disputeId}/accept",
+      "operationId": "acceptDispute",
+      "summary": "Accept a dispute",
+      "tags": [
+        "Disputes"
+      ]
+    }
+  ]
+}

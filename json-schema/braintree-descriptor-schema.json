@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Descriptor",
+  "title": "Descriptor",
+  "type": "object",
+  "description": "Dynamic descriptor fields that appear on the customer's bank or credit card statement to identify the merchant and transaction.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Merchant name as it appears on the customer's statement. Maximum 22 characters total; name and phone combined must be 22 characters or less with an asterisk separator.",
+      "maxLength": 22
+    },
+    "phone": {
+      "type": "string",
+      "description": "Merchant phone number as it appears on the customer's statement. Must be 10\u201314 digits.",
+      "maxLength": 14
+    },
+    "url": {
+      "type": "string",
+      "description": "Merchant URL as it appears on the customer's statement. Maximum 13 characters.",
+      "maxLength": 13
+    }
+  }
+}

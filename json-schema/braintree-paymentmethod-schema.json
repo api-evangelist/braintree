@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentMethod",
+  "title": "PaymentMethod",
+  "type": "object",
+  "description": "Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.",
+  "properties": {
+    "token": {
+      "type": "string",
+      "description": "Unique token identifying this vaulted payment method. Used as a reference for future transactions."
+    },
+    "customer_id": {
+      "type": "string",
+      "description": "The identifier of the customer who owns this payment method."
+    },
+    "default": {
+      "type": "boolean",
+      "description": "Indicates whether this is the customer's default payment method."
+    },
+    "image_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL of an image representing the payment method type."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this payment method was vaulted, in ISO 8601 format."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp when this payment method was last updated, in ISO 8601 format."
+    }
+  }
+}
