@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Subscriptions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/plans"
+          },
+          "docs": "Returns all recurring billing plans configured for the merchant account in the Braintree Control Panel. Plans define the billing cycle frequency, base price, currency, and optional trial period for subscriptions. Plans must be created through the Control Panel and cannot be created via the API."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Add-Ons",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List add-ons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/add_ons"
+          },
+          "docs": "Returns all add-on definitions configured for the merchant account. Add-ons represent incremental price increases that can be applied to subscriptions on top of the base plan price. Add-ons are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/discounts"
+          },
+          "docs": "Returns all discount definitions configured for the merchant account. Discounts represent price reductions that can be applied to subscriptions to decrease the amount charged each billing cycle. Discounts are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new recurring billing subscription for a customer. Requires a plan_id identifying the billing plan and either a payment_method_token or payment_method_nonce identifying the payment method to charge each billing cycle. The subscription begins immediately or on a specified future date, optionally with a trial period. Add-ons and discounts from the plan can be inherited, overridden, or supplemented with new ones."
+        },
+        {
+          "info": {
+            "name": "Get a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the subscription."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific subscription by its unique identifier. Returns the subscription's current status, billing details, applied add-ons and discounts, and up to 20 of its most recent associated transactions."
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/subscriptions/:subscriptionId",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing subscription. Supports changing the payment method token, price, plan, billing day, number of billing cycles, and add-ons or discounts. Price changes take effect immediately with prorated billing applied for the current cycle. Changing the plan can optionally restart the billing cycle."
+        },
+        {
+          "info": {
+            "name": "Cancel a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/subscriptions/:subscriptionId/cancel",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the subscription."
+              }
+            ]
+          },
+          "docs": "Cancels an active subscription immediately. The subscription status transitions to Canceled and no further billing cycles will be charged. Cancellation is a terminal state and cannot be reversed; a new subscription must be created to resume billing."
+        },
+        {
+          "info": {
+            "name": "Retry a subscription charge",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/subscriptions/:subscriptionId/retry_charge",
+            "params": [
+              {
+                "name": "subscriptionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the subscription."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Manually retries a failed subscription charge for a subscription in the Past Due status. An optional amount may be specified to charge a different amount than the current billing cycle amount. This is useful for resolving payment failures without waiting for the automatic retry schedule."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

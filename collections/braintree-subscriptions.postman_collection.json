@@ -1,0 +1,1911 @@
+{
+  "item": [
+    {
+      "id": "f20e21b7-b6d0-4087-84aa-d0e0739a5d3c",
+      "name": "Add-Ons",
+      "description": {
+        "content": "Operations for retrieving add-on definitions that can be applied to subscriptions to increase their price.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "06c8951b-7461-4164-ba78-7c51caf1e7ea",
+          "name": "List add-ons",
+          "request": {
+            "name": "List add-ons",
+            "description": {
+              "content": "Returns all add-on definitions configured for the merchant account. Add-ons represent incremental price increases that can be applied to subscriptions on top of the base plan price. Add-ons are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0cfd5252-d20f-4086-b26c-98523ac3b5e8",
+              "name": "List of add-on definitions retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"add_on\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3189,\n      \"created_at\": \"2008-03-23T11:57:59.781Z\",\n      \"updated_at\": \"2022-08-17T09:56:43.359Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"discount\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 326,\n      \"created_at\": \"2008-02-04T17:51:08.078Z\",\n      \"updated_at\": \"1949-10-31T20:31:28.313Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77bed19a-59cd-4c97-a0cf-986744796648",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "98a24855-a07e-46dd-98cd-a06507b5186d",
+      "name": "Discounts",
+      "description": {
+        "content": "Operations for retrieving discount definitions that can be applied to subscriptions to reduce their price.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c60d23b6-582e-49ac-bb3c-316054074c00",
+          "name": "List discounts",
+          "request": {
+            "name": "List discounts",
+            "description": {
+              "content": "Returns all discount definitions configured for the merchant account. Discounts represent price reductions that can be applied to subscriptions to decrease the amount charged each billing cycle. Discounts are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "discounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4515ed1-6720-4af4-96ba-49607f61eecd",
+              "name": "List of discount definitions retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"add_on\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 5571,\n      \"created_at\": \"1958-06-04T16:32:15.663Z\",\n      \"updated_at\": \"2011-11-17T05:56:57.637Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"add_on\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 4050,\n      \"created_at\": \"1985-10-23T14:43:12.575Z\",\n      \"updated_at\": \"2000-03-04T01:47:12.211Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c53bc68a-3d9d-4a18-95af-d3dc3e2b954c",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "discounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "6534fb85-0614-433d-bbf0-a7f9983584be",
+      "name": "Plans",
+      "description": {
+        "content": "Operations for retrieving billing plan definitions configured in the Braintree Control Panel.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11d2bb4e-bb90-43af-af02-c5a2405b9c35",
+          "name": "List plans",
+          "request": {
+            "name": "List plans",
+            "description": {
+              "content": "Returns all recurring billing plans configured for the merchant account in the Braintree Control Panel. Plans define the billing cycle frequency, base price, currency, and optional trial period for subscriptions. Plans must be created through the Control Panel and cannot be created via the API.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "47561343-4978-4a80-aedc-ee917d813adb",
+              "name": "List of billing plans retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"plans\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"price\": \"9.99\",\n      \"currency_iso_code\": \"USD\",\n      \"billing_frequency\": 2620,\n      \"number_of_billing_cycles\": 3526,\n      \"trial_period\": false,\n      \"trial_duration\": 5195,\n      \"trial_duration_unit\": \"month\",\n      \"add_ons\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": false,\n          \"number_of_billing_cycles\": 9781,\n          \"current_billing_cycle\": 9368\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": false,\n          \"number_of_billing_cycles\": 4075,\n          \"current_billing_cycle\": 3748\n        }\n      ],\n      \"discounts\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": true,\n          \"number_of_billing_cycles\": 1137,\n          \"current_billing_cycle\": 1749\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": true,\n          \"number_of_billing_cycles\": 6192,\n          \"current_billing_cycle\": 6753\n        }\n      ],\n      \"created_at\": \"1985-02-26T00:15:39.156Z\",\n      \"updated_at\": \"1984-08-22T06:01:32.207Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"price\": \"9.99\",\n      \"currency_iso_code\": \"USD\",\n      \"billing_frequency\": 103,\n      \"number_of_billing_cycles\": 6400,\n      \"trial_period\": true,\n      \"trial_duration\": 874,\n      \"trial_duration_unit\": \"day\",\n      \"add_ons\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": true,\n          \"number_of_billing_cycles\": 3538,\n          \"current_billing_cycle\": 8292\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": false,\n          \"number_of_billing_cycles\": 9739,\n          \"current_billing_cycle\": 109\n        }\n      ],\n      \"discounts\": [\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": false,\n          \"number_of_billing_cycles\": 9003,\n          \"current_billing_cycle\": 9977\n        },\n        {\n          \"id\": \"string\",\n          \"name\": \"string\",\n          \"description\": \"string\",\n          \"amount\": \"1.00\",\n          \"never_expires\": true,\n          \"number_of_billing_cycles\": 8060,\n          \"current_billing_cycle\": 1936\n        }\n      ],\n      \"created_at\": \"2010-05-07T07:59:25.143Z\",\n      \"updated_at\": \"1963-07-24T23:39:49.218Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e37c106-3da8-4adb-a790-e1b1d499ab9d",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b403f23d-cae0-4040-8c88-271ce4bcf202",
+      "name": "Subscriptions",
+      "description": {
+        "content": "Operations for creating, retrieving, updating, canceling, and retrying customer subscriptions to recurring billing plans.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e3413ef6-271c-43b5-9f63-9875b69f64d3",
+          "name": "Create a subscription",
+          "request": {
+            "name": "Create a subscription",
+            "description": {
+              "content": "Creates a new recurring billing subscription for a customer. Requires a plan_id identifying the billing plan and either a payment_method_token or payment_method_nonce identifying the payment method to charge each billing cycle. The subscription begins immediately or on a specified future date, optionally with a trial period. Add-ons and discounts from the plan can be inherited, overridden, or supplemented with new ones.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plan_id\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"id\": \"<string>\",\n  \"price\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"trial_period\": \"<boolean>\",\n  \"trial_duration\": \"<integer>\",\n  \"trial_duration_unit\": \"<string>\",\n  \"first_billing_date\": \"<date>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"remove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"remove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"descriptor\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"options\": {\n    \"start_immediately\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "928221ed-2553-4948-bc93-f3d22e4ca75c",
+              "name": "Subscription created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_id\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"<string>\",\n  \"trial_period\": \"<boolean>\",\n  \"trial_duration\": \"<integer>\",\n  \"trial_duration_unit\": \"<string>\",\n  \"first_billing_date\": \"<date>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8822,\n        \"never_expires\": true,\n        \"quantity\": 688\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8214,\n        \"never_expires\": false,\n        \"quantity\": 3080\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 9975,\n        \"never_expires\": false,\n        \"quantity\": 5998\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4699,\n        \"never_expires\": true,\n        \"quantity\": 6484\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5710,\n        \"never_expires\": false,\n        \"quantity\": 2219\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 935,\n        \"never_expires\": false,\n        \"quantity\": 8473\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2717,\n        \"never_expires\": true,\n        \"quantity\": 260\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5518,\n        \"never_expires\": true,\n        \"quantity\": 4399\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"options\": {\n    \"start_immediately\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"plan_id\": \"string\",\n  \"status\": \"Canceled\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"payment_method_nonce\": \"string\",\n  \"current_billing_cycle\": 1499,\n  \"number_of_billing_cycles\": 5782,\n  \"trial_period\": false,\n  \"trial_duration\": 2871,\n  \"trial_duration_unit\": \"month\",\n  \"first_billing_date\": \"1997-01-28\",\n  \"next_billing_date\": \"1963-01-28\",\n  \"next_billing_amount\": \"string\",\n  \"paid_through_date\": \"1988-11-04\",\n  \"billing_day_of_month\": 4995,\n  \"created_at\": \"1979-02-08T21:09:26.125Z\",\n  \"updated_at\": \"1986-12-08T06:31:32.357Z\",\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 7077,\n      \"current_billing_cycle\": 2599\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3886,\n      \"current_billing_cycle\": 8062\n    }\n  ],\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2097,\n      \"current_billing_cycle\": 1019\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1206,\n      \"current_billing_cycle\": 4918\n    }\n  ],\n  \"transactions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2006-05-17T08:09:35.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2018-05-24T15:49:38.732Z\"\n    }\n  ],\n  \"failure_count\": 5716,\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56716c64-94b5-44ba-b5b1-d453bf0a42da",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_id\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"<string>\",\n  \"trial_period\": \"<boolean>\",\n  \"trial_duration\": \"<integer>\",\n  \"trial_duration_unit\": \"<string>\",\n  \"first_billing_date\": \"<date>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8822,\n        \"never_expires\": true,\n        \"quantity\": 688\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8214,\n        \"never_expires\": false,\n        \"quantity\": 3080\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 9975,\n        \"never_expires\": false,\n        \"quantity\": 5998\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4699,\n        \"never_expires\": true,\n        \"quantity\": 6484\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5710,\n        \"never_expires\": false,\n        \"quantity\": 2219\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 935,\n        \"never_expires\": false,\n        \"quantity\": 8473\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2717,\n        \"never_expires\": true,\n        \"quantity\": 260\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5518,\n        \"never_expires\": true,\n        \"quantity\": 4399\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"options\": {\n    \"start_immediately\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1701a3b-4d75-4475-9d31-bb4a6b0b231f",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_id\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"<string>\",\n  \"trial_period\": \"<boolean>\",\n  \"trial_duration\": \"<integer>\",\n  \"trial_duration_unit\": \"<string>\",\n  \"first_billing_date\": \"<date>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8822,\n        \"never_expires\": true,\n        \"quantity\": 688\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8214,\n        \"never_expires\": false,\n        \"quantity\": 3080\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 9975,\n        \"never_expires\": false,\n        \"quantity\": 5998\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4699,\n        \"never_expires\": true,\n        \"quantity\": 6484\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5710,\n        \"never_expires\": false,\n        \"quantity\": 2219\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 935,\n        \"never_expires\": false,\n        \"quantity\": 8473\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2717,\n        \"never_expires\": true,\n        \"quantity\": 260\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5518,\n        \"never_expires\": true,\n        \"quantity\": 4399\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"options\": {\n    \"start_immediately\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99240a6e-97c3-4e73-b0b9-5bec804a9c2e",
+              "name": "Unprocessable entity. The request was well-formed but failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"plan_id\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"<string>\",\n  \"trial_period\": \"<boolean>\",\n  \"trial_duration\": \"<integer>\",\n  \"trial_duration_unit\": \"<string>\",\n  \"first_billing_date\": \"<date>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8822,\n        \"never_expires\": true,\n        \"quantity\": 688\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 8214,\n        \"never_expires\": false,\n        \"quantity\": 3080\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 9975,\n        \"never_expires\": false,\n        \"quantity\": 5998\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4699,\n        \"never_expires\": true,\n        \"quantity\": 6484\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5710,\n        \"never_expires\": false,\n        \"quantity\": 2219\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 935,\n        \"never_expires\": false,\n        \"quantity\": 8473\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2717,\n        \"never_expires\": true,\n        \"quantity\": 260\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 5518,\n        \"never_expires\": true,\n        \"quantity\": 4399\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"options\": {\n    \"start_immediately\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15e0007e-36d3-4d8e-8302-b5e880aba3c3",
+          "name": "Get a subscription",
+          "request": {
+            "name": "Get a subscription",
+            "description": {
+              "content": "Retrieves the full details of a specific subscription by its unique identifier. Returns the subscription's current status, billing details, applied add-ons and discounts, and up to 20 of its most recent associated transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The unique identifier of the subscription."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f4639394-bca2-412c-84f8-5758d935e618",
+              "name": "Subscription retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"plan_id\": \"string\",\n  \"status\": \"Canceled\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"payment_method_nonce\": \"string\",\n  \"current_billing_cycle\": 1499,\n  \"number_of_billing_cycles\": 5782,\n  \"trial_period\": false,\n  \"trial_duration\": 2871,\n  \"trial_duration_unit\": \"month\",\n  \"first_billing_date\": \"1997-01-28\",\n  \"next_billing_date\": \"1963-01-28\",\n  \"next_billing_amount\": \"string\",\n  \"paid_through_date\": \"1988-11-04\",\n  \"billing_day_of_month\": 4995,\n  \"created_at\": \"1979-02-08T21:09:26.125Z\",\n  \"updated_at\": \"1986-12-08T06:31:32.357Z\",\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 7077,\n      \"current_billing_cycle\": 2599\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3886,\n      \"current_billing_cycle\": 8062\n    }\n  ],\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2097,\n      \"current_billing_cycle\": 1019\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1206,\n      \"current_billing_cycle\": 4918\n    }\n  ],\n  \"transactions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2006-05-17T08:09:35.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2018-05-24T15:49:38.732Z\"\n    }\n  ],\n  \"failure_count\": 5716,\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f97ae87-40ff-4238-b0d8-7ab8c45e5d74",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b620d2b-59d3-4f30-8bda-02666802589b",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e82ee440-a3a2-4618-b91a-b5a0ba0be129",
+          "name": "Update a subscription",
+          "request": {
+            "name": "Update a subscription",
+            "description": {
+              "content": "Updates an existing subscription. Supports changing the payment method token, price, plan, billing day, number of billing cycles, and add-ons or discounts. Price changes take effect immediately with prorated billing applied for the current cycle. Changing the plan can optionally restart the billing cycle.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The unique identifier of the subscription."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"price\": \"<string>\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"remove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"inherited_from_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      },\n      {\n        \"existing_id\": \"<string>\",\n        \"amount\": \"<string>\",\n        \"number_of_billing_cycles\": \"<integer>\",\n        \"never_expires\": \"<boolean>\",\n        \"quantity\": \"<integer>\"\n      }\n    ],\n    \"remove\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"options\": {\n    \"prorate_charges\": \"<boolean>\",\n    \"replace_all_add_ons\": \"<boolean>\",\n    \"replace_all_discounts\": \"<boolean>\",\n    \"revert_subscription_on_proration_failure\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "31cdcfc7-f7f7-4311-a206-9c3e7baa5191",
+              "name": "Subscription updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2978,\n        \"never_expires\": false,\n        \"quantity\": 3723\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7099,\n        \"never_expires\": true,\n        \"quantity\": 5567\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7681,\n        \"never_expires\": true,\n        \"quantity\": 3736\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7016,\n        \"never_expires\": true,\n        \"quantity\": 4940\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 107,\n        \"never_expires\": true,\n        \"quantity\": 745\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 1334,\n        \"never_expires\": true,\n        \"quantity\": 5803\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4991,\n        \"never_expires\": false,\n        \"quantity\": 3724\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 380,\n        \"never_expires\": false,\n        \"quantity\": 2925\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"options\": {\n    \"prorate_charges\": \"<boolean>\",\n    \"replace_all_add_ons\": \"<boolean>\",\n    \"replace_all_discounts\": \"<boolean>\",\n    \"revert_subscription_on_proration_failure\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"plan_id\": \"string\",\n  \"status\": \"Canceled\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"payment_method_nonce\": \"string\",\n  \"current_billing_cycle\": 1499,\n  \"number_of_billing_cycles\": 5782,\n  \"trial_period\": false,\n  \"trial_duration\": 2871,\n  \"trial_duration_unit\": \"month\",\n  \"first_billing_date\": \"1997-01-28\",\n  \"next_billing_date\": \"1963-01-28\",\n  \"next_billing_amount\": \"string\",\n  \"paid_through_date\": \"1988-11-04\",\n  \"billing_day_of_month\": 4995,\n  \"created_at\": \"1979-02-08T21:09:26.125Z\",\n  \"updated_at\": \"1986-12-08T06:31:32.357Z\",\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 7077,\n      \"current_billing_cycle\": 2599\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3886,\n      \"current_billing_cycle\": 8062\n    }\n  ],\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2097,\n      \"current_billing_cycle\": 1019\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1206,\n      \"current_billing_cycle\": 4918\n    }\n  ],\n  \"transactions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2006-05-17T08:09:35.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2018-05-24T15:49:38.732Z\"\n    }\n  ],\n  \"failure_count\": 5716,\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6ac825d-63c6-49f3-af51-f74d687ae34a",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2978,\n        \"never_expires\": false,\n        \"quantity\": 3723\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7099,\n        \"never_expires\": true,\n        \"quantity\": 5567\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7681,\n        \"never_expires\": true,\n        \"quantity\": 3736\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7016,\n        \"never_expires\": true,\n        \"quantity\": 4940\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 107,\n        \"never_expires\": true,\n        \"quantity\": 745\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 1334,\n        \"never_expires\": true,\n        \"quantity\": 5803\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4991,\n        \"never_expires\": false,\n        \"quantity\": 3724\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 380,\n        \"never_expires\": false,\n        \"quantity\": 2925\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"options\": {\n    \"prorate_charges\": \"<boolean>\",\n    \"replace_all_add_ons\": \"<boolean>\",\n    \"replace_all_discounts\": \"<boolean>\",\n    \"revert_subscription_on_proration_failure\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4942853-44bf-4676-8574-ae3049aaeef6",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2978,\n        \"never_expires\": false,\n        \"quantity\": 3723\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7099,\n        \"never_expires\": true,\n        \"quantity\": 5567\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7681,\n        \"never_expires\": true,\n        \"quantity\": 3736\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7016,\n        \"never_expires\": true,\n        \"quantity\": 4940\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 107,\n        \"never_expires\": true,\n        \"quantity\": 745\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 1334,\n        \"never_expires\": true,\n        \"quantity\": 5803\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4991,\n        \"never_expires\": false,\n        \"quantity\": 3724\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 380,\n        \"never_expires\": false,\n        \"quantity\": 2925\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"options\": {\n    \"prorate_charges\": \"<boolean>\",\n    \"replace_all_add_ons\": \"<boolean>\",\n    \"replace_all_discounts\": \"<boolean>\",\n    \"revert_subscription_on_proration_failure\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f68c5a4-ce0e-430c-9385-96888e71a197",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_token\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"plan_id\": \"<string>\",\n  \"price\": \"9.99\",\n  \"number_of_billing_cycles\": \"<integer>\",\n  \"never_expires\": \"<boolean>\",\n  \"billing_day_of_month\": \"<integer>\",\n  \"add_ons\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 2978,\n        \"never_expires\": false,\n        \"quantity\": 3723\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7099,\n        \"never_expires\": true,\n        \"quantity\": 5567\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7681,\n        \"never_expires\": true,\n        \"quantity\": 3736\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 7016,\n        \"never_expires\": true,\n        \"quantity\": 4940\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"discounts\": {\n    \"add\": [\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 107,\n        \"never_expires\": true,\n        \"quantity\": 745\n      },\n      {\n        \"inherited_from_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 1334,\n        \"never_expires\": true,\n        \"quantity\": 5803\n      }\n    ],\n    \"update\": [\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 4991,\n        \"never_expires\": false,\n        \"quantity\": 3724\n      },\n      {\n        \"existing_id\": \"string\",\n        \"amount\": \"1.00\",\n        \"number_of_billing_cycles\": 380,\n        \"never_expires\": false,\n        \"quantity\": 2925\n      }\n    ],\n    \"remove\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  \"options\": {\n    \"prorate_charges\": \"<boolean>\",\n    \"replace_all_add_ons\": \"<boolean>\",\n    \"replace_all_discounts\": \"<boolean>\",\n    \"revert_subscription_on_proration_failure\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3262a9d-e333-4062-bd1b-b22fdb28abf8",
+          "name": "Cancel a subscription",
+          "request": {
+            "name": "Cancel a subscription",
+            "description": {
+              "content": "Cancels an active subscription immediately. The subscription status transitions to Canceled and no further billing cycles will be charged. Cancellation is a terminal state and cannot be reversed; a new subscription must be created to resume billing.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The unique identifier of the subscription."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb546cce-d16b-4e29-ace3-6b524bec72ce",
+              "name": "Subscription canceled successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"plan_id\": \"string\",\n  \"status\": \"Canceled\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"payment_method_nonce\": \"string\",\n  \"current_billing_cycle\": 1499,\n  \"number_of_billing_cycles\": 5782,\n  \"trial_period\": false,\n  \"trial_duration\": 2871,\n  \"trial_duration_unit\": \"month\",\n  \"first_billing_date\": \"1997-01-28\",\n  \"next_billing_date\": \"1963-01-28\",\n  \"next_billing_amount\": \"string\",\n  \"paid_through_date\": \"1988-11-04\",\n  \"billing_day_of_month\": 4995,\n  \"created_at\": \"1979-02-08T21:09:26.125Z\",\n  \"updated_at\": \"1986-12-08T06:31:32.357Z\",\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 7077,\n      \"current_billing_cycle\": 2599\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3886,\n      \"current_billing_cycle\": 8062\n    }\n  ],\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2097,\n      \"current_billing_cycle\": 1019\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1206,\n      \"current_billing_cycle\": 4918\n    }\n  ],\n  \"transactions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2006-05-17T08:09:35.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2018-05-24T15:49:38.732Z\"\n    }\n  ],\n  \"failure_count\": 5716,\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9a4e2c0-20a5-4424-957a-a835a5524ca9",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3df860d4-b346-4a50-97f9-41121e26db9f",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "933074fb-371c-4ae7-9be4-61570abde272",
+          "name": "Retry a subscription charge",
+          "request": {
+            "name": "Retry a subscription charge",
+            "description": {
+              "content": "Manually retries a failed subscription charge for a subscription in the Past Due status. An optional amount may be specified to charge a different amount than the current billing cycle amount. This is useful for resolving payment failures without waiting for the automatic retry schedule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "subscriptions",
+                ":subscriptionId",
+                "retry_charge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscriptionId",
+                  "description": "(Required) The unique identifier of the subscription."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"submit_for_settlement\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1aceebb9-e200-4f27-a81d-241c04f3ecc4",
+              "name": "Subscription charge retry initiated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "retry_charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"9.99\",\n  \"submit_for_settlement\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"plan_id\": \"string\",\n  \"status\": \"Canceled\",\n  \"price\": \"9.99\",\n  \"merchant_account_id\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"payment_method_nonce\": \"string\",\n  \"current_billing_cycle\": 1499,\n  \"number_of_billing_cycles\": 5782,\n  \"trial_period\": false,\n  \"trial_duration\": 2871,\n  \"trial_duration_unit\": \"month\",\n  \"first_billing_date\": \"1997-01-28\",\n  \"next_billing_date\": \"1963-01-28\",\n  \"next_billing_amount\": \"string\",\n  \"paid_through_date\": \"1988-11-04\",\n  \"billing_day_of_month\": 4995,\n  \"created_at\": \"1979-02-08T21:09:26.125Z\",\n  \"updated_at\": \"1986-12-08T06:31:32.357Z\",\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": true,\n      \"number_of_billing_cycles\": 7077,\n      \"current_billing_cycle\": 2599\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 3886,\n      \"current_billing_cycle\": 8062\n    }\n  ],\n  \"discounts\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2097,\n      \"current_billing_cycle\": 1019\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1206,\n      \"current_billing_cycle\": 4918\n    }\n  ],\n  \"transactions\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2006-05-17T08:09:35.677Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"status\": \"string\",\n      \"created_at\": \"2018-05-24T15:49:38.732Z\"\n    }\n  ],\n  \"failure_count\": 5716,\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06a5a4a5-3af3-476d-bb75-be3e7118739b",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "retry_charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"9.99\",\n  \"submit_for_settlement\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28630c76-8c24-4c91-9cbd-d837758cd86a",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "retry_charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"9.99\",\n  \"submit_for_settlement\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84c88614-17de-4eb8-a03a-8b6f53764358",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "subscriptions",
+                    ":subscriptionId",
+                    "retry_charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscriptionId",
+                      "description": "(Required) The unique identifier of the subscription."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"9.99\",\n  \"submit_for_settlement\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 946\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c995c9af-8beb-4c9f-a825-a78dd76afe54",
+    "name": "Braintree Subscriptions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Subscriptions API enables merchants to manage recurring billing plans and customer subscriptions. Merchants define billing plans with configurable pricing, billing cycles, and trial periods, then subscribe customers using vaulted payment method tokens. The API handles automatic charge retries, prorated billing for mid-cycle changes, add-ons and discounts, and subscription lifecycle events. Subscription status changes are communicated via webhook notifications. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new payment transaction (sale) through the Braintree gateway. Requires either a payment_method_nonce for a one-time payment method, a payment_method_token referencing a vaulted payment method, or a customer_id to use the customer's default vaulted payment method. The amount must be a positive decimal value matching the currency format. Optionally submit the transaction immediately for settlement or hold it in an authorized state for later capture."
+        },
+        {
+          "info": {
+            "name": "Get a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific transaction by its unique identifier. Returns the complete transaction object including current status, payment method details, billing and shipping addresses, descriptor information, and any associated disbursement data."
+        },
+        {
+          "info": {
+            "name": "Submit transaction for settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/submit_for_settlement",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a previously authorized transaction for settlement, initiating the transfer of funds to the merchant. An optional amount may be specified for partial settlement if less than the full authorized amount is desired. The transaction must be in the authorized state to be eligible for settlement submission."
+        },
+        {
+          "info": {
+            "name": "Void a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/void",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ]
+          },
+          "docs": "Voids an authorized or submitted-for-settlement transaction, preventing it from being settled. Voiding cancels the payment before funds are transferred. A transaction can only be voided if it is in the authorized, submitted_for_settlement, or settlement_pending status. Once voided, a transaction cannot be captured or refunded."
+        },
+        {
+          "info": {
+            "name": "Refund a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/refund",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues a full or partial refund on a settled transaction. Partial refunds may be issued multiple times until the cumulative refunded amount equals the settled amount. A new transaction of type \"credit\" is created representing the refund. The original transaction must be in a settled or settling status to be eligible for refund."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Client Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a client token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/client_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a time-limited client token used to initialize the Braintree client-side SDK on web or mobile. The client token contains all authorization and configuration information the client SDK needs to communicate with Braintree. An optional customer_id may be provided to include that customer's vaulted payment methods in the Drop-in UI or to facilitate returning customer flows."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Customers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/customers",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new customer record in the Braintree Vault. A customer record can optionally include a payment method nonce to simultaneously vault a payment method for the customer. No fields are strictly required; a blank customer may be created and updated later. Customer records serve as containers for vaulted payment methods and associated transaction history."
+        },
+        {
+          "info": {
+            "name": "Get a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/customers/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the customer record."
+              }
+            ]
+          },
+          "docs": "Retrieves a customer record from the Braintree Vault by its unique identifier. Returns the customer's profile information and all associated vaulted payment methods, billing addresses, and transaction history summary."
+        },
+        {
+          "info": {
+            "name": "Update a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/customers/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the customer record."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing customer record in the Braintree Vault. Only fields provided in the request body are updated; omitted fields retain their current values. A new payment method nonce may be provided to add an additional payment method to the customer's vault."
+        },
+        {
+          "info": {
+            "name": "Delete a customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/customers/:customerId",
+            "params": [
+              {
+                "name": "customerId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the customer record."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a customer record from the Braintree Vault along with all associated payment methods and addresses. This action is irreversible. Historical transaction records associated with the customer remain accessible but the customer profile is removed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Payment Methods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new vaulted payment method for an existing customer using a payment method nonce obtained from the Braintree client SDK. The nonce is consumed and the underlying payment details are stored securely in the Braintree Vault. Returns a payment method object with a token that can be used for future transactions without requiring the customer to re-enter payment details."
+        },
+        {
+          "info": {
+            "name": "Get a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ]
+          },
+          "docs": "Retrieves a vaulted payment method by its unique token. Returns the payment method details including type, masked card number or account details, expiration information, and the customer it is associated with. The token uniquely identifies the payment method across all types."
+        },
+        {
+          "info": {
+            "name": "Update a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing vaulted payment method. Supports updating billing address details, cardholder name, and other mutable fields. A new payment method nonce may be provided to replace the underlying payment details while preserving the existing token value."
+        },
+        {
+          "info": {
+            "name": "Delete a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ]
+          },
+          "docs": "Permanently removes a vaulted payment method from the Braintree Vault. The associated customer record is retained but the payment method token is invalidated. Active subscriptions using this payment method token will fail on the next billing cycle unless updated to use a different payment method."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Disputes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List disputes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter disputes by current status."
+              },
+              {
+                "name": "received_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter disputes received on or after this date in YYYY-MM-DD format."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              }
+            ]
+          },
+          "docs": "Returns a list of disputes for the merchant account, optionally filtered by dispute status, received date range, amount range, or reason. Disputes represent chargebacks or retrievals initiated by cardholders or their issuing banks. Each dispute includes the associated transaction, amounts, deadlines, and current status."
+        },
+        {
+          "info": {
+            "name": "Get a dispute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes/:disputeId",
+            "params": [
+              {
+                "name": "disputeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the dispute."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific dispute by its unique identifier. Returns all dispute information including the associated transaction, evidence submitted, status history, amounts, deadlines, and any chargeback reason codes provided by the card network."
+        },
+        {
+          "info": {
+            "name": "Accept a dispute",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes/:disputeId/accept",
+            "params": [
+              {
+                "name": "disputeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the dispute."
+              }
+            ]
+          },
+          "docs": "Accepts a dispute without contesting it. Accepting a dispute is a final action that acknowledges the chargeback and surrenders the disputed funds to the cardholder. This action cannot be undone. Use this when you agree with the dispute or choose not to contest it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
