@@ -8,7 +8,7 @@ apis:
   - Payments
   - PayPal
   - Transactions
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.braintreegateway.com
   humanURL: https://developer.paypal.com/braintree/docs/
   properties:
@@ -29,7 +29,7 @@ apis:
   - Payment Methods
   - Payments
   - Transactions
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://payments.braintree-api.com/graphql
   humanURL: https://developer.paypal.com/braintree/graphql/
   properties:
@@ -51,7 +51,7 @@ apis:
   - Drop-In UI
   - JavaScript
   - Payments
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
   properties:
@@ -70,7 +70,7 @@ apis:
   - Objective-C
   - Payments
   - Swift
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
   properties:
@@ -90,7 +90,7 @@ apis:
   - Kotlin
   - Mobile
   - Payments
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
   properties:
@@ -110,7 +110,7 @@ apis:
   - Notifications
   - Subscriptions
   - Webhooks
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.example.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/webhooks/overview
   properties:
@@ -132,7 +132,7 @@ apis:
   - PCI Compliance
   - Storage
   - Vault
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.braintreegateway.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/customers/overview
   properties:
@@ -152,7 +152,7 @@ apis:
   - Plans
   - Recurring Billing
   - Subscriptions
-  image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   baseURL: https://api.braintreegateway.com
   humanURL: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
   properties:
