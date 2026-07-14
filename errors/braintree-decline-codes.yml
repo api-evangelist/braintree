@@ -1,0 +1,158 @@
+generated: '2026-07-14'
+method: searched
+source: https://developer.paypal.com/braintree/docs/reference/general/processor-responses/authorization-responses
+description: >-
+  Braintree's processor authorization response-code taxonomy — the issuer/
+  processor-level reasons a card charge is approved or declined. Distinct from
+  API-level validation errors (the ApiError envelope): these appear on a
+  transaction as processorResponseCode + processorResponseText, with the
+  transaction status set to processor_declined when success is false. Codes are
+  grouped in classes: 1000-series = approved (success true), 2000-series =
+  declined by the processor (success false), 3000-series = back-end processing
+  network problem. Separately, the gateway itself can block a transaction before
+  it reaches the bank (gateway rejection).
+docs:
+  - https://developer.paypal.com/braintree/docs/reference/general/processor-responses/authorization-responses
+  - https://developer.paypal.com/braintree/articles/control-panel/transactions/declines
+envelope_field: processorResponseCode   # with processorResponseText; on the transaction object
+code_classes:
+  - {class: '1000', meaning: 'Approved — authorization successful, success = true'}
+  - {class: '2000', meaning: 'Declined — declined by the processor/issuer, success = false'}
+  - {class: '3000', meaning: 'Network — back-end processing network problem'}
+retry_prohibited_mastercard: ['2004', '2009', '2012', '2019', '2022', '2047', '2053']
+retry_prohibited_recurring: ['2004', '2005', '2015']
+
+approval_codes:
+  - {code: '1000', text: Approved}
+  - {code: '1001', text: Approved. Check customer ID}
+  - {code: '1002', text: Processed}
+  - {code: '1003', text: Approved with Risk}
+  - {code: '1004', text: Approved for Partial Amount}
+  - {code: '1005', text: Auth Declined but Settlement Captured}
+
+decline_codes:
+  - {code: '2000', meaning: Do Not Honor, type: soft, action: Generic bank refusal; ask customer to contact issuer or retry.}
+  - {code: '2001', meaning: Insufficient Funds, type: soft, action: May succeed on retry or with another card.}
+  - {code: '2002', meaning: Limit Exceeded, type: soft, action: Account withdrawal limit reached; use another method.}
+  - {code: '2003', meaning: Cardholder's Activity Limit Exceeded, type: soft, action: Use another method.}
+  - {code: '2004', meaning: Expired Card, type: hard, action: Update card; Mastercard prohibits retry.}
+  - {code: '2005', meaning: Invalid Credit Card Number, type: hard, action: Correct the number; no retry with same info on recurring.}
+  - {code: '2006', meaning: Invalid Expiration Date, type: hard, action: Correct expiration.}
+  - {code: '2007', meaning: No Account, type: hard, action: Card not on file with issuer; use another card.}
+  - {code: '2008', meaning: Card Account Length Error, type: hard, action: Correct the number.}
+  - {code: '2009', meaning: No Such Issuer, type: hard, action: Use another card; Mastercard prohibits retry.}
+  - {code: '2010', meaning: Card Issuer Declined CVV, type: hard, action: Correct the security code.}
+  - {code: '2011', meaning: Voice Authorization Required, type: hard, action: Customer must call issuer for authorization.}
+  - {code: '2012', meaning: Processor Declined – Possible Lost Card, type: hard, action: Use another card; Mastercard prohibits retry.}
+  - {code: '2013', meaning: Processor Declined – Possible Stolen Card, type: hard, action: Use another card.}
+  - {code: '2014', meaning: Processor Declined – Fraud Suspected, type: hard, action: Use another card.}
+  - {code: '2015', meaning: Transaction Not Allowed, type: hard, action: Issuer blocks this transaction; no retry on recurring.}
+  - {code: '2016', meaning: Duplicate Transaction, type: soft, action: A recent identical transaction exists; check before retrying.}
+  - {code: '2017', meaning: Cardholder Stopped Billing, type: hard, action: Customer canceled a single transaction.}
+  - {code: '2018', meaning: Cardholder Stopped All Billing, type: hard, action: Customer canceled recurring billing; stop subscription.}
+  - {code: '2019', meaning: Invalid Transaction, type: hard, action: Unsupported transaction type; Mastercard prohibits retry.}
+  - {code: '2020', meaning: Violation, type: hard, action: Contact issuer.}
+  - {code: '2021', meaning: Security Violation, type: hard, action: Possible fraud; use another card.}
+  - {code: '2022', meaning: Declined – Updated Cardholder Available, type: hard, action: Expired/lost card; Mastercard prohibits retry.}
+  - {code: '2023', meaning: Processor Does Not Support This Feature, type: hard, action: Account lacks the capability.}
+  - {code: '2024', meaning: Card Type Not Enabled, type: hard, action: Enable the card type on the account.}
+  - {code: '2025', meaning: Set Up Error – Merchant, type: soft, action: Connectivity/setup issue; contact Braintree.}
+  - {code: '2026', meaning: Invalid Merchant ID, type: soft, action: Check account configuration.}
+  - {code: '2027', meaning: Set Up Error – Amount, type: hard, action: Problem processing the amount.}
+  - {code: '2028', meaning: Set Up Error – Hierarchy, type: hard, action: Account setup issue.}
+  - {code: '2029', meaning: Set Up Error – Card, type: hard, action: Problem with the submitted card.}
+  - {code: '2030', meaning: Set Up Error – Terminal, type: hard, action: Account setup issue.}
+  - {code: '2031', meaning: Encryption Error, type: hard, action: Bank does not support $0 verifications.}
+  - {code: '2032', meaning: Surcharge Not Permitted, type: hard, action: Remove the surcharge.}
+  - {code: '2033', meaning: Inconsistent Data, type: hard, action: Processor communication error; retry.}
+  - {code: '2034', meaning: No Action Taken, type: soft, action: Not completed; retry advised.}
+  - {code: '2035', meaning: Partial Approval For Amount In Group III Version, type: soft, action: Approved for less than requested.}
+  - {code: '2036', meaning: Authorization could not be found, type: hard, action: Processing or card issue.}
+  - {code: '2037', meaning: Already Reversed, type: hard, action: Authorization was previously reversed.}
+  - {code: '2038', meaning: Processor Declined, type: soft, action: Generic bank refusal; contact issuer.}
+  - {code: '2039', meaning: Invalid Authorization Code, type: hard, action: Code missing or not found.}
+  - {code: '2040', meaning: Invalid Store, type: soft, action: Account configuration issue.}
+  - {code: '2041', meaning: Declined – Call For Approval, type: hard, action: Customer must contact their bank.}
+  - {code: '2042', meaning: Invalid Client ID, type: soft, action: Account configuration issue.}
+  - {code: '2043', meaning: Error – Do Not Retry, Call Issuer, type: hard, action: Issuer prohibits retry; customer contacts bank.}
+  - {code: '2044', meaning: Declined – Call Issuer, type: hard, action: Customer contacts issuer; retry allowed if unsuccessful.}
+  - {code: '2045', meaning: Invalid Merchant Number, type: hard, action: Account setup issue.}
+  - {code: '2046', meaning: Declined, type: soft, action: Generic bank refusal; contact issuer.}
+  - {code: '2047', meaning: Call Issuer. Pick Up Card, type: hard, action: Lost/stolen card; Mastercard prohibits retry.}
+  - {code: '2048', meaning: Invalid Amount, type: soft, action: Amount zero, unreadable, or excessive.}
+  - {code: '2049', meaning: Invalid SKU Number, type: hard, action: Non-numeric SKU submitted.}
+  - {code: '2050', meaning: Invalid Credit Plan, type: hard, action: Card or temporary issuer issue.}
+  - {code: '2051', meaning: Credit Card Number does not match method of payment, type: hard, action: Correct the card/method.}
+  - {code: '2052', meaning: Invalid level III Purchase, type: hard, action: Level III data inaccurate/missing.}
+  - {code: '2053', meaning: Card reported as lost or stolen, type: hard, action: Use another card; Mastercard prohibits retry.}
+  - {code: '2054', meaning: Reversal amount does not match authorization amount, type: hard, action: Refund exceeds original or partials unsupported.}
+  - {code: '2055', meaning: Invalid Transaction Division Number, type: hard, action: Account setup issue.}
+  - {code: '2056', meaning: Transaction amount exceeds the transaction division limit, type: hard, action: Reduce amount.}
+  - {code: '2057', meaning: Issuer or Cardholder has put a restriction on the card, type: soft, action: Customer contacts issuer.}
+  - {code: '2058', meaning: Merchant not Mastercard SecureCode enabled, type: hard, action: Enable 3D Secure.}
+  - {code: '2059', meaning: Address Verification Failed, type: hard, action: PayPal address formatting issue.}
+  - {code: '2060', meaning: Address Verification and Card Security Code Failed, type: hard, action: Correct address and CVV.}
+  - {code: '2061', meaning: Invalid Transaction Data, type: hard, action: Card or issuer issue.}
+  - {code: '2062', meaning: Invalid Tax Amount, type: soft, action: Card or issuer issue.}
+  - {code: '2063', meaning: PayPal Business Account preference resulted in the transaction failing, type: hard, action: Account blocks this payment type.}
+  - {code: '2064', meaning: Invalid Currency Code, type: hard, action: Enable the currency on the account.}
+  - {code: '2065', meaning: Refund Time Limit Exceeded, type: hard, action: PayPal 180-day refund window exceeded.}
+  - {code: '2066', meaning: PayPal Business Account Restricted, type: hard, action: Contact PayPal support.}
+  - {code: '2067', meaning: Authorization Expired, type: hard, action: PayPal authorization no longer valid.}
+  - {code: '2068', meaning: PayPal Business Account Locked or Closed, type: hard, action: Contact PayPal support.}
+  - {code: '2069', meaning: PayPal Blocking Duplicate Order IDs, type: hard, action: Duplicate order prevented.}
+  - {code: '2070', meaning: PayPal Buyer Revoked Pre-Approved Payment Authorization, type: hard, action: Customer revoked authorization.}
+  - {code: '2071', meaning: PayPal Payee Account Invalid Or Does Not Have a Confirmed Email, type: hard, action: Complete account setup.}
+  - {code: '2072', meaning: PayPal Payee Email Incorrectly Formatted, type: hard, action: Fix the PayPal email.}
+  - {code: '2073', meaning: PayPal Validation Error, type: hard, action: PayPal validation failed.}
+  - {code: '2074', meaning: Funding Instrument In The PayPal Account Was Declined By The Processor Or Bank, type: hard, action: Underlying method declined; use another.}
+  - {code: '2075', meaning: Payer Account Is Locked Or Closed, type: hard, action: PayPal account unusable.}
+  - {code: '2076', meaning: Payer Cannot Pay For This Transaction With PayPal, type: hard, action: Account restrictions or merchant email use.}
+  - {code: '2077', meaning: Transaction Refused Due To PayPal Risk Model, type: hard, action: Contact PayPal support.}
+  - {code: '2078', meaning: Invalid Secure Payment Data, type: soft, action: PIN decryption error.}
+  - {code: '2079', meaning: PayPal Merchant Account Configuration Error, type: hard, action: Contact Braintree support.}
+  - {code: '2080', meaning: Invalid user credentials, type: soft, action: Check credentials.}
+  - {code: '2081', meaning: PayPal pending payments are not supported, type: hard, action: Unsupported response type.}
+  - {code: '2082', meaning: PayPal Domestic Transaction Required, type: hard, action: Residency mismatch.}
+  - {code: '2083', meaning: PayPal Phone Number Required, type: hard, action: Provide a phone number.}
+  - {code: '2084', meaning: PayPal Tax Info Required, type: hard, action: Complete account information.}
+  - {code: '2085', meaning: PayPal Payee Blocked Transaction, type: hard, action: Fraud settings blocking payment.}
+  - {code: '2086', meaning: PayPal Transaction Limit Exceeded, type: hard, action: Account limits exceeded.}
+  - {code: '2087', meaning: PayPal reference transactions not enabled for your account, type: hard, action: API permissions issue.}
+  - {code: '2088', meaning: Currency not enabled for your PayPal seller account, type: hard, action: Update the PayPal profile.}
+  - {code: '2089', meaning: PayPal payee email permission denied for this request, type: hard, action: API permissions between accounts.}
+  - {code: '2090', meaning: PayPal or Venmo account not configured to refund more than settled amount, type: hard, action: Contact PayPal support.}
+  - {code: '2091', meaning: Currency of this transaction must match currency of your PayPal account, type: hard, action: Home-country currency requirement.}
+  - {code: '2092', meaning: No Data Found - Try Another Verification Method, type: soft, action: Unable to verify bank account.}
+  - {code: '2093', meaning: PayPal payment method is invalid, type: hard, action: Expired or canceled.}
+  - {code: '2094', meaning: PayPal payment has already been completed, type: hard, action: Out-of-sequence API calls.}
+  - {code: '2095', meaning: PayPal refund is not allowed after partial refund, type: hard, action: Full refund prohibited post-partial refund.}
+  - {code: '2096', meaning: PayPal buyer account can't be the same as the seller account, type: hard, action: Use a different buyer account.}
+  - {code: '2097', meaning: PayPal authorization amount limit exceeded, type: hard, action: Reduce the authorization amount.}
+  - {code: '2098', meaning: PayPal authorization count limit exceeded, type: hard, action: Reduce authorization count.}
+  - {code: '2099', meaning: Cardholder Authentication Required, type: soft, action: Complete 3D Secure authentication.}
+  - {code: '2100', meaning: PayPal channel initiated billing not enabled for your account, type: hard, action: Contact PayPal support.}
+  - {code: '2101', meaning: Additional authorization required, type: soft, action: Chip card required.}
+  - {code: '2102', meaning: Incorrect PIN, type: soft, action: Re-enter PIN.}
+  - {code: '2103', meaning: PIN try exceeded, type: soft, action: Maximum PIN attempts exceeded.}
+  - {code: '2104', meaning: Offline Issuer Declined, type: soft, action: Offline decline by issuer.}
+  - {code: '2105', meaning: Cannot Authorize at this time (Life cycle), type: soft, action: Invalid card data.}
+  - {code: '2106', meaning: Cannot Authorize at this time (Policy), type: soft, action: Policy-based refusal.}
+  - {code: '2107', meaning: Card Not Activated, type: hard, action: Cardholder must activate the card.}
+  - {code: '2108', meaning: Closed Card, type: hard, action: Account closed; use another card.}
+  - {code: '2109-2999', meaning: Processor Declined, type: soft, action: Generic bank refusal; contact issuer.}
+
+network_codes:
+  - {code: '3000', meaning: Processor Network Unavailable – Try Again, type: soft, action: Back-end network issue; retry.}
+
+gateway_rejection_reasons:
+  note: >-
+    Distinct from processor declines — the Braintree gateway blocks these before
+    the transaction reaches the bank, based on Control Panel settings. Surfaced
+    as gatewayRejectionReason.
+  reasons: [avs, avs_and_cvv, cvv, duplicate, fraud, risk_threshold, application_incomplete, token_issuance]
+
+related:
+  problem_types: null
+  sandbox: sandbox/braintree-sandbox.yml
+  conventions: conventions/braintree-conventions.yml

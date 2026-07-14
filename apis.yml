@@ -166,6 +166,22 @@ apis:
     customers using vaulted payment methods. The API handles automatic charge retries, prorated billing for mid-cycle
     changes, add-ons and discounts, and subscription lifecycle events.
 common:
+- type: Sandbox
+  url: sandbox/braintree-sandbox.yml
+- type: Conventions
+  url: conventions/braintree-conventions.yml
+- type: ChangeLog
+  url: changelog/braintree-changelog.yml
+- type: Components
+  url: components/braintree-components.yml
+- type: DataModel
+  url: data-model/braintree-data-model.yml
+- type: DeclineCodes
+  url: errors/braintree-decline-codes.yml
+- type: TrustCenter
+  url: security/braintree-trust-center.yml
+- type: OAuthScopes
+  url: scopes/braintree-scopes.yml
 - type: VulnerabilityDisclosure
   url: security/braintree-vulnerability-disclosure.yml
 - type: DomainSecurity

@@ -1,0 +1,54 @@
+generated: '2026-07-14'
+method: derived
+source: >-
+  Derived from the object relationships in openapi/braintree-payments-openapi.yml
+  and openapi/braintree-subscriptions-openapi.yml (schema $ref links and
+  id-reference fields such as customer_id, payment_method_token, plan_id) and the
+  Braintree object reference. Captures the core entity-relationship graph behind
+  the payments / vault / recurring-billing domain.
+docs:
+  - https://developer.paypal.com/braintree/docs/reference/response/transaction
+  - https://developer.paypal.com/braintree/docs/reference/response/customer
+  - https://developer.paypal.com/braintree/docs/reference/response/subscription
+notation: >-
+  relationships use has_one / has_many / belongs_to with the reference field
+  name; direction is from the entity that owns the reference. Braintree ids are
+  merchant-scoped opaque strings (no cross-tenant id prefixes like some gateways).
+
+entities:
+  - {name: Customer, key: customer_id, domain: vault, description: A customer record in the Braintree Vault holding payment methods and addresses.}
+  - {name: PaymentMethod, key: payment_method_token, domain: vault, description: A vaulted card / PayPal / bank instrument; abstract parent of CreditCard, PayPalAccount, etc.}
+  - {name: PaymentMethodNonce, key: nonce, domain: payments, description: One-time-use client-collected reference to payment data, consumed on use.}
+  - {name: Address, key: address_id, domain: vault, description: A billing/shipping address belonging to a customer.}
+  - {name: Transaction, key: transaction_id, domain: payments, description: A single sale/authorization; settles, voids, or refunds.}
+  - {name: Dispute, key: dispute_id, domain: payments, description: A chargeback or dispute raised against a transaction.}
+  - {name: ClientToken, domain: payments, description: Time-limited token used to initialize a client SDK; not persisted.}
+  - {name: Plan, key: plan_id, domain: recurring-billing, description: A billing plan defined in the Control Panel with price and billing cycle.}
+  - {name: Subscription, key: subscription_id, domain: recurring-billing, description: A recurring billing agreement charging a payment method against a plan.}
+  - {name: AddOn, key: add_on_id, domain: recurring-billing, description: A modification that increases a subscription's price.}
+  - {name: Discount, key: discount_id, domain: recurring-billing, description: A modification that decreases a subscription's price.}
+  - {name: MerchantAccount, key: merchant_account_id, domain: account, description: The account funds settle into; scopes currency and processing.}
+
+relationships:
+  - {from: Customer, to: PaymentMethod, kind: has_many, via: customer_id}
+  - {from: Customer, to: Address, kind: has_many, via: customer_id}
+  - {from: Customer, to: Transaction, kind: has_many, via: customer_id}
+  - {from: PaymentMethod, to: Customer, kind: belongs_to, via: customer_id}
+  - {from: Transaction, to: Customer, kind: belongs_to, via: customer_id}
+  - {from: Transaction, to: PaymentMethod, kind: belongs_to, via: payment_method_token}
+  - {from: Transaction, to: PaymentMethodNonce, kind: belongs_to, via: payment_method_nonce}
+  - {from: Transaction, to: Dispute, kind: has_many, via: transaction_id}
+  - {from: Transaction, to: MerchantAccount, kind: belongs_to, via: merchant_account_id}
+  - {from: Transaction, to: Subscription, kind: belongs_to, via: subscription_id}
+  - {from: Dispute, to: Transaction, kind: belongs_to, via: transaction_id}
+  - {from: Subscription, to: Plan, kind: belongs_to, via: plan_id}
+  - {from: Subscription, to: PaymentMethod, kind: belongs_to, via: payment_method_token}
+  - {from: Subscription, to: MerchantAccount, kind: belongs_to, via: merchant_account_id}
+  - {from: Subscription, to: Transaction, kind: has_many, via: subscription_id}
+  - {from: Subscription, to: AddOn, kind: has_many, via: add_on_id}
+  - {from: Subscription, to: Discount, kind: has_many, via: discount_id}
+  - {from: Plan, to: AddOn, kind: has_many, via: add_on_id}
+  - {from: Plan, to: Discount, kind: has_many, via: discount_id}
+
+related:
+  conventions: conventions/braintree-conventions.yml

@@ -1,0 +1,105 @@
+generated: '2026-07-14'
+method: searched
+source: >-
+  https://developer.paypal.com/braintree/docs — the cross-cutting request/
+  response conventions that apply across Braintree's gateway, combined with what
+  the OpenAPI in openapi/ implies. These are the developer-experience / runtime
+  semantics that the spec does not fully express.
+description: >-
+  How Braintree's server-side gateway behaves across operations: authentication
+  style, the SDK-first integration model, idempotency, pagination/search,
+  environment separation, the payment-method nonce/token lifecycle, webhooks,
+  and the error envelope. Braintree is unusual in that most merchants integrate
+  through the server SDKs rather than raw REST, and the canonical REST/XML wire
+  format is wrapped by those SDKs.
+docs:
+  - https://developer.paypal.com/braintree/docs/guides/overview
+  - https://developer.paypal.com/braintree/graphql/guides/concepts/
+
+base_url: https://api.braintreegateway.com
+sandbox_base_url: https://api.sandbox.braintreegateway.com
+api_style: >-
+  REST over HTTPS scoped per merchant (/merchants/{merchantId}), XML or JSON on
+  the wire, almost always accessed through the official server SDKs. A modern
+  GraphQL API is also offered at payments.braintree-api.com/graphql.
+
+authentication:
+  scheme: HTTP Basic — merchant public API key as username, private API key as password (Base64, RFC 7617)
+  alternatives:
+    - OAuth 2.0 access tokens for platform/partner connections (see scopes/braintree-scopes.yml)
+    - Client tokens (time-limited) to initialize client SDKs; do not authenticate server calls
+  detail: authentication/braintree-authentication.yml
+
+integration_model:
+  client_side: >-
+    A client SDK (JavaScript / iOS / Android) collects payment data and returns
+    a single-use payment_method_nonce, so raw card data never touches the
+    merchant server (PCI SAQ A scope).
+  server_side: >-
+    The server SDK exchanges a nonce for a transaction or a vaulted
+    payment_method_token. Server SDKs: Ruby, Python, PHP, Java, Node.js, .NET.
+
+nonce_and_token_lifecycle:
+  payment_method_nonce: One-time-use reference to client-collected payment data; consumed on first use.
+  payment_method_token: Persistent token for a payment method stored in the Braintree Vault; reusable.
+  client_token: Time-limited token generated server-side to initialize a client SDK session.
+
+idempotency:
+  supported: false
+  mechanism: >-
+    Braintree does not expose a generic Idempotency-Key header. Duplicate
+    protection is provided by the gateway's duplicate-transaction checking
+    (configurable window in the Control Panel) and by order_id de-duplication;
+    the single-use nonce also prevents accidental double-charges.
+  notes: Retries after an ambiguous response should search by order_id before re-submitting.
+
+pagination:
+  style: >-
+    Search-based. Collection reads are performed via resource search queries
+    that return a paginated ResourceCollection; the server SDKs stream/iterate
+    pages transparently. The OpenAPI models page-based paging on disputes.
+  request_params:
+    page: Page number, starting at 1 (dispute search)
+  response_fields:
+    total_pages: Total number of pages available (dispute search)
+  docs: https://developer.paypal.com/braintree/docs/reference/general/searching
+
+versioning:
+  scheme: >-
+    Server-SDK version pinning (semantic versioning). There is no dated wire-
+    version header; backwards-incompatible changes ship as new major SDK
+    versions under a published deprecation policy. GraphQL versions by date via
+    the Braintree-Version request header.
+  graphql_header: Braintree-Version
+  deprecation_policy: https://developer.paypal.com/braintree/docs/reference/general/server-sdk-deprecation-policy
+  detail: null
+
+error_envelope:
+  format: >-
+    Non-RFC9457. Errors return an ApiError with a top-level human-readable
+    message plus a nested, per-attribute validation errors structure. Card
+    declines surface as a processorResponseCode / processorResponseText on the
+    transaction (status = processor_declined) rather than an HTTP error.
+  http_statuses: [400 Bad Request, 401 Unauthorized, 404 Not Found, 422 Unprocessable Entity]
+  fields:
+    message: Top-level human-readable summary of what went wrong.
+    errors: Collection of validation errors, each with a code and the attribute it applies to.
+    processorResponseCode: Issuer/processor authorization response code on a declined transaction.
+    gatewayRejectionReason: Why the Braintree gateway itself blocked the transaction (AVS/CVV/fraud/duplicate).
+  detail: errors/braintree-decline-codes.yml
+
+webhooks:
+  supported: true
+  mechanism: Signed HTTP POST notifications; verify with bt_signature + bt_payload via the SDK.
+  detail: https://developer.paypal.com/braintree/docs/guides/webhooks/overview
+
+rate_limiting:
+  documented: false
+  notes: Braintree does not publish a fixed request-rate limit or rate-limit response headers.
+
+related:
+  authentication: authentication/braintree-authentication.yml
+  scopes: scopes/braintree-scopes.yml
+  decline_codes: errors/braintree-decline-codes.yml
+  sandbox: sandbox/braintree-sandbox.yml
+  data_model: data-model/braintree-data-model.yml

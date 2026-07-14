@@ -1,0 +1,114 @@
+generated: '2026-07-14'
+method: searched
+source: https://developer.paypal.com/braintree/docs/reference/general/testing/ruby
+description: >-
+  Braintree's sandbox / test-data surface — the test cards, magic amounts,
+  static payment-method nonces, CVV/AVS values, and test bank routing numbers a
+  developer needs to exercise the gateway end-to-end without moving real money.
+  Captured verbatim from the Braintree Testing reference. The sandbox is an
+  entirely separate environment (sandbox.braintreegateway.com) with its own
+  merchant ID and API keys; it accepts only the published test values below —
+  real card data will not work.
+docs:
+  - https://developer.paypal.com/braintree/docs/reference/general/testing/ruby
+  - https://developer.paypal.com/braintree/docs/guides/credit-cards/testing-go-live/ruby
+  - https://developer.paypal.com/braintree/docs/guides/payment-method-nonces
+  - https://graphql.braintreepayments.com/guides/testing/
+
+environments:
+  - name: sandbox
+    gateway: https://api.sandbox.braintreegateway.com
+    graphql: https://payments.sandbox.braintree-api.com/graphql
+    notes: >-
+      Fully isolated from production. Nothing created in the sandbox (processing
+      options, recurring-billing settings) transfers to production; login,
+      merchant ID, and API keys are all distinct from live.
+  - name: production
+    gateway: https://api.braintreegateway.com
+    graphql: https://payments.braintree-api.com/graphql
+
+# Braintree separates test vs live by environment + key pair, not by a key prefix.
+# Authentication is HTTP Basic with the merchant public key (username) / private key (password).
+credentials:
+  merchant_id: sandbox-specific
+  public_key: sandbox-specific
+  private_key: sandbox-specific
+
+# Preferred over raw PANs in API calls — static nonces stand in for the client-side result.
+test_nonces:
+  valid:
+    - fake-valid-nonce
+    - fake-valid-visa-nonce
+    - fake-valid-mastercard-nonce
+    - fake-valid-amex-nonce
+    - fake-valid-discover-nonce
+  alternative_methods:
+    - {nonce: fake-android-pay-nonce, method: Google Pay}
+    - {nonce: fake-apple-pay-visa-nonce, method: Apple Pay}
+    - {nonce: fake-paypal-one-time-nonce, method: PayPal}
+    - {nonce: fake-venmo-account-nonce, method: Venmo}
+  declined:
+    - fake-processor-declined-visa-nonce
+    - fake-processor-declined-mastercard-nonce
+    - fake-processor-declined-amex-nonce
+
+test_cards:
+  valid:
+    - {number: '4111111111111111', brand: Visa}
+    - {number: '4005519200000004', brand: Visa}
+    - {number: '4012000033330026', brand: Visa}
+    - {number: '4012000077777777', brand: Visa}
+    - {number: '4012888888881881', brand: Visa}
+    - {number: '4217651111111119', brand: Visa}
+    - {number: '4500600000000061', brand: Visa}
+    - {number: '5555555555554444', brand: Mastercard}
+    - {number: '2223000048400011', brand: Mastercard}
+    - {number: '378282246310005', brand: American Express}
+    - {number: '371449635398431', brand: American Express}
+    - {number: '6011000991300009', brand: Discover}
+    - {number: '36259600000004', brand: Diners Club}
+    - {number: '3530111333300000', brand: JCB}
+    - {number: '6304000000000000', brand: Maestro}
+    - {number: '6243030000000001', brand: UnionPay}
+  failed_verification:
+    - {number: '4000111111111115', brand: Visa, result: processor declined}
+    - {number: '5105105105105100', brand: Mastercard, result: processor declined}
+    - {number: '378734493671000', brand: American Express, result: processor declined}
+    - {number: '6011000990139424', brand: Discover, result: processor declined}
+    - {number: '3566002020360505', brand: JCB, result: failed 3000}
+
+# Transaction SUCCESS is determined by the AMOUNT, regardless of currency.
+amount_triggers:
+  - {range: '0.01–1999.99', authorization: Authorized, settlement: Settled}
+  - {range: '2000.00–2999.99', authorization: Processor Declined, settlement: n/a}
+  - {range: '3000.00–3000.99', authorization: 'Failed (3000 code)', settlement: n/a}
+  - {range: '3001.00–4000.99', authorization: Authorized, settlement: Settled}
+  - {range: '4001.00–4001.99', authorization: Authorized, settlement: Settlement Declined}
+  - {range: '4002.00–4002.99', authorization: Authorized, settlement: Settlement Pending}
+  - {range: '5001.00', authorization: 'Gateway Rejected (Application Incomplete)', settlement: n/a}
+
+# VERIFICATION success is determined by the test CARD; CVV response by the value submitted.
+cvv_triggers:
+  - {cvv: '200', cid_amex: '2000', response: 'N — does not match'}
+  - {cvv: '201', cid_amex: '2011', response: 'U — not verified'}
+  - {cvv: '301', cid_amex: '3011', response: 'S — issuer does not participate'}
+  - {cvv: none, response: 'I — not provided'}
+  - {cvv: any other, response: 'M — matches'}
+
+avs_triggers:
+  postal_code:
+    - {value: '20000', response: 'N — does not match'}
+    - {value: '20001', response: 'U — not verified'}
+    - {value: other, response: 'M — matches'}
+  street_address:
+    - {value: '200', response: 'N — does not match'}
+    - {value: '201', response: 'U — not verified'}
+    - {value: other, response: 'M — matches'}
+
+test_bank_routing_numbers:
+  - '071101307'
+  - '071000013'
+
+related:
+  decline_codes: errors/braintree-decline-codes.yml
+  conventions: conventions/braintree-conventions.yml

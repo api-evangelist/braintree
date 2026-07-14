@@ -1,0 +1,61 @@
+generated: '2026-07-14'
+method: searched
+source: https://github.com/braintree/braintree-web/blob/main/CHANGELOG.md
+description: >-
+  Structured capture of the Braintree JavaScript (braintree-web) SDK changelog —
+  the most actively released public Braintree changelog. Braintree does not
+  version its gateway wire protocol by date; instead each SDK is versioned with
+  semantic versioning and backwards-incompatible changes ship as new major
+  versions under the server-SDK deprecation policy. This artifact records the
+  recent braintree-web release window; the live changelog is the source of truth.
+docs:
+  - https://github.com/braintree/braintree-web/blob/main/CHANGELOG.md
+  - https://developer.paypal.com/braintree/docs/reference/general/upgrade
+versioning:
+  scheme: semantic versioning, per SDK (no dated wire version)
+  graphql_header: Braintree-Version
+  deprecation_policy: https://developer.paypal.com/braintree/docs/reference/general/server-sdk-deprecation-policy
+  component: braintree-web (JavaScript client SDK)
+  current: 3.138.0
+entries:
+  - version: 3.138.0
+    date: '2026-03-10'
+    additions:
+      - Added createCheckoutWithVaultSession to PayPal Checkout v6 to charge and vault in a single session
+  - version: 3.137.0
+    date: '2026-03-02'
+    additions:
+      - Support for the crypto alternative payment method
+      - Updated the Data Collector error object
+  - version: 3.136.0
+    date: '2026-02-10'
+    additions:
+      - riskCorrelationId option for Venmo
+      - PayPal Checkout v6 findEligibleMethods and improved Safari compatibility
+  - version: 3.135.0
+    date: '2026-02-03'
+    breaking:
+      - Removed the Bower package manager distribution
+    additions:
+      - Launched the PayPal Checkout v6 component
+      - 8-digit BIN support verification for Hosted Fields
+  - version: 3.134.0
+    date: '2025-12-11'
+    additions:
+      - getAchMandateDetails method on Instant Verification
+      - Modified Hosted Fields expirationDate regex; enhanced 3D Secure CSP documentation
+  - version: 3.133.0
+    date: '2025-11-13'
+    additions:
+      - Support for the swish Local Payment method
+    fixes:
+      - Venmo iOS polling and Android WebView issues
+  - version: 3.132.0
+    date: '2025-10-16'
+    additions:
+      - FPTI logs for API latency performance metrics
+  - version: 3.131.0
+    date: '2025-10-15'
+    additions:
+      - Instant Verification support
+      - Venmo non-default browser app switching and cancelOnReturnToBrowser option

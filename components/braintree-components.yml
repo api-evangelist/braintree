@@ -1,0 +1,47 @@
+generated: '2026-07-14'
+method: searched
+source: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3
+description: >-
+  Braintree's client-side / embeddable UI components — the browser and mobile
+  layer that collects payment data and tokenizes it directly to Braintree so
+  card data never touches the merchant server (PCI SAQ A scope). Distinct from
+  the server-side SDK client libraries. Grouped by family: the prebuilt Drop-in
+  UI, the low-level Hosted Fields, and the individual payment-method components
+  of the braintree-web JavaScript SDK, plus native mobile equivalents.
+docs:
+  - https://developer.paypal.com/braintree/docs/guides/drop-in/overview
+  - https://developer.paypal.com/braintree/docs/guides/hosted-fields/overview
+  - https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3
+
+libraries:
+  - {name: braintree-web, registry: npm, purpose: Low-level JavaScript client SDK; each payment method is a component module.}
+  - {name: braintree-web-drop-in, registry: npm, purpose: Prebuilt Drop-in UI built on braintree-web.}
+  - {name: Braintree iOS SDK, registry: CocoaPods/SPM/Carthage, purpose: Native iOS card + alternative-payment components and Drop-in.}
+  - {name: braintree_android, registry: Maven Central, purpose: Native Android card + alternative-payment components.}
+
+families:
+  drop_in:
+    description: Prebuilt, ready-made payment UI that renders card fields and enabled alternative payment methods with minimal code; returns a payment method nonce.
+    components:
+      - {name: Drop-in UI (web), library: braintree-web-drop-in, description: Full prebuilt checkout form for the browser.}
+      - {name: Drop-in UI (iOS), platform: iOS, description: BTDropInController prebuilt payment sheet.}
+      - {name: Drop-in UI (Android), platform: Android, description: DropInClient prebuilt payment activity.}
+
+  hosted_fields:
+    description: Braintree-hosted iframes for individual card input fields, letting merchants fully style their own form while keeping card data out of scope.
+    components:
+      - {name: Hosted Fields, id: hosted-fields, description: Number / expiration / CVV / postal-code iframe inputs tokenized directly to Braintree.}
+
+  payment_methods:
+    description: Low-level braintree-web component modules, one per payment method, that produce a nonce for the server SDK.
+    components:
+      - {name: Client, id: client, description: Core component that communicates with the Braintree gateway.}
+      - {name: PayPal / PayPal Checkout, id: [paypal, paypal-checkout], description: PayPal one-time and vaulted checkout (v6 component current).}
+      - {name: Apple Pay, id: apple-pay, description: Apple Pay integration for Safari/iOS.}
+      - {name: Google Pay, id: google-payment, description: Google Pay integration for the web.}
+      - {name: Venmo, id: venmo, description: Venmo app-switch payment component.}
+      - {name: 3D Secure, id: three-d-secure, description: Cardholder authentication (SCA) component.}
+      - {name: Local Payment Methods, id: local-payment, description: iDEAL, giropay, Sofort, swish, and other regional methods.}
+      - {name: Data Collector, id: data-collector, description: Device-data collection for fraud tools (Kount/PayPal fraud).}
+      - {name: US Bank Account / ACH, id: us-bank-account, description: ACH bank-account tokenization and Instant Verification.}
+      - {name: Vault Manager, id: vault-manager, description: Manage a customer's vaulted payment methods client-side.}

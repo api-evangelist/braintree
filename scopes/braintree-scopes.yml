@@ -1,0 +1,66 @@
+generated: '2026-07-14'
+method: searched
+source: https://developer.paypal.com/braintree/docs/guides/extend/oauth/reference
+docs: https://developer.paypal.com/braintree/docs/guides/extend/oauth/overview
+description: >-
+  Braintree's OAuth 2.0 scopes. The core gateway authenticates with HTTP Basic
+  API keys, so the OpenAPI securitySchemes declare no oauth2 flows and the derive
+  pass finds none. OAuth is used by platforms/partners to connect separate
+  Braintree accounts — on its own or with the Grant API and Shared Vault. The
+  connect URL is generated server-side via the SDK (gateway.oauth.connectUrl),
+  and the access token is exchanged from the returned authorization code; scopes
+  are requested as a comma-delimited string (e.g. grant_payment_method,shared_vault_transactions).
+schemes:
+  - name: Braintree OAuth
+    type: oauth2
+    grant_types: [authorization_code, refresh_token]
+    connect_url_note: Generated server-side via gateway.oauth.connectUrl(redirectUri, scope, state).
+    token_note: Access token created from the authorization code via the server SDK (createTokenFromCode).
+    docs: https://developer.paypal.com/braintree/docs/guides/extend/oauth/reference
+    notes: >-
+      Scopes are requested as a comma-delimited string on the connect URL.
+      Coarse connect-flow scopes (below) plus a fine-grained per-resource
+      permission model are both documented.
+scopes:
+  # Cross-account / platform scopes
+  - {scope: shared_vault_transactions, description: 'Create transactions for a connected merchant using payment methods stored in the platform''s own Shared Vault.', schemes: [Braintree OAuth]}
+  - {scope: grant_payment_method, description: 'Grant a customer''s vaulted payment method from one account to another via the Grant API.', schemes: [Braintree OAuth]}
+  - {scope: read_facilitated_transactions, description: 'Read transactions facilitated on behalf of connected merchants.', schemes: [Braintree OAuth]}
+  - {scope: view_facilitated_transaction_metrics, description: 'View aggregated metrics for facilitated transactions.', schemes: [Braintree OAuth]}
+  # Fine-grained resource permission scopes
+  - {scope: 'transaction:sale', description: 'Create sale transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:refund', description: 'Refund transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:void', description: 'Void transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:find', description: 'Retrieve a transaction.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:search', description: 'Search transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:clone', description: 'Clone a transaction.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:manage_escrow', description: 'Manage escrow (hold/release) on marketplace transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'transaction:manage_settlement', description: 'Manage settlement of transactions.', schemes: [Braintree OAuth]}
+  - {scope: 'customer:create', description: 'Create customers.', schemes: [Braintree OAuth]}
+  - {scope: 'customer:update', description: 'Update customers.', schemes: [Braintree OAuth]}
+  - {scope: 'customer:delete', description: 'Delete customers.', schemes: [Braintree OAuth]}
+  - {scope: 'customer:find', description: 'Retrieve a customer.', schemes: [Braintree OAuth]}
+  - {scope: 'customer:search', description: 'Search customers.', schemes: [Braintree OAuth]}
+  - {scope: 'payment_method:create', description: 'Vault a payment method.', schemes: [Braintree OAuth]}
+  - {scope: 'payment_method:update', description: 'Update a vaulted payment method.', schemes: [Braintree OAuth]}
+  - {scope: 'payment_method:delete', description: 'Delete a vaulted payment method.', schemes: [Braintree OAuth]}
+  - {scope: 'payment_method:find', description: 'Retrieve a vaulted payment method.', schemes: [Braintree OAuth]}
+  - {scope: 'subscription:create', description: 'Create subscriptions.', schemes: [Braintree OAuth]}
+  - {scope: 'subscription:update', description: 'Update subscriptions.', schemes: [Braintree OAuth]}
+  - {scope: 'subscription:cancel', description: 'Cancel subscriptions.', schemes: [Braintree OAuth]}
+  - {scope: 'subscription:find', description: 'Retrieve a subscription.', schemes: [Braintree OAuth]}
+  - {scope: 'subscription:search', description: 'Search subscriptions.', schemes: [Braintree OAuth]}
+  - {scope: 'address:create', description: 'Create customer addresses.', schemes: [Braintree OAuth]}
+  - {scope: 'address:update', description: 'Update customer addresses.', schemes: [Braintree OAuth]}
+  - {scope: 'address:delete', description: 'Delete customer addresses.', schemes: [Braintree OAuth]}
+  - {scope: 'address:find', description: 'Retrieve a customer address.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:find', description: 'Retrieve a dispute.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:search', description: 'Search disputes.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:accept', description: 'Accept a dispute.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:finalize', description: 'Finalize a dispute.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:add_evidence', description: 'Add evidence to a dispute.', schemes: [Braintree OAuth]}
+  - {scope: 'dispute:remove_evidence', description: 'Remove evidence from a dispute.', schemes: [Braintree OAuth]}
+  - {scope: 'client_token:generate', description: 'Generate client tokens for client SDK initialization.', schemes: [Braintree OAuth]}
+  - {scope: 'credit_card_verification:search', description: 'Search credit card verifications.', schemes: [Braintree OAuth]}
+  - {scope: 'credit_card:expiring_between', description: 'Find credit cards expiring within a date range.', schemes: [Braintree OAuth]}
+  - {scope: 'apple_pay:manage_web_domains', description: 'Manage registered Apple Pay web domains.', schemes: [Braintree OAuth]}

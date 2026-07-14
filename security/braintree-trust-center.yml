@@ -1,0 +1,30 @@
+generated: '2026-07-14'
+method: searched
+probe: false
+source: https://developer.paypal.com/braintree/articles/risk-and-security/compliance/pci-compliance
+url: https://developer.paypal.com/braintree/articles/risk-and-security/compliance/overview
+description: >-
+  Braintree's security & compliance posture, captured from the Braintree PCI
+  compliance documentation and the PayPal Trust Center. Braintree (a PayPal
+  service) is validated as a PCI DSS Level 1 Service Provider — the most
+  stringent level in the payments industry — and appears on Visa's Global
+  Registry of Service Providers and Mastercard's SDP list. Braintree never
+  stores raw magnetic-stripe, CVV, or PIN-block data; cardholder data in the
+  Vault is encrypted with multiple keys under split-knowledge / dual-control.
+  Merchants still complete an annual SAQ (typically SAQ A when using Hosted
+  Fields, Drop-in, mobile SDKs, or GraphQL).
+certifications:
+  - {name: PCI DSS, level: Service Provider Level 1, note: Most stringent level; validated annually.}
+  - {name: Visa Global Registry of Service Providers, note: Listed as a compliant service provider.}
+  - {name: Mastercard SDP, note: Listed on the Site Data Protection compliant-provider list.}
+  - {name: SOC 2 Type 2, scope: PayPal/Braintree services, note: PayPal produces annual SOC reports; bridge letters updated quarterly.}
+merchant_obligations:
+  saq: Merchants complete an annual PCI SAQ; SAQ A eligibility for Hosted Fields, Drop-in UI, mobile SDKs, and GraphQL.
+  data_handling: Braintree does not store raw magnetic-stripe, card-validation-code, or PIN-block data.
+trust_center: https://www.paypal-trustcenter.com/
+docs:
+  - https://developer.paypal.com/braintree/articles/risk-and-security/compliance/pci-compliance
+  - https://developer.paypal.com/braintree/articles/risk-and-security/compliance/overview
+evidence:
+  - {source: https://developer.paypal.com/braintree/articles/risk-and-security/compliance/pci-compliance, keywords: [pci dss level 1, service provider, visa global registry, mastercard sdp, saq a]}
+  - {source: https://www.paypal-trustcenter.com/, keywords: [soc 2, trust center, compliance]}
