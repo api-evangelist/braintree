@@ -166,6 +166,8 @@ apis:
     customers using vaulted payment methods. The API handles automatic charge retries, prorated billing for mid-cycle
     changes, add-ons and discounts, and subscription lifecycle events.
 common:
+- type: AgenticAccess
+  url: agentic-access/braintree-agentic-access.yml
 - type: Sandbox
   url: sandbox/braintree-sandbox.yml
 - type: Conventions
