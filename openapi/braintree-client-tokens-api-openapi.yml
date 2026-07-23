@@ -1,0 +1,97 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Client Tokens API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Client Tokens
+  description: Operations for generating client tokens used to initialize Braintree client SDKs on web and mobile.
+paths:
+  /client_token:
+    post:
+      operationId: generateClientToken
+      summary: Generate a client token
+      description: Generates a time-limited client token used to initialize the Braintree client-side SDK on web or mobile. The client token contains all authorization and configuration information the client SDK needs to communicate with Braintree. An optional customer_id may be provided to include that customer's vaulted payment methods in the Drop-in UI or to facilitate returning customer flows.
+      tags:
+      - Client Tokens
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: string
+                  description: Existing customer identifier to include the customer's vaulted payment methods in the generated token. Enables returning customer payment selection flows.
+                  maxLength: 36
+                merchant_account_id:
+                  type: string
+                  description: The merchant account to use when generating this token. If omitted, the default merchant account is used.
+                version:
+                  type: integer
+                  description: The version of the client token format. Defaults to 2.
+                  enum:
+                  - 1
+                  - 2
+                  default: 2
+      responses:
+        '201':
+          description: Client token generated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  client_token:
+                    type: string
+                    description: A Base64-encoded client token string used to initialize the Braintree client SDK.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

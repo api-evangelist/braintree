@@ -1,0 +1,211 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Disputes API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Disputes
+  description: Operations for retrieving and managing payment disputes and chargebacks.
+paths:
+  /disputes:
+    get:
+      operationId: listDisputes
+      summary: List disputes
+      description: Returns a list of disputes for the merchant account, optionally filtered by dispute status, received date range, amount range, or reason. Disputes represent chargebacks or retrievals initiated by cardholders or their issuing banks. Each dispute includes the associated transaction, amounts, deadlines, and current status.
+      tags:
+      - Disputes
+      parameters:
+      - name: status
+        in: query
+        required: false
+        description: Filter disputes by current status.
+        schema:
+          type: string
+          enum:
+          - open
+          - lost
+          - won
+          - accepted
+          - disputed
+          - expired
+      - name: received_date
+        in: query
+        required: false
+        description: Filter disputes received on or after this date in YYYY-MM-DD format.
+        schema:
+          type: string
+          format: date
+      - name: page
+        in: query
+        required: false
+        description: Page number for paginated results, starting at 1.
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      responses:
+        '200':
+          description: List of disputes retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  disputes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Dispute'
+                  total_items:
+                    type: integer
+                    description: Total number of disputes matching the query filters.
+                  total_pages:
+                    type: integer
+                    description: Total number of pages of dispute results.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /disputes/{disputeId}:
+    get:
+      operationId: getDispute
+      summary: Get a dispute
+      description: Retrieves the full details of a specific dispute by its unique identifier. Returns all dispute information including the associated transaction, evidence submitted, status history, amounts, deadlines, and any chargeback reason codes provided by the card network.
+      tags:
+      - Disputes
+      parameters:
+      - $ref: '#/components/parameters/DisputeId'
+      responses:
+        '200':
+          description: Dispute retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /disputes/{disputeId}/accept:
+    put:
+      operationId: acceptDispute
+      summary: Accept a dispute
+      description: Accepts a dispute without contesting it. Accepting a dispute is a final action that acknowledges the chargeback and surrenders the disputed funds to the cardholder. This action cannot be undone. Use this when you agree with the dispute or choose not to contest it.
+      tags:
+      - Disputes
+      parameters:
+      - $ref: '#/components/parameters/DisputeId'
+      responses:
+        '200':
+          description: Dispute accepted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dispute'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Dispute:
+      type: object
+      description: Represents a chargeback or retrieval dispute filed by a cardholder or issuing bank against a Braintree transaction.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the dispute.
+        amount:
+          type: string
+          description: The disputed amount as a decimal string.
+        currency_iso_code:
+          type: string
+          description: ISO 4217 currency code for the disputed amount.
+        status:
+          type: string
+          description: Current status of the dispute.
+          enum:
+          - open
+          - lost
+          - won
+          - accepted
+          - disputed
+          - expired
+        reason:
+          type: string
+          description: The reason code or category provided by the card network for the dispute.
+        received_date:
+          type: string
+          format: date
+          description: Date the dispute was received by Braintree.
+        reply_by_date:
+          type: string
+          format: date
+          description: Deadline date by which the merchant must respond to the dispute.
+        transaction_id:
+          type: string
+          description: The identifier of the original transaction that was disputed.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the dispute was created, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the dispute was last updated, in ISO 8601 format.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  parameters:
+    DisputeId:
+      name: disputeId
+      in: path
+      required: true
+      description: The unique identifier of the dispute.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

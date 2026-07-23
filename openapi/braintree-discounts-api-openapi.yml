@@ -1,0 +1,115 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Discounts API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Discounts
+  description: Operations for retrieving discount definitions that can be applied to subscriptions to reduce their price.
+paths:
+  /discounts:
+    get:
+      operationId: listDiscounts
+      summary: List discounts
+      description: Returns all discount definitions configured for the merchant account. Discounts represent price reductions that can be applied to subscriptions to decrease the amount charged each billing cycle. Discounts are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions.
+      tags:
+      - Discounts
+      responses:
+        '200':
+          description: List of discount definitions retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  discounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Modification'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+    Modification:
+      type: object
+      description: A reusable add-on or discount definition configured in the Braintree Control Panel and available to apply to subscriptions.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the add-on or discount.
+        name:
+          type: string
+          description: Human-readable name for this modification.
+        description:
+          type: string
+          description: Description of what this add-on or discount represents.
+        amount:
+          type: string
+          description: The price adjustment amount as a decimal string.
+          example: '1.00'
+        kind:
+          type: string
+          description: Whether this is an add_on or a discount.
+          enum:
+          - add_on
+          - discount
+        never_expires:
+          type: boolean
+          description: If true, this modification applies indefinitely with no limit on number of billing cycles.
+        number_of_billing_cycles:
+          type: integer
+          description: Number of billing cycles this modification applies.
+          minimum: 1
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when this modification was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when this modification was last updated.
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

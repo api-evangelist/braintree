@@ -1,0 +1,161 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Plans API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Plans
+  description: Operations for retrieving billing plan definitions configured in the Braintree Control Panel.
+paths:
+  /plans:
+    get:
+      operationId: listPlans
+      summary: List plans
+      description: Returns all recurring billing plans configured for the merchant account in the Braintree Control Panel. Plans define the billing cycle frequency, base price, currency, and optional trial period for subscriptions. Plans must be created through the Control Panel and cannot be created via the API.
+      tags:
+      - Plans
+      responses:
+        '200':
+          description: List of billing plans retrieved successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  plans:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Plan'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Plan:
+      type: object
+      description: Represents a billing plan template defined in the Braintree Control Panel. Plans specify the recurring price, currency, billing frequency, and optional trial period that subscriptions inherit.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the plan used when creating subscriptions.
+        name:
+          type: string
+          description: Human-readable name for the plan.
+        description:
+          type: string
+          description: Detailed description of the plan.
+        price:
+          type: string
+          description: Base price per billing cycle as a decimal string.
+          example: '9.99'
+        currency_iso_code:
+          type: string
+          description: ISO 4217 currency code for the plan price.
+          example: USD
+        billing_frequency:
+          type: integer
+          description: How often the plan bills, in units of billing_frequency_unit. For example, 1 with billing_frequency_unit "month" means monthly.
+          minimum: 1
+        number_of_billing_cycles:
+          type: integer
+          description: Default number of billing cycles. Null means the plan continues indefinitely.
+        trial_period:
+          type: boolean
+          description: Whether subscriptions to this plan include a trial period by default.
+        trial_duration:
+          type: integer
+          description: Default trial duration for subscriptions to this plan.
+        trial_duration_unit:
+          type: string
+          description: Unit for the default trial duration.
+          enum:
+          - day
+          - month
+        add_ons:
+          type: array
+          description: Add-ons automatically applied to subscriptions using this plan.
+          items:
+            $ref: '#/components/schemas/AppliedModification'
+        discounts:
+          type: array
+          description: Discounts automatically applied to subscriptions using this plan.
+          items:
+            $ref: '#/components/schemas/AppliedModification'
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the plan was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the plan was last updated.
+    AppliedModification:
+      type: object
+      description: An add-on or discount currently applied to a subscription, including the inherited or overridden values.
+      properties:
+        id:
+          type: string
+          description: Identifier of the base add-on or discount definition.
+        name:
+          type: string
+          description: Name of the modification.
+        description:
+          type: string
+          description: Description of the modification.
+        amount:
+          type: string
+          description: Amount applied per billing cycle as a decimal string.
+          example: '1.00'
+        never_expires:
+          type: boolean
+          description: If true, this modification applies indefinitely.
+        number_of_billing_cycles:
+          type: integer
+          description: Number of billing cycles this modification will apply.
+        current_billing_cycle:
+          type: integer
+          description: The billing cycle on which this modification began.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

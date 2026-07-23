@@ -1,0 +1,330 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Customers API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Customers
+  description: Operations for creating, retrieving, updating, and deleting customer records in the Braintree Vault.
+paths:
+  /customers:
+    post:
+      operationId: createCustomer
+      summary: Create a customer
+      description: Creates a new customer record in the Braintree Vault. A customer record can optionally include a payment method nonce to simultaneously vault a payment method for the customer. No fields are strictly required; a blank customer may be created and updated later. Customer records serve as containers for vaulted payment methods and associated transaction history.
+      tags:
+      - Customers
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '201':
+          description: Customer created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /customers/{customerId}:
+    get:
+      operationId: getCustomer
+      summary: Get a customer
+      description: Retrieves a customer record from the Braintree Vault by its unique identifier. Returns the customer's profile information and all associated vaulted payment methods, billing addresses, and transaction history summary.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: Customer retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateCustomer
+      summary: Update a customer
+      description: Updates an existing customer record in the Braintree Vault. Only fields provided in the request body are updated; omitted fields retain their current values. A new payment method nonce may be provided to add an additional payment method to the customer's vault.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/CustomerId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Customer updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteCustomer
+      summary: Delete a customer
+      description: Permanently deletes a customer record from the Braintree Vault along with all associated payment methods and addresses. This action is irreversible. Historical transaction records associated with the customer remain accessible but the customer profile is removed.
+      tags:
+      - Customers
+      parameters:
+      - $ref: '#/components/parameters/CustomerId'
+      responses:
+        '200':
+          description: Customer deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Address:
+      type: object
+      description: A billing or shipping address associated with a transaction or customer.
+      properties:
+        first_name:
+          type: string
+          description: First name of the address holder.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Last name of the address holder.
+          maxLength: 255
+        company:
+          type: string
+          description: Company or organization name at this address.
+          maxLength: 255
+        street_address:
+          type: string
+          description: Primary street address line.
+          maxLength: 255
+        extended_address:
+          type: string
+          description: Secondary address line such as apartment or suite number.
+          maxLength: 255
+        locality:
+          type: string
+          description: City or locality of the address.
+          maxLength: 255
+        region:
+          type: string
+          description: State, province, or region code of the address.
+          maxLength: 255
+        postal_code:
+          type: string
+          description: Postal or ZIP code of the address.
+          maxLength: 9
+        country_code_alpha2:
+          type: string
+          description: Two-letter ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+    Customer:
+      type: object
+      description: Represents a customer record stored in the Braintree Vault. Customers serve as containers for vaulted payment methods and provide a way to associate transaction history with individuals.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the customer assigned by Braintree.
+        first_name:
+          type: string
+          description: Customer's first name.
+        last_name:
+          type: string
+          description: Customer's last name.
+        email:
+          type: string
+          description: Customer's email address.
+        phone:
+          type: string
+          description: Customer's phone number.
+        company:
+          type: string
+          description: Customer's company or organization name.
+        website:
+          type: string
+          description: Customer's website URL.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was created, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was last updated, in ISO 8601 format.
+        payment_methods:
+          type: array
+          description: Collection of vaulted payment methods associated with this customer.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        addresses:
+          type: array
+          description: Collection of addresses associated with this customer.
+          items:
+            $ref: '#/components/schemas/Address'
+        custom_fields:
+          type: object
+          description: Custom key-value pairs associated with this customer.
+          additionalProperties:
+            type: string
+    CustomerRequest:
+      type: object
+      description: Request body for creating or updating a customer record in the Braintree Vault. All fields are optional.
+      properties:
+        id:
+          type: string
+          description: Custom customer identifier. If omitted, Braintree generates a unique ID. Alphanumeric, hyphens, and underscores only.
+          maxLength: 36
+          pattern: ^[a-zA-Z0-9_-]+$
+        first_name:
+          type: string
+          description: Customer's first name.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Customer's last name.
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          description: Customer's email address. ASCII characters only.
+          maxLength: 255
+        phone:
+          type: string
+          description: Customer's phone number.
+          maxLength: 255
+        company:
+          type: string
+          description: Customer's company or organization name.
+          maxLength: 255
+        website:
+          type: string
+          format: uri
+          description: Customer's website URL. Must be a well-formed URL.
+          maxLength: 255
+        fax:
+          type: string
+          description: Customer's fax number.
+          maxLength: 255
+        payment_method_nonce:
+          type: string
+          description: A one-time nonce representing a payment method to vault for the customer at creation time.
+        custom_fields:
+          type: object
+          description: Custom key-value pairs. Keys must be pre-configured in the Braintree Control Panel.
+          additionalProperties:
+            type: string
+    PaymentMethod:
+      type: object
+      description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
+      properties:
+        token:
+          type: string
+          description: Unique token identifying this vaulted payment method. Used as a reference for future transactions.
+        customer_id:
+          type: string
+          description: The identifier of the customer who owns this payment method.
+        default:
+          type: boolean
+          description: Indicates whether this is the customer's default payment method.
+        image_url:
+          type: string
+          format: uri
+          description: URL of an image representing the payment method type.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was vaulted, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CustomerId:
+      name: customerId
+      in: path
+      required: true
+      description: The unique identifier of the customer record.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

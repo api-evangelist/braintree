@@ -1,0 +1,648 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Transactions API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Transactions
+  description: Operations for creating, capturing, voiding, refunding, and retrieving payment transactions.
+paths:
+  /transactions:
+    post:
+      operationId: createTransaction
+      summary: Create a transaction
+      description: Creates a new payment transaction (sale) through the Braintree gateway. Requires either a payment_method_nonce for a one-time payment method, a payment_method_token referencing a vaulted payment method, or a customer_id to use the customer's default vaulted payment method. The amount must be a positive decimal value matching the currency format. Optionally submit the transaction immediately for settlement or hold it in an authorized state for later capture.
+      tags:
+      - Transactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionRequest'
+      responses:
+        '201':
+          description: Transaction created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /transactions/{transactionId}:
+    get:
+      operationId: getTransaction
+      summary: Get a transaction
+      description: Retrieves the full details of a specific transaction by its unique identifier. Returns the complete transaction object including current status, payment method details, billing and shipping addresses, descriptor information, and any associated disbursement data.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionId'
+      responses:
+        '200':
+          description: Transaction retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transactions/{transactionId}/submit_for_settlement:
+    put:
+      operationId: submitTransactionForSettlement
+      summary: Submit transaction for settlement
+      description: Submits a previously authorized transaction for settlement, initiating the transfer of funds to the merchant. An optional amount may be specified for partial settlement if less than the full authorized amount is desired. The transaction must be in the authorized state to be eligible for settlement submission.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                  description: Amount to submit for settlement. If omitted, the full authorized amount is submitted. Must be less than or equal to the authorized amount.
+                  example: '10.00'
+      responses:
+        '200':
+          description: Transaction submitted for settlement successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transactions/{transactionId}/void:
+    put:
+      operationId: voidTransaction
+      summary: Void a transaction
+      description: Voids an authorized or submitted-for-settlement transaction, preventing it from being settled. Voiding cancels the payment before funds are transferred. A transaction can only be voided if it is in the authorized, submitted_for_settlement, or settlement_pending status. Once voided, a transaction cannot be captured or refunded.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionId'
+      responses:
+        '200':
+          description: Transaction voided successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /transactions/{transactionId}/refund:
+    post:
+      operationId: refundTransaction
+      summary: Refund a transaction
+      description: Issues a full or partial refund on a settled transaction. Partial refunds may be issued multiple times until the cumulative refunded amount equals the settled amount. A new transaction of type "credit" is created representing the refund. The original transaction must be in a settled or settling status to be eligible for refund.
+      tags:
+      - Transactions
+      parameters:
+      - $ref: '#/components/parameters/TransactionId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                  description: Amount to refund. If omitted, the full settled amount is refunded. Must be a positive decimal value less than or equal to the settled amount.
+                  example: '5.00'
+                order_id:
+                  type: string
+                  description: An order identifier to associate with this refund transaction for merchant reference.
+                  maxLength: 255
+      responses:
+        '201':
+          description: Refund transaction created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    LineItem:
+      type: object
+      description: A line item representing a single product or service in a transaction, used for Level 3 processing data.
+      required:
+      - name
+      - quantity
+      - unit_amount
+      - total_amount
+      - kind
+      properties:
+        name:
+          type: string
+          description: Name or description of the product or service.
+          maxLength: 127
+        description:
+          type: string
+          description: Additional description of the line item.
+          maxLength: 127
+        kind:
+          type: string
+          description: Whether this item is a debit (charge) or credit (discount).
+          enum:
+          - debit
+          - credit
+        quantity:
+          type: string
+          description: Quantity of the line item as a decimal string.
+          example: '1.0000'
+        unit_amount:
+          type: string
+          description: Unit price of the line item as a decimal string.
+          example: '5.00'
+        total_amount:
+          type: string
+          description: Total amount for this line item (quantity * unit_amount) as a decimal.
+          example: '5.00'
+        unit_of_measure:
+          type: string
+          description: Unit of measure for the quantity, such as "each" or "kg".
+          maxLength: 12
+        commodity_code:
+          type: string
+          description: Commodity code for Level 3 processing.
+          maxLength: 12
+        tax_amount:
+          type: string
+          description: Tax amount for this line item as a decimal string.
+    Address:
+      type: object
+      description: A billing or shipping address associated with a transaction or customer.
+      properties:
+        first_name:
+          type: string
+          description: First name of the address holder.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Last name of the address holder.
+          maxLength: 255
+        company:
+          type: string
+          description: Company or organization name at this address.
+          maxLength: 255
+        street_address:
+          type: string
+          description: Primary street address line.
+          maxLength: 255
+        extended_address:
+          type: string
+          description: Secondary address line such as apartment or suite number.
+          maxLength: 255
+        locality:
+          type: string
+          description: City or locality of the address.
+          maxLength: 255
+        region:
+          type: string
+          description: State, province, or region code of the address.
+          maxLength: 255
+        postal_code:
+          type: string
+          description: Postal or ZIP code of the address.
+          maxLength: 9
+        country_code_alpha2:
+          type: string
+          description: Two-letter ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+    TransactionOptions:
+      type: object
+      description: Configuration options that modify transaction processing behavior.
+      properties:
+        submit_for_settlement:
+          type: boolean
+          description: If true, the transaction is automatically submitted for settlement after authorization. Defaults to false.
+          default: false
+        store_in_vault:
+          type: boolean
+          description: If true, the payment method is stored in the Braintree Vault after the transaction is created.
+          default: false
+        store_in_vault_on_success:
+          type: boolean
+          description: If true, the payment method is stored in the Vault only if the transaction is successfully authorized.
+          default: false
+        skip_avs:
+          type: boolean
+          description: Skip the address verification check for this transaction.
+          default: false
+        skip_cvv:
+          type: boolean
+          description: Skip the CVV verification check for this transaction.
+          default: false
+        hold_in_escrow:
+          type: boolean
+          description: If true, funds are held in escrow rather than disbursed immediately. Applicable to Braintree Marketplace transactions only.
+          default: false
+    CreditCardDetails:
+      type: object
+      description: Details of the credit or debit card used in a transaction, with sensitive fields masked.
+      properties:
+        bin:
+          type: string
+          description: First six digits of the card number identifying the issuing bank.
+          pattern: ^\d{6}$
+        last_4:
+          type: string
+          description: Last four digits of the card number.
+          pattern: ^\d{4}$
+        card_type:
+          type: string
+          description: The card network or type, such as Visa, MasterCard, American Express, or Discover.
+        expiration_month:
+          type: string
+          description: Two-digit expiration month of the card.
+          pattern: ^\d{2}$
+        expiration_year:
+          type: string
+          description: Four-digit expiration year of the card.
+          pattern: ^\d{4}$
+        cardholder_name:
+          type: string
+          description: Name of the cardholder as it appears on the card.
+        country_of_issuance:
+          type: string
+          description: Two-letter ISO 3166-1 country code of the card-issuing country.
+    Transaction:
+      type: object
+      description: Represents a payment transaction in the Braintree gateway. A transaction captures the full lifecycle from authorization through settlement, refund, or void.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the transaction assigned by Braintree.
+        status:
+          type: string
+          description: The current processing status of the transaction.
+          enum:
+          - authorization_expired
+          - authorized
+          - authorizing
+          - settlement_confirmed
+          - settlement_declined
+          - settlement_pending
+          - settled
+          - settling
+          - submitted_for_settlement
+          - voided
+          - processor_declined
+          - failed
+          - gateway_rejected
+        amount:
+          type: string
+          description: The transaction amount as a decimal string.
+          example: '10.00'
+        currency_iso_code:
+          type: string
+          description: ISO 4217 three-letter currency code for the transaction.
+          example: USD
+        type:
+          type: string
+          description: The type of transaction. "sale" for a charge, "credit" for a refund.
+          enum:
+          - sale
+          - credit
+        order_id:
+          type: string
+          description: Merchant-provided order identifier associated with this transaction.
+        merchant_account_id:
+          type: string
+          description: The merchant account used to process this transaction.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the transaction was created, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the transaction was last updated, in ISO 8601 format.
+        payment_method_nonce:
+          type: string
+          description: The payment method nonce used for the transaction, if applicable.
+        payment_method_token:
+          type: string
+          description: The token of the vaulted payment method used for the transaction, if applicable.
+        customer_id:
+          type: string
+          description: The identifier of the customer associated with this transaction, if applicable.
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        customer_details:
+          $ref: '#/components/schemas/Customer'
+        credit_card_details:
+          $ref: '#/components/schemas/CreditCardDetails'
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        refund_ids:
+          type: array
+          description: List of transaction identifiers for refund transactions associated with this transaction.
+          items:
+            type: string
+        processor_response_code:
+          type: string
+          description: The processor-specific response code returned when the transaction was processed.
+        processor_response_text:
+          type: string
+          description: Human-readable text description of the processor response code.
+        tax_amount:
+          type: string
+          description: The tax amount included in this transaction.
+        shipping_amount:
+          type: string
+          description: The shipping amount included in this transaction.
+    Descriptor:
+      type: object
+      description: Dynamic descriptor fields that appear on the customer's bank or credit card statement to identify the merchant and transaction.
+      properties:
+        name:
+          type: string
+          description: Merchant name as it appears on the customer's statement. Maximum 22 characters total; name and phone combined must be 22 characters or less with an asterisk separator.
+          maxLength: 22
+        phone:
+          type: string
+          description: Merchant phone number as it appears on the customer's statement. Must be 10–14 digits.
+          maxLength: 14
+        url:
+          type: string
+          description: Merchant URL as it appears on the customer's statement. Maximum 13 characters.
+          maxLength: 13
+    Customer:
+      type: object
+      description: Represents a customer record stored in the Braintree Vault. Customers serve as containers for vaulted payment methods and provide a way to associate transaction history with individuals.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the customer assigned by Braintree.
+        first_name:
+          type: string
+          description: Customer's first name.
+        last_name:
+          type: string
+          description: Customer's last name.
+        email:
+          type: string
+          description: Customer's email address.
+        phone:
+          type: string
+          description: Customer's phone number.
+        company:
+          type: string
+          description: Customer's company or organization name.
+        website:
+          type: string
+          description: Customer's website URL.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was created, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was last updated, in ISO 8601 format.
+        payment_methods:
+          type: array
+          description: Collection of vaulted payment methods associated with this customer.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        addresses:
+          type: array
+          description: Collection of addresses associated with this customer.
+          items:
+            $ref: '#/components/schemas/Address'
+        custom_fields:
+          type: object
+          description: Custom key-value pairs associated with this customer.
+          additionalProperties:
+            type: string
+    CustomerRequest:
+      type: object
+      description: Request body for creating or updating a customer record in the Braintree Vault. All fields are optional.
+      properties:
+        id:
+          type: string
+          description: Custom customer identifier. If omitted, Braintree generates a unique ID. Alphanumeric, hyphens, and underscores only.
+          maxLength: 36
+          pattern: ^[a-zA-Z0-9_-]+$
+        first_name:
+          type: string
+          description: Customer's first name.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Customer's last name.
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          description: Customer's email address. ASCII characters only.
+          maxLength: 255
+        phone:
+          type: string
+          description: Customer's phone number.
+          maxLength: 255
+        company:
+          type: string
+          description: Customer's company or organization name.
+          maxLength: 255
+        website:
+          type: string
+          format: uri
+          description: Customer's website URL. Must be a well-formed URL.
+          maxLength: 255
+        fax:
+          type: string
+          description: Customer's fax number.
+          maxLength: 255
+        payment_method_nonce:
+          type: string
+          description: A one-time nonce representing a payment method to vault for the customer at creation time.
+        custom_fields:
+          type: object
+          description: Custom key-value pairs. Keys must be pre-configured in the Braintree Control Panel.
+          additionalProperties:
+            type: string
+    PaymentMethod:
+      type: object
+      description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
+      properties:
+        token:
+          type: string
+          description: Unique token identifying this vaulted payment method. Used as a reference for future transactions.
+        customer_id:
+          type: string
+          description: The identifier of the customer who owns this payment method.
+        default:
+          type: boolean
+          description: Indicates whether this is the customer's default payment method.
+        image_url:
+          type: string
+          format: uri
+          description: URL of an image representing the payment method type.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was vaulted, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    TransactionRequest:
+      type: object
+      description: Request body for creating a new payment transaction. Either payment_method_nonce, payment_method_token, or customer_id is required.
+      properties:
+        amount:
+          type: string
+          description: The billing amount for the transaction as a decimal string. Must be greater than 0 and match the currency decimal format.
+          example: '10.00'
+        payment_method_nonce:
+          type: string
+          description: A one-time-use reference to payment information collected by the Braintree client SDK. Consumed upon transaction creation.
+        payment_method_token:
+          type: string
+          description: The token of a vaulted payment method to charge for this transaction.
+        customer_id:
+          type: string
+          description: The identifier of a customer whose default vaulted payment method will be used for this transaction.
+          maxLength: 36
+        order_id:
+          type: string
+          description: A merchant-defined order identifier associated with this transaction for reconciliation.
+          maxLength: 255
+        merchant_account_id:
+          type: string
+          description: The identifier of the merchant account to process this transaction. If omitted, the default merchant account is used.
+        device_data:
+          type: string
+          description: Customer device data string collected by the Braintree data collector for fraud prevention analysis.
+        descriptor:
+          $ref: '#/components/schemas/Descriptor'
+        billing:
+          $ref: '#/components/schemas/Address'
+        shipping:
+          $ref: '#/components/schemas/Address'
+        options:
+          $ref: '#/components/schemas/TransactionOptions'
+        tax_amount:
+          type: string
+          description: The tax amount included in the transaction total for Level 2 and Level 3 processing.
+          example: '1.00'
+        shipping_amount:
+          type: string
+          description: The shipping amount included in the transaction total for Level 3 processing.
+          example: '2.00'
+        customer:
+          $ref: '#/components/schemas/CustomerRequest'
+        line_items:
+          type: array
+          description: Line items for Level 3 processing. Up to 249 line items may be included.
+          maxItems: 249
+          items:
+            $ref: '#/components/schemas/LineItem'
+        transaction_source:
+          type: string
+          description: Indicates the origin of this transaction for network reporting.
+          enum:
+          - recurring
+          - recurring_first
+          - unscheduled
+          - moto
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    TransactionId:
+      name: transactionId
+      in: path
+      required: true
+      description: The unique identifier of the transaction.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview

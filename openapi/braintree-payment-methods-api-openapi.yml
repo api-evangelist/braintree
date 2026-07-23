@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: Braintree Payments Add-Ons Payment Methods API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  version: '1.0'
+  contact:
+    name: Braintree Developer Support
+    url: https://developer.paypal.com/braintree/docs/
+  termsOfService: https://www.braintreepayments.com/legal
+servers:
+- url: https://api.braintreegateway.com/merchants/{merchantId}
+  description: Production Server
+  variables:
+    merchantId:
+      description: The unique identifier for the merchant account.
+      default: your_merchant_id
+- url: https://api.sandbox.braintreegateway.com/merchants/{merchantId}
+  description: Sandbox Server
+  variables:
+    merchantId:
+      description: The unique identifier for the sandbox merchant account.
+      default: your_merchant_id
+security:
+- basicAuth: []
+tags:
+- name: Payment Methods
+  description: Operations for creating, retrieving, updating, and deleting vaulted payment methods associated with customers.
+paths:
+  /payment_methods:
+    post:
+      operationId: createPaymentMethod
+      summary: Create a payment method
+      description: Creates a new vaulted payment method for an existing customer using a payment method nonce obtained from the Braintree client SDK. The nonce is consumed and the underlying payment details are stored securely in the Braintree Vault. Returns a payment method object with a token that can be used for future transactions without requiring the customer to re-enter payment details.
+      tags:
+      - Payment Methods
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodRequest'
+      responses:
+        '201':
+          description: Payment method created and vaulted successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /payment_methods/any/{paymentMethodToken}:
+    get:
+      operationId: getPaymentMethod
+      summary: Get a payment method
+      description: Retrieves a vaulted payment method by its unique token. Returns the payment method details including type, masked card number or account details, expiration information, and the customer it is associated with. The token uniquely identifies the payment method across all types.
+      tags:
+      - Payment Methods
+      parameters:
+      - $ref: '#/components/parameters/PaymentMethodToken'
+      responses:
+        '200':
+          description: Payment method retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updatePaymentMethod
+      summary: Update a payment method
+      description: Updates an existing vaulted payment method. Supports updating billing address details, cardholder name, and other mutable fields. A new payment method nonce may be provided to replace the underlying payment details while preserving the existing token value.
+      tags:
+      - Payment Methods
+      parameters:
+      - $ref: '#/components/parameters/PaymentMethodToken'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentMethodUpdateRequest'
+      responses:
+        '200':
+          description: Payment method updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethod'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePaymentMethod
+      summary: Delete a payment method
+      description: Permanently removes a vaulted payment method from the Braintree Vault. The associated customer record is retained but the payment method token is invalidated. Active subscriptions using this payment method token will fail on the next billing cycle unless updated to use a different payment method.
+      tags:
+      - Payment Methods
+      parameters:
+      - $ref: '#/components/parameters/PaymentMethodToken'
+      responses:
+        '200':
+          description: Payment method deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Address:
+      type: object
+      description: A billing or shipping address associated with a transaction or customer.
+      properties:
+        first_name:
+          type: string
+          description: First name of the address holder.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Last name of the address holder.
+          maxLength: 255
+        company:
+          type: string
+          description: Company or organization name at this address.
+          maxLength: 255
+        street_address:
+          type: string
+          description: Primary street address line.
+          maxLength: 255
+        extended_address:
+          type: string
+          description: Secondary address line such as apartment or suite number.
+          maxLength: 255
+        locality:
+          type: string
+          description: City or locality of the address.
+          maxLength: 255
+        region:
+          type: string
+          description: State, province, or region code of the address.
+          maxLength: 255
+        postal_code:
+          type: string
+          description: Postal or ZIP code of the address.
+          maxLength: 9
+        country_code_alpha2:
+          type: string
+          description: Two-letter ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
+    PaymentMethodUpdateRequest:
+      type: object
+      description: Request body for updating an existing vaulted payment method.
+      properties:
+        payment_method_nonce:
+          type: string
+          description: A new one-time nonce to replace the underlying payment details while preserving the existing token.
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        options:
+          type: object
+          description: Options for the payment method update.
+          properties:
+            make_default:
+              type: boolean
+              description: If true, this payment method becomes the customer's default.
+            update_existing_token:
+              type: string
+              description: Token of an existing payment method to update rather than creating a new one.
+    PaymentMethodRequest:
+      type: object
+      required:
+      - customer_id
+      - payment_method_nonce
+      description: Request body for vaulting a new payment method for an existing customer.
+      properties:
+        customer_id:
+          type: string
+          description: The identifier of the customer to associate this payment method with.
+          maxLength: 36
+        payment_method_nonce:
+          type: string
+          description: A one-time-use reference to payment information provided by the Braintree client SDK. Consumed upon vaulting.
+        token:
+          type: string
+          description: Custom token to assign to this payment method. If omitted, Braintree generates a unique token.
+          maxLength: 36
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        options:
+          type: object
+          description: Options that modify the payment method vaulting behavior.
+          properties:
+            make_default:
+              type: boolean
+              description: If true, this payment method becomes the customer's default payment method.
+              default: false
+            fail_on_duplicate_payment_method:
+              type: boolean
+              description: If true, the request fails if a duplicate payment method already exists in the customer's vault.
+              default: false
+            verify_card:
+              type: boolean
+              description: If true, runs a card verification before vaulting the payment method.
+              default: false
+    PaymentMethod:
+      type: object
+      description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
+      properties:
+        token:
+          type: string
+          description: Unique token identifying this vaulted payment method. Used as a reference for future transactions.
+        customer_id:
+          type: string
+          description: The identifier of the customer who owns this payment method.
+        default:
+          type: boolean
+          description: Indicates whether this is the customer's default payment method.
+        image_url:
+          type: string
+          format: uri
+          description: URL of an image representing the payment method type.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was vaulted, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PaymentMethodToken:
+      name: paymentMethodToken
+      in: path
+      required: true
+      description: The unique token identifying the vaulted payment method.
+      schema:
+        type: string
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
+externalDocs:
+  description: Braintree Payments API Reference
+  url: https://developer.paypal.com/braintree/docs/guides/overview
