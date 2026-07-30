@@ -1,27 +1,20 @@
 aid: braintree
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/braintree.png
 url: https://raw.githubusercontent.com/api-evangelist/braintree/refs/heads/main/apis.yml
 apis:
-- aid: braintree:payments-api
-  name: Braintree Payments API
-  tags:
-  - Credit Cards
-  - Payments
-  - PayPal
-  - Transactions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.braintreegateway.com
-  humanURL: https://developer.paypal.com/braintree/docs/
-  properties:
-  - url: https://developer.paypal.com/braintree/docs/guides/overview
-    type: Documentation
-  - url: openapi/braintree-payments-openapi.yml
-    type: OpenAPI
-  description: >-
-    The Braintree Payments API is the core server-side interface for accepting and processing payments through
-    Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures,
-    and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards,
-    PayPal, Apple Pay, Google Pay, and Venmo. Server SDKs are available for Ruby, Python, PHP, Java, Node.js, and .NET
-    to simplify integration with the REST-based API.
 - aid: braintree:graphql-api
   name: Braintree GraphQL API
   tags:
@@ -38,11 +31,11 @@ apis:
   - url: graphql/braintree-graphql.md
     type: GraphQL
   description: >-
-    The Braintree GraphQL API provides a modern, flexible interface for interacting with the Braintree payment
-    gateway. It exposes a single HTTP endpoint that handles all queries and mutations, allowing developers to request
-    only the data they need. The API supports tokenizing payment methods, creating transactions, managing customer
-    vaults, and handling disputes. A sandbox environment is available at payments.sandbox.braintree-api.com/graphql
-    for testing integrations before going live.
+    The Braintree GraphQL API provides a modern, flexible interface for interacting with the Braintree
+    payment gateway. It exposes a single HTTP endpoint that handles all queries and mutations, allowing
+    developers to request only the data they need. The API supports tokenizing payment methods, creating
+    transactions, managing customer vaults, and handling disputes. A sandbox environment is available
+    at payments.sandbox.braintree-api.com/graphql for testing integrations before going live.
 - aid: braintree:javascript-client-sdk
   name: Braintree JavaScript Client SDK
   tags:
@@ -58,10 +51,11 @@ apis:
   - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/
     type: Documentation
   description: >-
-    The Braintree JavaScript Client SDK enables secure collection of payment information directly in the browser
-    without sensitive card data touching your servers. It is organized into standalone modules for different payment
-    methods including hosted fields, PayPal, Apple Pay, Google Pay, and three-D Secure. The SDK provides both a
-    Drop-In UI component for rapid integration and lower-level APIs for fully customized payment forms.
+    The Braintree JavaScript Client SDK enables secure collection of payment information directly in the
+    browser without sensitive card data touching your servers. It is organized into standalone modules
+    for different payment methods including hosted fields, PayPal, Apple Pay, Google Pay, and three-D
+    Secure. The SDK provides both a Drop-In UI component for rapid integration and lower-level APIs for
+    fully customized payment forms.
 - aid: braintree:ios-sdk
   name: Braintree iOS SDK
   tags:
@@ -77,11 +71,11 @@ apis:
   - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6
     type: Documentation
   description: >-
-    The Braintree iOS SDK is a native library for accepting card and alternative payments within iOS applications. It
-    supports Swift and Objective-C and provides modules for credit and debit card processing, PayPal, Venmo, Apple
-    Pay, and three-D Secure authentication. The SDK tokenizes payment information collected from users and returns a
-    payment method nonce that your server uses to complete the transaction. It is distributed via CocoaPods, Carthage,
-    and Swift Package Manager.
+    The Braintree iOS SDK is a native library for accepting card and alternative payments within iOS applications.
+    It supports Swift and Objective-C and provides modules for credit and debit card processing, PayPal,
+    Venmo, Apple Pay, and three-D Secure authentication. The SDK tokenizes payment information collected
+    from users and returns a payment method nonce that your server uses to complete the transaction. It
+    is distributed via CocoaPods, Carthage, and Swift Package Manager.
 - aid: braintree:android-sdk
   name: Braintree Android SDK
   tags:
@@ -97,11 +91,11 @@ apis:
   - url: https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4
     type: Documentation
   description: >-
-    The Braintree Android SDK provides a native library for integrating payment acceptance into Android applications.
-    It supports Java and Kotlin and includes modules for card payments, PayPal, Venmo, Google Pay, and three-D Secure
-    verification. Like the iOS counterpart, the Android SDK tokenizes payment data on the client side and returns a
-    payment method nonce for server-side transaction processing. The SDK is distributed through Maven Central and
-    supports Android API level 21 and above.
+    The Braintree Android SDK provides a native library for integrating payment acceptance into Android
+    applications. It supports Java and Kotlin and includes modules for card payments, PayPal, Venmo, Google
+    Pay, and three-D Secure verification. Like the iOS counterpart, the Android SDK tokenizes payment
+    data on the client side and returns a payment method nonce for server-side transaction processing.
+    The SDK is distributed through Maven Central and supports Android API level 21 and above.
 - aid: braintree:webhooks
   name: Braintree Webhooks
   tags:
@@ -119,52 +113,167 @@ apis:
   - url: asyncapi/braintree-webhooks-asyncapi.yml
     type: AsyncAPI
   description: >-
-    Braintree Webhooks deliver automated HTTP POST notifications to your server when specific events occur within the
-    payment gateway. Supported event types include subscription status changes, transaction settlements,
-    disbursements, dispute openings and resolutions, and sub-merchant account status updates for Braintree
-    Marketplace. Each webhook notification contains the event kind and the full Braintree object associated with the
-    triggering event.
-- aid: braintree:vault-api
-  name: Braintree Vault API
+    Braintree Webhooks deliver automated HTTP POST notifications to your server when specific events occur
+    within the payment gateway. Supported event types include subscription status changes, transaction
+    settlements, disbursements, dispute openings and resolutions, and sub-merchant account status updates
+    for Braintree Marketplace. Each webhook notification contains the event kind and the full Braintree
+    object associated with the triggering event.
+- aid: braintree:braintree-add-ons-api
+  name: braintree Add-Ons API
+  description: >-
+    Operations for retrieving add-on definitions that can be applied to subscriptions to increase their
+    price.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Add-Ons
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-add-ons-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-client-tokens-api
+  name: braintree Client Tokens API
+  description: >-
+    Operations for generating client tokens used to initialize Braintree client SDKs on web and mobile.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Client Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-client-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-customers-api
+  name: braintree Customers API
+  description: >-
+    Operations for creating, retrieving, updating, and deleting customer records in the Braintree Vault.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
   tags:
   - Customers
-  - Payment Methods
-  - PCI Compliance
-  - Storage
-  - Vault
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.braintreegateway.com
-  humanURL: https://developer.paypal.com/braintree/docs/guides/customers/overview
   properties:
-  - url: https://developer.paypal.com/braintree/docs/guides/customers/overview
-    type: Documentation
-  - url: openapi/braintree-payments-openapi.yml
-    type: OpenAPI
+  - type: OpenAPI
+    url: openapi/braintree-customers-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-discounts-api
+  name: braintree Discounts API
   description: >-
-    The Braintree Vault API provides secure, PCI-compliant long-term storage of customer payment method data. It
-    allows merchants to store credit card numbers, PayPal accounts, and other payment methods so that returning
-    customers do not need to re-enter their information. The Vault supports customer records that can hold multiple
-    payment methods, billing addresses, and associated transaction history.
-- aid: braintree:subscriptions-api
-  name: Braintree Subscriptions API
+    Operations for retrieving discount definitions that can be applied to subscriptions to reduce their
+    price.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
   tags:
-  - Payments
-  - Plans
-  - Recurring Billing
-  - Subscriptions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.braintreegateway.com
-  humanURL: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+  - Discounts
   properties:
-  - url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
-    type: Documentation
-  - url: openapi/braintree-subscriptions-openapi.yml
-    type: OpenAPI
+  - type: OpenAPI
+    url: openapi/braintree-discounts-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-disputes-api
+  name: braintree Disputes API
+  description: Operations for retrieving and managing payment disputes and chargebacks.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Disputes
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-disputes-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-payment-methods-api
+  name: braintree Payment Methods API
   description: >-
-    The Braintree Subscriptions API enables merchants to manage recurring billing plans and customer subscriptions.
-    Merchants define billing plans with configurable pricing, billing cycles, and trial periods, then subscribe
-    customers using vaulted payment methods. The API handles automatic charge retries, prorated billing for mid-cycle
-    changes, add-ons and discounts, and subscription lifecycle events.
+    Operations for creating, retrieving, updating, and deleting vaulted payment methods associated with
+    customers.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Payment Methods
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-payment-methods-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-plans-api
+  name: braintree Plans API
+  description: >-
+    Operations for retrieving billing plan definitions configured in the Braintree Control Panel.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Plans
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-plans-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-subscriptions-api
+  name: braintree Subscriptions API
+  description: >-
+    Operations for creating, retrieving, updating, canceling, and retrying customer subscriptions to recurring
+    billing plans.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-subscriptions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
+- aid: braintree:braintree-transactions-api
+  name: braintree Transactions API
+  description: >-
+    Operations for creating, capturing, voiding, refunding, and retrieving payment transactions.
+  humanURL: https://developer.paypal.com/braintree/docs/
+  baseURL: https://api.braintreegateway.com
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/braintree-transactions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/customers/overview
+  - type: Documentation
+    url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
 common:
 - type: AgenticAccess
   url: agentic-access/braintree-agentic-access.yml
