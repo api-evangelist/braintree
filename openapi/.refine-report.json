@@ -1,0 +1,30 @@
+{
+  "provider": "braintree",
+  "sources": [
+    "braintree-add-ons-api-openapi.yml",
+    "braintree-client-tokens-api-openapi.yml",
+    "braintree-customers-api-openapi.yml",
+    "braintree-discounts-api-openapi.yml",
+    "braintree-disputes-api-openapi.yml",
+    "braintree-payment-methods-api-openapi.yml",
+    "braintree-plans-api-openapi.yml",
+    "braintree-subscriptions-api-openapi.yml",
+    "braintree-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "braintree-add-ons-api-openapi.yml",
+    "braintree-client-tokens-api-openapi.yml",
+    "braintree-customers-api-openapi.yml",
+    "braintree-discounts-api-openapi.yml",
+    "braintree-disputes-api-openapi.yml",
+    "braintree-payment-methods-api-openapi.yml",
+    "braintree-plans-api-openapi.yml",
+    "braintree-subscriptions-api-openapi.yml",
+    "braintree-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
