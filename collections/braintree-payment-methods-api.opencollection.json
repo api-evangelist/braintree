@@ -1,0 +1,101 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Payment Methods API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Methods",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new vaulted payment method for an existing customer using a payment method nonce obtained from the Braintree client SDK. The nonce is consumed and the underlying payment details are stored securely in the Braintree Vault. Returns a payment method object with a token that can be used for future transactions without requiring the customer to re-enter payment details."
+        },
+        {
+          "info": {
+            "name": "Get a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ]
+          },
+          "docs": "Retrieves a vaulted payment method by its unique token. Returns the payment method details including type, masked card number or account details, expiration information, and the customer it is associated with. The token uniquely identifies the payment method across all types."
+        },
+        {
+          "info": {
+            "name": "Update a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing vaulted payment method. Supports updating billing address details, cardholder name, and other mutable fields. A new payment method nonce may be provided to replace the underlying payment details while preserving the existing token value."
+        },
+        {
+          "info": {
+            "name": "Delete a payment method",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/payment_methods/any/:paymentMethodToken",
+            "params": [
+              {
+                "name": "paymentMethodToken",
+                "value": "",
+                "type": "path",
+                "description": "The unique token identifying the vaulted payment method."
+              }
+            ]
+          },
+          "docs": "Permanently removes a vaulted payment method from the Braintree Vault. The associated customer record is retained but the payment method token is invalidated. Active subscriptions using this payment method token will fail on the next billing cycle unless updated to use a different payment method."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

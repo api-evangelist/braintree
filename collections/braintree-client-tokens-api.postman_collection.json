@@ -1,0 +1,225 @@
+{
+  "item": [
+    {
+      "id": "6e7788b2-1b66-47ec-bca0-171309bac7e2",
+      "name": "Client Tokens",
+      "description": {
+        "content": "Operations for generating client tokens used to initialize Braintree client SDKs on web and mobile.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ca8e357-9c5b-484d-8e22-96bb6e980c01",
+          "name": "Generate a client token",
+          "request": {
+            "name": "Generate a client token",
+            "description": {
+              "content": "Generates a time-limited client token used to initialize the Braintree client-side SDK on web or mobile. The client token contains all authorization and configuration information the client SDK needs to communicate with Braintree. An optional customer_id may be provided to include that customer's vaulted payment methods in the Drop-in UI or to facilitate returning customer flows.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "client_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"version\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e8f7f85d-c61e-46f7-8535-9f146ff731df",
+              "name": "Client token generated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"client_token\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ad73ed3-2eea-411c-a98e-da86340bf9ea",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "client_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"version\": 2\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 9138.705926261939\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "39226d59-f399-480d-9216-4e2d0bd696c8",
+    "name": "Braintree Payments Add-Ons Client Tokens API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

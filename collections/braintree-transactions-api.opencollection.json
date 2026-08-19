@@ -1,0 +1,124 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Transactions API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new payment transaction (sale) through the Braintree gateway. Requires either a payment_method_nonce for a one-time payment method, a payment_method_token referencing a vaulted payment method, or a customer_id to use the customer's default vaulted payment method. The amount must be a positive decimal value matching the currency format. Optionally submit the transaction immediately for settlement or hold it in an authorized state for later capture."
+        },
+        {
+          "info": {
+            "name": "Get a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific transaction by its unique identifier. Returns the complete transaction object including current status, payment method details, billing and shipping addresses, descriptor information, and any associated disbursement data."
+        },
+        {
+          "info": {
+            "name": "Submit transaction for settlement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/submit_for_settlement",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Submits a previously authorized transaction for settlement, initiating the transfer of funds to the merchant. An optional amount may be specified for partial settlement if less than the full authorized amount is desired. The transaction must be in the authorized state to be eligible for settlement submission."
+        },
+        {
+          "info": {
+            "name": "Void a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/void",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ]
+          },
+          "docs": "Voids an authorized or submitted-for-settlement transaction, preventing it from being settled. Voiding cancels the payment before funds are transferred. A transaction can only be voided if it is in the authorized, submitted_for_settlement, or settlement_pending status. Once voided, a transaction cannot be captured or refunded."
+        },
+        {
+          "info": {
+            "name": "Refund a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/transactions/:transactionId/refund",
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Issues a full or partial refund on a settled transaction. Partial refunds may be issued multiple times until the cumulative refunded amount equals the settled amount. A new transaction of type \"credit\" is created representing the refund. The original transaction must be in a settled or settling status to be eligible for refund."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

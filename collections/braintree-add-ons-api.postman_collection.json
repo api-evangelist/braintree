@@ -1,0 +1,196 @@
+{
+  "item": [
+    {
+      "id": "afcd7c51-5d95-4781-9bd3-51c226d6c6b7",
+      "name": "Add-Ons",
+      "description": {
+        "content": "Operations for retrieving add-on definitions that can be applied to subscriptions to increase their price.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0640da4c-93cf-4aa0-985d-7806ef77ba49",
+          "name": "List add-ons",
+          "request": {
+            "name": "List add-ons",
+            "description": {
+              "content": "Returns all add-on definitions configured for the merchant account. Add-ons represent incremental price increases that can be applied to subscriptions on top of the base plan price. Add-ons are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "add_ons"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d49ef312-c0e9-4570-8656-53d453df944b",
+              "name": "List of add-on definitions retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"add_ons\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"add_on\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 1196,\n      \"created_at\": \"2026-04-23T06:59:33.538Z\",\n      \"updated_at\": \"1984-04-01T00:55:49.333Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"amount\": \"1.00\",\n      \"kind\": \"discount\",\n      \"never_expires\": false,\n      \"number_of_billing_cycles\": 2011,\n      \"created_at\": \"2008-04-28T04:48:40.985Z\",\n      \"updated_at\": \"2003-03-14T17:41:51.232Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c67fdf06-301d-4d49-bd99-0fcdf7d20cc6",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "add_ons"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "405df258-bd1a-47bb-a5c5-116acb672011",
+    "name": "Braintree Payments Add-Ons API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

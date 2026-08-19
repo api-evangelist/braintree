@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Discounts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Discounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List discounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/discounts"
+          },
+          "docs": "Returns all discount definitions configured for the merchant account. Discounts represent price reductions that can be applied to subscriptions to decrease the amount charged each billing cycle. Discounts are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

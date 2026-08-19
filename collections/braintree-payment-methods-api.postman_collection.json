@@ -1,0 +1,1125 @@
+{
+  "item": [
+    {
+      "id": "fb20a4c1-f110-4e22-8837-cd32f0d8b407",
+      "name": "Payment Methods",
+      "description": {
+        "content": "Operations for creating, retrieving, updating, and deleting vaulted payment methods associated with customers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "89160f06-fa18-44cc-bd14-b948286985f0",
+          "name": "Create a payment method",
+          "request": {
+            "name": "Create a payment method",
+            "description": {
+              "content": "Creates a new vaulted payment method for an existing customer using a payment method nonce obtained from the Braintree client SDK. The nonce is consumed and the underlying payment details are stored securely in the Braintree Vault. Returns a payment method object with a token that can be used for future transactions without requiring the customer to re-enter payment details.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer_id\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"token\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street_address\": \"<string>\",\n    \"extended_address\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"region\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"country_code_alpha2\": \"<string>\"\n  },\n  \"options\": {\n    \"make_default\": false,\n    \"fail_on_duplicate_payment_method\": false,\n    \"verify_card\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "49626146-bf92-4e02-b747-365908e4f2db",
+              "name": "Payment method created and vaulted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"token\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"TB\"\n  },\n  \"options\": {\n    \"make_default\": false,\n    \"fail_on_duplicate_payment_method\": false,\n    \"verify_card\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"customer_id\": \"string\",\n  \"default\": false,\n  \"image_url\": \"http://kqGwUlg.mbarFKL0onQlvlnAxZZ0QuCSNYM6axASNz9k6lftRz8oZndvY3inx+yYCUkxMh\",\n  \"created_at\": \"2001-09-29T14:29:30.441Z\",\n  \"updated_at\": \"2005-04-24T22:47:41.940Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ebbeb842-e088-4099-8e59-5a594d49bc00",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"token\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"TB\"\n  },\n  \"options\": {\n    \"make_default\": false,\n    \"fail_on_duplicate_payment_method\": false,\n    \"verify_card\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c03c1a98-d3dc-4c92-b94f-afb3b3a1cbe2",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"token\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"TB\"\n  },\n  \"options\": {\n    \"make_default\": false,\n    \"fail_on_duplicate_payment_method\": false,\n    \"verify_card\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f484ba53-c2e3-4440-9d6d-35b18862be52",
+              "name": "Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"customer_id\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"token\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"TB\"\n  },\n  \"options\": {\n    \"make_default\": false,\n    \"fail_on_duplicate_payment_method\": false,\n    \"verify_card\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bc9c921-5c6e-4228-a72e-2177c2a493ac",
+          "name": "Get a payment method",
+          "request": {
+            "name": "Get a payment method",
+            "description": {
+              "content": "Retrieves a vaulted payment method by its unique token. Returns the payment method details including type, masked card number or account details, expiration information, and the customer it is associated with. The token uniquely identifies the payment method across all types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods",
+                "any",
+                ":paymentMethodToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentMethodToken",
+                  "description": "(Required) The unique token identifying the vaulted payment method."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "89161e6a-63af-4246-aa9f-2ba400fc34e6",
+              "name": "Payment method retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"customer_id\": \"string\",\n  \"default\": false,\n  \"image_url\": \"http://kqGwUlg.mbarFKL0onQlvlnAxZZ0QuCSNYM6axASNz9k6lftRz8oZndvY3inx+yYCUkxMh\",\n  \"created_at\": \"2001-09-29T14:29:30.441Z\",\n  \"updated_at\": \"2005-04-24T22:47:41.940Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d23ec713-ba2b-4391-9d12-c23d8d47d03b",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66437820-d4e7-4451-9809-7612dfd682d3",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "57550586-99c5-4d3b-b1f8-e71e613ed723",
+          "name": "Update a payment method",
+          "request": {
+            "name": "Update a payment method",
+            "description": {
+              "content": "Updates an existing vaulted payment method. Supports updating billing address details, cardholder name, and other mutable fields. A new payment method nonce may be provided to replace the underlying payment details while preserving the existing token value.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods",
+                "any",
+                ":paymentMethodToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentMethodToken",
+                  "description": "(Required) The unique token identifying the vaulted payment method."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_method_nonce\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street_address\": \"<string>\",\n    \"extended_address\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"region\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"country_code_alpha2\": \"<string>\"\n  },\n  \"options\": {\n    \"make_default\": \"<boolean>\",\n    \"update_existing_token\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ec3b6d98-cbf9-4318-8150-30d7e4f6ba34",
+              "name": "Payment method updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_nonce\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"UK\"\n  },\n  \"options\": {\n    \"make_default\": \"<boolean>\",\n    \"update_existing_token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"token\": \"string\",\n  \"customer_id\": \"string\",\n  \"default\": false,\n  \"image_url\": \"http://kqGwUlg.mbarFKL0onQlvlnAxZZ0QuCSNYM6axASNz9k6lftRz8oZndvY3inx+yYCUkxMh\",\n  \"created_at\": \"2001-09-29T14:29:30.441Z\",\n  \"updated_at\": \"2005-04-24T22:47:41.940Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7450104a-b276-45f3-8141-5238551ceecb",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_nonce\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"UK\"\n  },\n  \"options\": {\n    \"make_default\": \"<boolean>\",\n    \"update_existing_token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1d89ff9-1b96-4583-9d8d-e9b568471458",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_nonce\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"UK\"\n  },\n  \"options\": {\n    \"make_default\": \"<boolean>\",\n    \"update_existing_token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e51bb5e1-8f95-4f37-8899-79b0909271ef",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_method_nonce\": \"<string>\",\n  \"billing_address\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"UK\"\n  },\n  \"options\": {\n    \"make_default\": \"<boolean>\",\n    \"update_existing_token\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ac5ae14-7cfe-477a-8160-7c53360783bc",
+          "name": "Delete a payment method",
+          "request": {
+            "name": "Delete a payment method",
+            "description": {
+              "content": "Permanently removes a vaulted payment method from the Braintree Vault. The associated customer record is retained but the payment method token is invalidated. Active subscriptions using this payment method token will fail on the next billing cycle unless updated to use a different payment method.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_methods",
+                "any",
+                ":paymentMethodToken"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "paymentMethodToken",
+                  "description": "(Required) The unique token identifying the vaulted payment method."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2006d9d2-adb8-4aad-923d-5db39259e17f",
+              "name": "Payment method deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "59a763fd-d8b7-4f51-979a-d4fedda7d0b0",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2d63a05-7b2c-46b6-8a54-a4c48170520a",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_methods",
+                    "any",
+                    ":paymentMethodToken"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "paymentMethodToken",
+                      "description": "(Required) The unique token identifying the vaulted payment method."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": true,\n    \"key_1\": 420.13957443077567,\n    \"key_2\": true,\n    \"key_3\": 6815\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d24ad2d0-ce47-4484-9f8b-6bf03b238e77",
+    "name": "Braintree Payments Add-Ons Payment Methods API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

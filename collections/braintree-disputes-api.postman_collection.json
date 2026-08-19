@@ -1,0 +1,693 @@
+{
+  "item": [
+    {
+      "id": "57426b52-8ad0-49b1-a7b4-def0f76ef928",
+      "name": "Disputes",
+      "description": {
+        "content": "Operations for retrieving and managing payment disputes and chargebacks.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7dcf2b64-60f7-402d-8b09-24b2020be359",
+          "name": "List disputes",
+          "request": {
+            "name": "List disputes",
+            "description": {
+              "content": "Returns a list of disputes for the merchant account, optionally filtered by dispute status, received date range, amount range, or reason. Disputes represent chargebacks or retrievals initiated by cardholders or their issuing banks. Each dispute includes the associated transaction, amounts, deadlines, and current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "disputes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter disputes by current status."
+                },
+                {
+                  "disabled": false,
+                  "key": "received_date",
+                  "value": "<date>",
+                  "description": "Filter disputes received on or after this date in YYYY-MM-DD format."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results, starting at 1."
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "77892941-d43e-4b06-83bb-f07941366060",
+              "name": "List of disputes retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "received_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"disputes\": [\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"currency_iso_code\": \"string\",\n      \"status\": \"lost\",\n      \"reason\": \"string\",\n      \"received_date\": \"1994-11-12\",\n      \"reply_by_date\": \"1947-10-15\",\n      \"transaction_id\": \"string\",\n      \"created_at\": \"1981-07-07T13:08:39.264Z\",\n      \"updated_at\": \"1975-05-20T03:17:45.649Z\"\n    },\n    {\n      \"id\": \"string\",\n      \"amount\": \"string\",\n      \"currency_iso_code\": \"string\",\n      \"status\": \"won\",\n      \"reason\": \"string\",\n      \"received_date\": \"1980-08-23\",\n      \"reply_by_date\": \"1950-05-25\",\n      \"transaction_id\": \"string\",\n      \"created_at\": \"1970-12-31T17:26:37.250Z\",\n      \"updated_at\": \"1950-03-28T16:14:45.409Z\"\n    }\n  ],\n  \"total_items\": 6440,\n  \"total_pages\": 3561\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0423640f-add3-47de-88ed-e4071b63f14e",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "received_date",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8624.431025822098,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d1ab547b-652c-45e7-8dae-a11f6eecd794",
+          "name": "Get a dispute",
+          "request": {
+            "name": "Get a dispute",
+            "description": {
+              "content": "Retrieves the full details of a specific dispute by its unique identifier. Returns all dispute information including the associated transaction, evidence submitted, status history, amounts, deadlines, and any chargeback reason codes provided by the card network.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "disputes",
+                ":disputeId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "disputeId",
+                  "description": "(Required) The unique identifier of the dispute."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6798dc9f-6c31-4680-864d-068b9f10ea05",
+              "name": "Dispute retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": \"string\",\n  \"currency_iso_code\": \"string\",\n  \"status\": \"accepted\",\n  \"reason\": \"string\",\n  \"received_date\": \"1986-04-08\",\n  \"reply_by_date\": \"2022-09-07\",\n  \"transaction_id\": \"string\",\n  \"created_at\": \"1987-12-15T15:40:28.050Z\",\n  \"updated_at\": \"1950-03-22T00:17:18.405Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d80c977-7b00-4c42-ab41-10fcc53a41ef",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8624.431025822098,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e69b4e7-087b-4756-8bf2-8d49f526e043",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8624.431025822098,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8f69338-988e-4824-8ea2-1a09885f7b4b",
+          "name": "Accept a dispute",
+          "request": {
+            "name": "Accept a dispute",
+            "description": {
+              "content": "Accepts a dispute without contesting it. Accepting a dispute is a final action that acknowledges the chargeback and surrenders the disputed funds to the cardholder. This action cannot be undone. Use this when you agree with the dispute or choose not to contest it.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "disputes",
+                ":disputeId",
+                "accept"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "disputeId",
+                  "description": "(Required) The unique identifier of the dispute."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b859629e-1782-4f99-b16b-c67f61e8ea31",
+              "name": "Dispute accepted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId",
+                    "accept"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"amount\": \"string\",\n  \"currency_iso_code\": \"string\",\n  \"status\": \"accepted\",\n  \"reason\": \"string\",\n  \"received_date\": \"1986-04-08\",\n  \"reply_by_date\": \"2022-09-07\",\n  \"transaction_id\": \"string\",\n  \"created_at\": \"1987-12-15T15:40:28.050Z\",\n  \"updated_at\": \"1950-03-22T00:17:18.405Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d57b0d2-0640-4da8-a7da-ece95f3a00ac",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId",
+                    "accept"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8624.431025822098,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "60f00362-8ce0-4a86-9e31-0f6a956913e5",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "disputes",
+                    ":disputeId",
+                    "accept"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "disputeId",
+                      "description": "(Required) The unique identifier of the dispute."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": \"string\",\n    \"key_1\": 8624.431025822098,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "16213fe2-c3cb-411c-ab34-5b0008518be8",
+    "name": "Braintree Payments Add-Ons Disputes API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

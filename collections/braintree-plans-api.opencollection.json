@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Plans API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plans",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List plans",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/plans"
+          },
+          "docs": "Returns all recurring billing plans configured for the merchant account in the Braintree Control Panel. Plans define the billing cycle frequency, base price, currency, and optional trial period for subscriptions. Plans must be created through the Control Panel and cannot be created via the API."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

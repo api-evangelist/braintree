@@ -1,0 +1,1516 @@
+{
+  "item": [
+    {
+      "id": "de1ab68e-c8c5-42a6-bdf1-fcc5120ba64b",
+      "name": "Transactions",
+      "description": {
+        "content": "Operations for creating, capturing, voiding, refunding, and retrieving payment transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "367adb87-1c35-4393-b790-1803e62a0a3e",
+          "name": "Create a transaction",
+          "request": {
+            "name": "Create a transaction",
+            "description": {
+              "content": "Creates a new payment transaction (sale) through the Braintree gateway. Requires either a payment_method_nonce for a one-time payment method, a payment_method_token referencing a vaulted payment method, or a customer_id to use the customer's default vaulted payment method. The amount must be a positive decimal value matching the currency format. Optionally submit the transaction immediately for settlement or hold it in an authorized state for later capture.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"device_data\": \"<string>\",\n  \"descriptor\": {\n    \"name\": \"<string>\",\n    \"phone\": \"<string>\",\n    \"url\": \"<string>\"\n  },\n  \"billing\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street_address\": \"<string>\",\n    \"extended_address\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"region\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"country_code_alpha2\": \"<string>\"\n  },\n  \"shipping\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"company\": \"<string>\",\n    \"street_address\": \"<string>\",\n    \"extended_address\": \"<string>\",\n    \"locality\": \"<string>\",\n    \"region\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"country_code_alpha2\": \"<string>\"\n  },\n  \"options\": {\n    \"submit_for_settlement\": false,\n    \"store_in_vault\": false,\n    \"store_in_vault_on_success\": false,\n    \"skip_avs\": false,\n    \"skip_cvv\": false,\n    \"hold_in_escrow\": false\n  },\n  \"tax_amount\": \"<string>\",\n  \"shipping_amount\": \"<string>\",\n  \"customer\": {\n    \"id\": \"<string>\",\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<email>\",\n    \"phone\": \"<string>\",\n    \"company\": \"<string>\",\n    \"website\": \"<uri>\",\n    \"fax\": \"<string>\",\n    \"payment_method_nonce\": \"<string>\",\n    \"custom_fields\": {\n      \"key_0\": \"<string>\",\n      \"key_1\": \"<string>\",\n      \"key_2\": \"<string>\",\n      \"key_3\": \"<string>\",\n      \"key_4\": \"<string>\"\n    }\n  },\n  \"line_items\": [\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<string>\",\n      \"unit_amount\": \"<string>\",\n      \"total_amount\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"commodity_code\": \"<string>\",\n      \"tax_amount\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"quantity\": \"<string>\",\n      \"unit_amount\": \"<string>\",\n      \"total_amount\": \"<string>\",\n      \"kind\": \"<string>\",\n      \"description\": \"<string>\",\n      \"unit_of_measure\": \"<string>\",\n      \"commodity_code\": \"<string>\",\n      \"tax_amount\": \"<string>\"\n    }\n  ],\n  \"transaction_source\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b314ba95-8893-4476-9f5f-059cfac485ca",
+              "name": "Transaction created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\",\n  \"payment_method_nonce\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"device_data\": \"<string>\",\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"SL\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"CO\"\n  },\n  \"options\": {\n    \"submit_for_settlement\": false,\n    \"store_in_vault\": false,\n    \"store_in_vault_on_success\": false,\n    \"skip_avs\": false,\n    \"skip_cvv\": false,\n    \"hold_in_escrow\": false\n  },\n  \"tax_amount\": \"1.00\",\n  \"shipping_amount\": \"2.00\",\n  \"customer\": {\n    \"id\": \"2\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"Ch8MAiyZKnz1@sDtLyA.ahal\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"http://adsiJirUgSdMXQkgcPVaaihiTFzWnks.nrUfzqO2.pTYIX8HJYWa+kl.RpncCyVWmEsCg\",\n    \"fax\": \"string\",\n    \"payment_method_nonce\": \"string\",\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"line_items\": [\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"credit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"debit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    }\n  ],\n  \"transaction_source\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"gateway_rejected\",\n  \"amount\": \"10.00\",\n  \"currency_iso_code\": \"USD\",\n  \"type\": \"credit\",\n  \"order_id\": \"string\",\n  \"merchant_account_id\": \"string\",\n  \"created_at\": \"2012-02-15T21:14:56.169Z\",\n  \"updated_at\": \"2015-01-07T05:42:16.010Z\",\n  \"payment_method_nonce\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"customer_id\": \"string\",\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"RH\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"ZI\"\n  },\n  \"customer_details\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"string\",\n    \"created_at\": \"2003-05-19T23:39:54.038Z\",\n    \"updated_at\": \"1988-11-25T17:06:00.533Z\",\n    \"payment_methods\": [\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://kSyfHeWDjSfAEUSjXcQbIeNVcMsGyoJY.fthTFLZ3-b\",\n        \"created_at\": \"1996-09-06T04:59:51.403Z\",\n        \"updated_at\": \"2005-04-21T06:58:53.721Z\"\n      },\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://JVO.kojzS2H6hLbQCN1n+C\",\n        \"created_at\": \"2000-02-06T09:19:53.219Z\",\n        \"updated_at\": \"1958-06-29T19:48:42.540Z\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"ST\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"XQ\"\n      }\n    ],\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"credit_card_details\": {\n    \"bin\": \"460662\",\n    \"last_4\": \"4413\",\n    \"card_type\": \"string\",\n    \"expiration_month\": \"12\",\n    \"expiration_year\": \"3469\",\n    \"cardholder_name\": \"string\",\n    \"country_of_issuance\": \"string\"\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"refund_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"processor_response_code\": \"string\",\n  \"processor_response_text\": \"string\",\n  \"tax_amount\": \"string\",\n  \"shipping_amount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "662e54d8-90eb-4c95-99d5-fc485ead04a3",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\",\n  \"payment_method_nonce\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"device_data\": \"<string>\",\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"SL\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"CO\"\n  },\n  \"options\": {\n    \"submit_for_settlement\": false,\n    \"store_in_vault\": false,\n    \"store_in_vault_on_success\": false,\n    \"skip_avs\": false,\n    \"skip_cvv\": false,\n    \"hold_in_escrow\": false\n  },\n  \"tax_amount\": \"1.00\",\n  \"shipping_amount\": \"2.00\",\n  \"customer\": {\n    \"id\": \"2\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"Ch8MAiyZKnz1@sDtLyA.ahal\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"http://adsiJirUgSdMXQkgcPVaaihiTFzWnks.nrUfzqO2.pTYIX8HJYWa+kl.RpncCyVWmEsCg\",\n    \"fax\": \"string\",\n    \"payment_method_nonce\": \"string\",\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"line_items\": [\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"credit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"debit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    }\n  ],\n  \"transaction_source\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3bc32d57-0478-44ac-bbc8-5d1f4c752130",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\",\n  \"payment_method_nonce\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"device_data\": \"<string>\",\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"SL\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"CO\"\n  },\n  \"options\": {\n    \"submit_for_settlement\": false,\n    \"store_in_vault\": false,\n    \"store_in_vault_on_success\": false,\n    \"skip_avs\": false,\n    \"skip_cvv\": false,\n    \"hold_in_escrow\": false\n  },\n  \"tax_amount\": \"1.00\",\n  \"shipping_amount\": \"2.00\",\n  \"customer\": {\n    \"id\": \"2\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"Ch8MAiyZKnz1@sDtLyA.ahal\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"http://adsiJirUgSdMXQkgcPVaaihiTFzWnks.nrUfzqO2.pTYIX8HJYWa+kl.RpncCyVWmEsCg\",\n    \"fax\": \"string\",\n    \"payment_method_nonce\": \"string\",\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"line_items\": [\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"credit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"debit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    }\n  ],\n  \"transaction_source\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f056bcce-82d3-40ff-bb6e-60c3a16cbdb0",
+              "name": "Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\",\n  \"payment_method_nonce\": \"<string>\",\n  \"payment_method_token\": \"<string>\",\n  \"customer_id\": \"<string>\",\n  \"order_id\": \"<string>\",\n  \"merchant_account_id\": \"<string>\",\n  \"device_data\": \"<string>\",\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"SL\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"CO\"\n  },\n  \"options\": {\n    \"submit_for_settlement\": false,\n    \"store_in_vault\": false,\n    \"store_in_vault_on_success\": false,\n    \"skip_avs\": false,\n    \"skip_cvv\": false,\n    \"hold_in_escrow\": false\n  },\n  \"tax_amount\": \"1.00\",\n  \"shipping_amount\": \"2.00\",\n  \"customer\": {\n    \"id\": \"2\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"Ch8MAiyZKnz1@sDtLyA.ahal\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"http://adsiJirUgSdMXQkgcPVaaihiTFzWnks.nrUfzqO2.pTYIX8HJYWa+kl.RpncCyVWmEsCg\",\n    \"fax\": \"string\",\n    \"payment_method_nonce\": \"string\",\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"line_items\": [\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"credit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    },\n    {\n      \"name\": \"string\",\n      \"quantity\": \"1.0000\",\n      \"unit_amount\": \"5.00\",\n      \"total_amount\": \"5.00\",\n      \"kind\": \"debit\",\n      \"description\": \"string\",\n      \"unit_of_measure\": \"string\",\n      \"commodity_code\": \"string\",\n      \"tax_amount\": \"string\"\n    }\n  ],\n  \"transaction_source\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5598379a-c61c-422a-9aa0-1a15c6f64e9f",
+          "name": "Get a transaction",
+          "request": {
+            "name": "Get a transaction",
+            "description": {
+              "content": "Retrieves the full details of a specific transaction by its unique identifier. Returns the complete transaction object including current status, payment method details, billing and shipping addresses, descriptor information, and any associated disbursement data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transactionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) The unique identifier of the transaction."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ebcdb40b-a463-4757-97ed-db13c0736886",
+              "name": "Transaction retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"gateway_rejected\",\n  \"amount\": \"10.00\",\n  \"currency_iso_code\": \"USD\",\n  \"type\": \"credit\",\n  \"order_id\": \"string\",\n  \"merchant_account_id\": \"string\",\n  \"created_at\": \"2012-02-15T21:14:56.169Z\",\n  \"updated_at\": \"2015-01-07T05:42:16.010Z\",\n  \"payment_method_nonce\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"customer_id\": \"string\",\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"RH\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"ZI\"\n  },\n  \"customer_details\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"string\",\n    \"created_at\": \"2003-05-19T23:39:54.038Z\",\n    \"updated_at\": \"1988-11-25T17:06:00.533Z\",\n    \"payment_methods\": [\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://kSyfHeWDjSfAEUSjXcQbIeNVcMsGyoJY.fthTFLZ3-b\",\n        \"created_at\": \"1996-09-06T04:59:51.403Z\",\n        \"updated_at\": \"2005-04-21T06:58:53.721Z\"\n      },\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://JVO.kojzS2H6hLbQCN1n+C\",\n        \"created_at\": \"2000-02-06T09:19:53.219Z\",\n        \"updated_at\": \"1958-06-29T19:48:42.540Z\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"ST\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"XQ\"\n      }\n    ],\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"credit_card_details\": {\n    \"bin\": \"460662\",\n    \"last_4\": \"4413\",\n    \"card_type\": \"string\",\n    \"expiration_month\": \"12\",\n    \"expiration_year\": \"3469\",\n    \"cardholder_name\": \"string\",\n    \"country_of_issuance\": \"string\"\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"refund_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"processor_response_code\": \"string\",\n  \"processor_response_text\": \"string\",\n  \"tax_amount\": \"string\",\n  \"shipping_amount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0ec1a13-e32e-4ce3-a9fc-9f9ef656fa67",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "31b019c3-296e-4e42-a462-c9b19088313f",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e42a0425-3a3f-4c73-9a7c-03c0cf3764f9",
+          "name": "Submit transaction for settlement",
+          "request": {
+            "name": "Submit transaction for settlement",
+            "description": {
+              "content": "Submits a previously authorized transaction for settlement, initiating the transfer of funds to the merchant. An optional amount may be specified for partial settlement if less than the full authorized amount is desired. The transaction must be in the authorized state to be eligible for settlement submission.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transactionId",
+                "submit_for_settlement"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) The unique identifier of the transaction."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7114b015-2bce-48b2-a618-bc5ee68bc461",
+              "name": "Transaction submitted for settlement successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "submit_for_settlement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"gateway_rejected\",\n  \"amount\": \"10.00\",\n  \"currency_iso_code\": \"USD\",\n  \"type\": \"credit\",\n  \"order_id\": \"string\",\n  \"merchant_account_id\": \"string\",\n  \"created_at\": \"2012-02-15T21:14:56.169Z\",\n  \"updated_at\": \"2015-01-07T05:42:16.010Z\",\n  \"payment_method_nonce\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"customer_id\": \"string\",\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"RH\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"ZI\"\n  },\n  \"customer_details\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"string\",\n    \"created_at\": \"2003-05-19T23:39:54.038Z\",\n    \"updated_at\": \"1988-11-25T17:06:00.533Z\",\n    \"payment_methods\": [\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://kSyfHeWDjSfAEUSjXcQbIeNVcMsGyoJY.fthTFLZ3-b\",\n        \"created_at\": \"1996-09-06T04:59:51.403Z\",\n        \"updated_at\": \"2005-04-21T06:58:53.721Z\"\n      },\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://JVO.kojzS2H6hLbQCN1n+C\",\n        \"created_at\": \"2000-02-06T09:19:53.219Z\",\n        \"updated_at\": \"1958-06-29T19:48:42.540Z\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"ST\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"XQ\"\n      }\n    ],\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"credit_card_details\": {\n    \"bin\": \"460662\",\n    \"last_4\": \"4413\",\n    \"card_type\": \"string\",\n    \"expiration_month\": \"12\",\n    \"expiration_year\": \"3469\",\n    \"cardholder_name\": \"string\",\n    \"country_of_issuance\": \"string\"\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"refund_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"processor_response_code\": \"string\",\n  \"processor_response_text\": \"string\",\n  \"tax_amount\": \"string\",\n  \"shipping_amount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "59749304-5bb4-4fdb-9b54-bf3e01090f11",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "submit_for_settlement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "77ff4227-012c-48ce-a62a-dd4971963da9",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "submit_for_settlement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e9ad9e2-89fa-467b-aedc-629e88287f3a",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "submit_for_settlement"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"10.00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dee2bf8e-776e-481e-b1d4-f3f3e355f771",
+          "name": "Void a transaction",
+          "request": {
+            "name": "Void a transaction",
+            "description": {
+              "content": "Voids an authorized or submitted-for-settlement transaction, preventing it from being settled. Voiding cancels the payment before funds are transferred. A transaction can only be voided if it is in the authorized, submitted_for_settlement, or settlement_pending status. Once voided, a transaction cannot be captured or refunded.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transactionId",
+                "void"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) The unique identifier of the transaction."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0fedd8a0-13dc-4904-9e0d-3882f67b3029",
+              "name": "Transaction voided successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"gateway_rejected\",\n  \"amount\": \"10.00\",\n  \"currency_iso_code\": \"USD\",\n  \"type\": \"credit\",\n  \"order_id\": \"string\",\n  \"merchant_account_id\": \"string\",\n  \"created_at\": \"2012-02-15T21:14:56.169Z\",\n  \"updated_at\": \"2015-01-07T05:42:16.010Z\",\n  \"payment_method_nonce\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"customer_id\": \"string\",\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"RH\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"ZI\"\n  },\n  \"customer_details\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"string\",\n    \"created_at\": \"2003-05-19T23:39:54.038Z\",\n    \"updated_at\": \"1988-11-25T17:06:00.533Z\",\n    \"payment_methods\": [\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://kSyfHeWDjSfAEUSjXcQbIeNVcMsGyoJY.fthTFLZ3-b\",\n        \"created_at\": \"1996-09-06T04:59:51.403Z\",\n        \"updated_at\": \"2005-04-21T06:58:53.721Z\"\n      },\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://JVO.kojzS2H6hLbQCN1n+C\",\n        \"created_at\": \"2000-02-06T09:19:53.219Z\",\n        \"updated_at\": \"1958-06-29T19:48:42.540Z\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"ST\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"XQ\"\n      }\n    ],\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"credit_card_details\": {\n    \"bin\": \"460662\",\n    \"last_4\": \"4413\",\n    \"card_type\": \"string\",\n    \"expiration_month\": \"12\",\n    \"expiration_year\": \"3469\",\n    \"cardholder_name\": \"string\",\n    \"country_of_issuance\": \"string\"\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"refund_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"processor_response_code\": \"string\",\n  \"processor_response_text\": \"string\",\n  \"tax_amount\": \"string\",\n  \"shipping_amount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec3e7093-46b4-4cfc-8b81-ae7aaef46b7e",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f44a16a2-2964-484d-b0ff-0ada97f63aa2",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85ba6354-84fb-4205-bc58-11da368f11e0",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "void"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ce4f2dd-eeff-46be-ae2f-b7a079ad98e1",
+          "name": "Refund a transaction",
+          "request": {
+            "name": "Refund a transaction",
+            "description": {
+              "content": "Issues a full or partial refund on a settled transaction. Partial refunds may be issued multiple times until the cumulative refunded amount equals the settled amount. A new transaction of type \"credit\" is created representing the refund. The original transaction must be in a settled or settling status to be eligible for refund.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transactionId",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) The unique identifier of the transaction."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"order_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b0978ffa-10ef-43d0-8ede-1d8f8f06bd13",
+              "name": "Refund transaction created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"5.00\",\n  \"order_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"gateway_rejected\",\n  \"amount\": \"10.00\",\n  \"currency_iso_code\": \"USD\",\n  \"type\": \"credit\",\n  \"order_id\": \"string\",\n  \"merchant_account_id\": \"string\",\n  \"created_at\": \"2012-02-15T21:14:56.169Z\",\n  \"updated_at\": \"2015-01-07T05:42:16.010Z\",\n  \"payment_method_nonce\": \"string\",\n  \"payment_method_token\": \"string\",\n  \"customer_id\": \"string\",\n  \"billing\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"RH\"\n  },\n  \"shipping\": {\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"company\": \"string\",\n    \"street_address\": \"string\",\n    \"extended_address\": \"string\",\n    \"locality\": \"string\",\n    \"region\": \"string\",\n    \"postal_code\": \"string\",\n    \"country_code_alpha2\": \"ZI\"\n  },\n  \"customer_details\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"email\": \"string\",\n    \"phone\": \"string\",\n    \"company\": \"string\",\n    \"website\": \"string\",\n    \"created_at\": \"2003-05-19T23:39:54.038Z\",\n    \"updated_at\": \"1988-11-25T17:06:00.533Z\",\n    \"payment_methods\": [\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://kSyfHeWDjSfAEUSjXcQbIeNVcMsGyoJY.fthTFLZ3-b\",\n        \"created_at\": \"1996-09-06T04:59:51.403Z\",\n        \"updated_at\": \"2005-04-21T06:58:53.721Z\"\n      },\n      {\n        \"token\": \"string\",\n        \"customer_id\": \"string\",\n        \"default\": true,\n        \"image_url\": \"http://JVO.kojzS2H6hLbQCN1n+C\",\n        \"created_at\": \"2000-02-06T09:19:53.219Z\",\n        \"updated_at\": \"1958-06-29T19:48:42.540Z\"\n      }\n    ],\n    \"addresses\": [\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"ST\"\n      },\n      {\n        \"first_name\": \"string\",\n        \"last_name\": \"string\",\n        \"company\": \"string\",\n        \"street_address\": \"string\",\n        \"extended_address\": \"string\",\n        \"locality\": \"string\",\n        \"region\": \"string\",\n        \"postal_code\": \"string\",\n        \"country_code_alpha2\": \"XQ\"\n      }\n    ],\n    \"custom_fields\": {\n      \"key_0\": \"string\",\n      \"key_1\": \"string\"\n    }\n  },\n  \"credit_card_details\": {\n    \"bin\": \"460662\",\n    \"last_4\": \"4413\",\n    \"card_type\": \"string\",\n    \"expiration_month\": \"12\",\n    \"expiration_year\": \"3469\",\n    \"cardholder_name\": \"string\",\n    \"country_of_issuance\": \"string\"\n  },\n  \"descriptor\": {\n    \"name\": \"string\",\n    \"phone\": \"string\",\n    \"url\": \"string\"\n  },\n  \"refund_ids\": [\n    \"string\",\n    \"string\"\n  ],\n  \"processor_response_code\": \"string\",\n  \"processor_response_text\": \"string\",\n  \"tax_amount\": \"string\",\n  \"shipping_amount\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67d72b9f-0ff0-407a-b0ab-d1b44abe7693",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"5.00\",\n  \"order_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e1887e4-a284-4777-89b1-d80df429a43b",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"5.00\",\n  \"order_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "721651bc-87a0-4a2e-9641-66119fac0a73",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) The unique identifier of the transaction."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"5.00\",\n  \"order_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": false,\n    \"key_1\": 4625.654324483967\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "57c3bd80-d50b-4eab-b58f-8a6c75a5b100",
+    "name": "Braintree Payments Add-Ons Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

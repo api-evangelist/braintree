@@ -1,0 +1,1112 @@
+{
+  "item": [
+    {
+      "id": "1cc74ed5-ed46-479a-8079-b2fb5c3ffd21",
+      "name": "Customers",
+      "description": {
+        "content": "Operations for creating, retrieving, updating, and deleting customer records in the Braintree Vault.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c9cc3870-5268-4172-a418-943203acb4df",
+          "name": "Create a customer",
+          "request": {
+            "name": "Create a customer",
+            "description": {
+              "content": "Creates a new customer record in the Braintree Vault. A customer record can optionally include a payment method nonce to simultaneously vault a payment method for the customer. No fields are strictly required; a blank customer may be created and updated later. Customer records serve as containers for vaulted payment methods and associated transaction history.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "270e6399-f052-4a16-9532-23a3fb7a4566",
+              "name": "Customer created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"email\": \"string\",\n  \"phone\": \"string\",\n  \"company\": \"string\",\n  \"website\": \"string\",\n  \"created_at\": \"2009-05-31T15:39:27.049Z\",\n  \"updated_at\": \"1975-04-14T21:22:30.929Z\",\n  \"payment_methods\": [\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": true,\n      \"image_url\": \"https://cUtNCzKFLMwfzooRkSMnQByRuiq.meqzzXcnQPaJPa+z-Y.rf.nsDVQepG2WfPDWQrShJ3gpzee+1l12XHcFTHqs\",\n      \"created_at\": \"2009-07-21T03:39:23.794Z\",\n      \"updated_at\": \"2010-01-27T13:54:14.729Z\"\n    },\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": false,\n      \"image_url\": \"https://mM.mzadnMJKKG,GWWm6eyFOZ0W0mTVIjOOsCOBBcU5bjeWnwvw.hwha0\",\n      \"created_at\": \"2009-05-25T00:31:33.800Z\",\n      \"updated_at\": \"1973-06-19T21:47:56.443Z\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"SV\"\n    },\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"OW\"\n    }\n  ],\n  \"custom_fields\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3332ed00-4c18-4b55-b688-890a13febf6b",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a87425df-1f00-4b52-95c6-1bc00d153d2b",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5683615-6aa4-4e7a-87c1-1f371a91e23b",
+              "name": "Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "86bba5ed-c169-4cd8-9689-f8e81bfb3f08",
+          "name": "Get a customer",
+          "request": {
+            "name": "Get a customer",
+            "description": {
+              "content": "Retrieves a customer record from the Braintree Vault by its unique identifier. Returns the customer's profile information and all associated vaulted payment methods, billing addresses, and transaction history summary.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) The unique identifier of the customer record."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ffd04610-5d16-48fd-be21-2a2c17a46e74",
+              "name": "Customer retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"email\": \"string\",\n  \"phone\": \"string\",\n  \"company\": \"string\",\n  \"website\": \"string\",\n  \"created_at\": \"2009-05-31T15:39:27.049Z\",\n  \"updated_at\": \"1975-04-14T21:22:30.929Z\",\n  \"payment_methods\": [\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": true,\n      \"image_url\": \"https://cUtNCzKFLMwfzooRkSMnQByRuiq.meqzzXcnQPaJPa+z-Y.rf.nsDVQepG2WfPDWQrShJ3gpzee+1l12XHcFTHqs\",\n      \"created_at\": \"2009-07-21T03:39:23.794Z\",\n      \"updated_at\": \"2010-01-27T13:54:14.729Z\"\n    },\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": false,\n      \"image_url\": \"https://mM.mzadnMJKKG,GWWm6eyFOZ0W0mTVIjOOsCOBBcU5bjeWnwvw.hwha0\",\n      \"created_at\": \"2009-05-25T00:31:33.800Z\",\n      \"updated_at\": \"1973-06-19T21:47:56.443Z\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"SV\"\n    },\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"OW\"\n    }\n  ],\n  \"custom_fields\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4a0269e3-0d70-4666-84ca-a823cd8c16d7",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e21f3503-a4b9-4286-bfed-43a1786afe9c",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "999638c3-8376-49f1-9636-a6f550bc9e6a",
+          "name": "Update a customer",
+          "request": {
+            "name": "Update a customer",
+            "description": {
+              "content": "Updates an existing customer record in the Braintree Vault. Only fields provided in the request body are updated; omitted fields retain their current values. A new payment method nonce may be provided to add an additional payment method to the customer's vault.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) The unique identifier of the customer record."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c9553ce7-c07b-471d-acbf-098f612959f0",
+              "name": "Customer updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"first_name\": \"string\",\n  \"last_name\": \"string\",\n  \"email\": \"string\",\n  \"phone\": \"string\",\n  \"company\": \"string\",\n  \"website\": \"string\",\n  \"created_at\": \"2009-05-31T15:39:27.049Z\",\n  \"updated_at\": \"1975-04-14T21:22:30.929Z\",\n  \"payment_methods\": [\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": true,\n      \"image_url\": \"https://cUtNCzKFLMwfzooRkSMnQByRuiq.meqzzXcnQPaJPa+z-Y.rf.nsDVQepG2WfPDWQrShJ3gpzee+1l12XHcFTHqs\",\n      \"created_at\": \"2009-07-21T03:39:23.794Z\",\n      \"updated_at\": \"2010-01-27T13:54:14.729Z\"\n    },\n    {\n      \"token\": \"string\",\n      \"customer_id\": \"string\",\n      \"default\": false,\n      \"image_url\": \"https://mM.mzadnMJKKG,GWWm6eyFOZ0W0mTVIjOOsCOBBcU5bjeWnwvw.hwha0\",\n      \"created_at\": \"2009-05-25T00:31:33.800Z\",\n      \"updated_at\": \"1973-06-19T21:47:56.443Z\"\n    }\n  ],\n  \"addresses\": [\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"SV\"\n    },\n    {\n      \"first_name\": \"string\",\n      \"last_name\": \"string\",\n      \"company\": \"string\",\n      \"street_address\": \"string\",\n      \"extended_address\": \"string\",\n      \"locality\": \"string\",\n      \"region\": \"string\",\n      \"postal_code\": \"string\",\n      \"country_code_alpha2\": \"OW\"\n    }\n  ],\n  \"custom_fields\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16b177ab-bd4a-4b42-8185-655eb10805ac",
+              "name": "Bad request. The request body or parameters are invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9fb2dc49-baff-4958-a16a-49ee9d4ba093",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "930339f8-8ec9-457f-b369-dcdadb353ced",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"id\": \"<string>\",\n  \"first_name\": \"<string>\",\n  \"last_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"phone\": \"<string>\",\n  \"company\": \"<string>\",\n  \"website\": \"<uri>\",\n  \"fax\": \"<string>\",\n  \"payment_method_nonce\": \"<string>\",\n  \"custom_fields\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f0120e6-db2b-491b-a7ca-01e8bc9170b6",
+          "name": "Delete a customer",
+          "request": {
+            "name": "Delete a customer",
+            "description": {
+              "content": "Permanently deletes a customer record from the Braintree Vault along with all associated payment methods and addresses. This action is irreversible. Historical transaction records associated with the customer remain accessible but the customer profile is removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customers",
+                ":customerId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customerId",
+                  "description": "(Required) The unique identifier of the customer record."
+                },
+                {
+                  "description": "The unique identifier for the merchant account.",
+                  "type": "any",
+                  "value": "{{merchantId}}",
+                  "key": "merchantId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c796e191-2282-4f6a-bdb1-c478992477ba",
+              "name": "Customer deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65b98267-f83f-4fad-b780-2c6b72aee3b5",
+              "name": "Unauthorized. Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7f23584-8003-47be-943d-6996de23520e",
+              "name": "Not found. The requested resource does not exist.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customers",
+                    ":customerId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customerId",
+                      "description": "(Required) The unique identifier of the customer record."
+                    },
+                    {
+                      "description": "The unique identifier for the merchant account.",
+                      "type": "any",
+                      "value": "{{merchantId}}",
+                      "key": "merchantId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"errors\": {\n    \"key_0\": 3887,\n    \"key_1\": 8148\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The unique identifier for the merchant account.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your_merchant_id",
+      "key": "merchantId"
+    },
+    {
+      "type": "string",
+      "value": "https://api.braintreegateway.com/merchants/{{merchantId}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "5ecff9aa-76e8-43e6-bc68-89b55e501a5e",
+    "name": "Braintree Payments Add-Ons Customers API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.\n\nContact Support:\n Name: Braintree Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

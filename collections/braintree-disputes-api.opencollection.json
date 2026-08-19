@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Disputes API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Disputes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List disputes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes",
+            "params": [
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter disputes by current status."
+              },
+              {
+                "name": "received_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter disputes received on or after this date in YYYY-MM-DD format."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              }
+            ]
+          },
+          "docs": "Returns a list of disputes for the merchant account, optionally filtered by dispute status, received date range, amount range, or reason. Disputes represent chargebacks or retrievals initiated by cardholders or their issuing banks. Each dispute includes the associated transaction, amounts, deadlines, and current status."
+        },
+        {
+          "info": {
+            "name": "Get a dispute",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes/:disputeId",
+            "params": [
+              {
+                "name": "disputeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the dispute."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific dispute by its unique identifier. Returns all dispute information including the associated transaction, evidence submitted, status history, amounts, deadlines, and any chargeback reason codes provided by the card network."
+        },
+        {
+          "info": {
+            "name": "Accept a dispute",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/disputes/:disputeId/accept",
+            "params": [
+              {
+                "name": "disputeId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the dispute."
+              }
+            ]
+          },
+          "docs": "Accepts a dispute without contesting it. Accepting a dispute is a final action that acknowledges the chargeback and surrenders the disputed funds to the cardholder. This action cannot be undone. Use this when you agree with the dispute or choose not to contest it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

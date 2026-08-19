@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Braintree Payments Add-Ons Client Tokens API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Client Tokens",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate a client token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.braintreegateway.com/merchants/{merchantId}/client_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Generates a time-limited client token used to initialize the Braintree client-side SDK on web or mobile. The client token contains all authorization and configuration information the client SDK needs to communicate with Braintree. An optional customer_id may be provided to include that customer's vaulted payment methods in the Drop-in UI or to facilitate returning customer flows."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
