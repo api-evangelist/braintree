@@ -149,7 +149,7 @@ apis:
   humanURL: https://developer.paypal.com/braintree/docs/
   baseURL: https://api.braintreegateway.com
   tags:
-  - Addons
+  - Add-Ons
   tags_raw:
   - Add-Ons
   properties:
