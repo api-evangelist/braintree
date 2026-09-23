@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Braintree Payments Add-Ons Client Tokens API
-  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  title: Braintree Payments Client Tokens API
+  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway.
   version: '1.0'
   contact:
     name: Braintree Developer Support

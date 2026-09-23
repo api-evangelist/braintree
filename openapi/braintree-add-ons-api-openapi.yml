@@ -1,7 +1,7 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Braintree Payments Add-Ons API
-  description: The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Authentication uses HTTP Basic auth with the merchant's public key as the username and private key as the password. All requests and responses use XML or JSON depending on the SDK and endpoint variant used.
+  title: Braintree Subscriptions Add Ons API
+  description: The Braintree Subscriptions API enables merchants to manage recurring billing plans and customer subscriptions.
   version: '1.0'
   contact:
     name: Braintree Developer Support
@@ -23,7 +23,7 @@ servers:
 security:
 - basicAuth: []
 tags:
-- name: Add-Ons
+- name: Add Ons
   description: Operations for retrieving add-on definitions that can be applied to subscriptions to increase their price.
 paths:
   /add_ons:
@@ -32,7 +32,7 @@ paths:
       summary: List add-ons
       description: Returns all add-on definitions configured for the merchant account. Add-ons represent incremental price increases that can be applied to subscriptions on top of the base plan price. Add-ons are defined in the Braintree Control Panel and referenced by their identifier when creating or updating subscriptions.
       tags:
-      - Add-Ons
+      - Add Ons
       responses:
         '200':
           description: List of add-on definitions retrieved successfully.
@@ -56,17 +56,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
     Modification:
       type: object
       description: A reusable add-on or discount definition configured in the Braintree Control Panel and available to apply to subscriptions.
@@ -105,11 +94,22 @@ components:
           type: string
           format: date-time
           description: Timestamp when this modification was last updated.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
   securitySchemes:
     basicAuth:
       type: http
       scheme: basic
       description: HTTP Basic Authentication using the merchant's public API key as the username and private API key as the password, Base64-encoded per RFC 7617.
 externalDocs:
-  description: Braintree Payments API Reference
-  url: https://developer.paypal.com/braintree/docs/guides/overview
+  description: Braintree Recurring Billing Documentation
+  url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
