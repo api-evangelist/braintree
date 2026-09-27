@@ -56,6 +56,17 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
     Modification:
       type: object
       description: A reusable add-on or discount definition configured in the Braintree Control Panel and available to apply to subscriptions.
@@ -94,17 +105,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when this modification was last updated.
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
   securitySchemes:
     basicAuth:
       type: http

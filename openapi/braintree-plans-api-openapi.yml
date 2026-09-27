@@ -48,14 +48,44 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    AppliedModification:
+      type: object
+      description: An add-on or discount currently applied to a subscription, including the inherited or overridden values.
+      properties:
+        id:
+          type: string
+          description: Identifier of the base add-on or discount definition.
+        name:
+          type: string
+          description: Name of the modification.
+        description:
+          type: string
+          description: Description of the modification.
+        amount:
+          type: string
+          description: Amount applied per billing cycle as a decimal string.
+          example: '1.00'
+        never_expires:
+          type: boolean
+          description: If true, this modification applies indefinitely.
+        number_of_billing_cycles:
+          type: integer
+          description: Number of billing cycles this modification will apply.
+        current_billing_cycle:
+          type: integer
+          description: The billing cycle on which this modification began.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
     Plan:
       type: object
       description: Represents a billing plan template defined in the Braintree Control Panel. Plans specify the recurring price, currency, billing frequency, and optional trial period that subscriptions inherit.
@@ -114,43 +144,13 @@ components:
           type: string
           format: date-time
           description: Timestamp when the plan was last updated.
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
-    AppliedModification:
-      type: object
-      description: An add-on or discount currently applied to a subscription, including the inherited or overridden values.
-      properties:
-        id:
-          type: string
-          description: Identifier of the base add-on or discount definition.
-        name:
-          type: string
-          description: Name of the modification.
-        description:
-          type: string
-          description: Description of the modification.
-        amount:
-          type: string
-          description: Amount applied per billing cycle as a decimal string.
-          example: '1.00'
-        never_expires:
-          type: boolean
-          description: If true, this modification applies indefinitely.
-        number_of_billing_cycles:
-          type: integer
-          description: Number of billing cycles this modification will apply.
-        current_billing_cycle:
-          type: integer
-          description: The billing cycle on which this modification began.
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     basicAuth:
       type: http

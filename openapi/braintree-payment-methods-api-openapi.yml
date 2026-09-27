@@ -115,43 +115,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request. The request body or parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found. The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
     PaymentMethodRequest:
       type: object
       required:
@@ -188,6 +152,25 @@ components:
               type: boolean
               description: If true, runs a card verification before vaulting the payment method.
               default: false
+    PaymentMethodUpdateRequest:
+      type: object
+      description: Request body for updating an existing vaulted payment method.
+      properties:
+        payment_method_nonce:
+          type: string
+          description: A new one-time nonce to replace the underlying payment details while preserving the existing token.
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        options:
+          type: object
+          description: Options for the payment method update.
+          properties:
+            make_default:
+              type: boolean
+              description: If true, this payment method becomes the customer's default.
+            update_existing_token:
+              type: string
+              description: Token of an existing payment method to update rather than creating a new one.
     PaymentMethod:
       type: object
       description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
@@ -213,6 +196,17 @@ components:
           type: string
           format: date-time
           description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
     Address:
       type: object
       description: A billing or shipping address associated with a transaction or customer.
@@ -253,25 +247,31 @@ components:
           type: string
           description: Two-letter ISO 3166-1 alpha-2 country code.
           pattern: ^[A-Z]{2}$
-    PaymentMethodUpdateRequest:
-      type: object
-      description: Request body for updating an existing vaulted payment method.
-      properties:
-        payment_method_nonce:
-          type: string
-          description: A new one-time nonce to replace the underlying payment details while preserving the existing token.
-        billing_address:
-          $ref: '#/components/schemas/Address'
-        options:
-          type: object
-          description: Options for the payment method update.
-          properties:
-            make_default:
-              type: boolean
-              description: If true, this payment method becomes the customer's default.
-            update_existing_token:
-              type: string
-              description: Token of an existing payment method to update rather than creating a new one.
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PaymentMethodToken:
       name: paymentMethodToken
