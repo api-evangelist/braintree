@@ -226,6 +226,30 @@ components:
             start_immediately:
               type: boolean
               description: If true, the first billing cycle starts immediately even if a first_billing_date is set in the future.
+    ModificationUpdate:
+      type: object
+      required:
+      - existing_id
+      description: An existing add-on or discount on a subscription to update.
+      properties:
+        existing_id:
+          type: string
+          description: Identifier of the existing applied modification to update.
+        amount:
+          type: string
+          description: New amount override for this modification.
+          example: '1.00'
+        number_of_billing_cycles:
+          type: integer
+          description: New number of billing cycles for this modification.
+          minimum: 1
+        never_expires:
+          type: boolean
+          description: If true, this modification applies indefinitely.
+        quantity:
+          type: integer
+          description: Updated quantity for this add-on.
+          minimum: 1
     SubscriptionUpdateRequest:
       type: object
       description: Request body for updating an existing subscription.
@@ -275,72 +299,6 @@ components:
             revert_subscription_on_proration_failure:
               type: boolean
               description: If true, reverts the subscription update if the prorated charge fails.
-    ModificationAdd:
-      type: object
-      required:
-      - inherited_from_id
-      description: An add-on or discount to add to a subscription.
-      properties:
-        inherited_from_id:
-          type: string
-          description: Identifier of the base add-on or discount definition to inherit from.
-        amount:
-          type: string
-          description: Override the base amount for this add-on or discount on this subscription.
-          example: '1.00'
-        number_of_billing_cycles:
-          type: integer
-          description: Override the number of billing cycles for this add-on or discount.
-          minimum: 1
-        never_expires:
-          type: boolean
-          description: If true, override to apply this modification indefinitely.
-        quantity:
-          type: integer
-          description: Number of times this add-on is applied per billing cycle.
-          minimum: 1
-    AppliedModification:
-      type: object
-      description: An add-on or discount currently applied to a subscription, including the inherited or overridden values.
-      properties:
-        id:
-          type: string
-          description: Identifier of the base add-on or discount definition.
-        name:
-          type: string
-          description: Name of the modification.
-        description:
-          type: string
-          description: Description of the modification.
-        amount:
-          type: string
-          description: Amount applied per billing cycle as a decimal string.
-          example: '1.00'
-        never_expires:
-          type: boolean
-          description: If true, this modification applies indefinitely.
-        number_of_billing_cycles:
-          type: integer
-          description: Number of billing cycles this modification will apply.
-        current_billing_cycle:
-          type: integer
-          description: The billing cycle on which this modification began.
-    Descriptor:
-      type: object
-      description: Dynamic descriptor fields that appear on the customer's bank statement to identify the merchant and charge.
-      properties:
-        name:
-          type: string
-          description: Merchant name as it appears on the customer's statement. Maximum 22 characters.
-          maxLength: 22
-        phone:
-          type: string
-          description: Merchant phone number as it appears on the customer's statement.
-          maxLength: 14
-        url:
-          type: string
-          description: Merchant URL as it appears on the customer's statement.
-          maxLength: 13
     Subscription:
       type: object
       description: Represents a recurring billing subscription that charges a customer's vaulted payment method on a defined schedule according to a billing plan.
@@ -484,37 +442,73 @@ components:
           description: Identifiers of add-ons or discounts to remove from the subscription.
           items:
             type: string
-    ModificationUpdate:
+    ModificationAdd:
       type: object
       required:
-      - existing_id
-      description: An existing add-on or discount on a subscription to update.
+      - inherited_from_id
+      description: An add-on or discount to add to a subscription.
       properties:
-        existing_id:
+        inherited_from_id:
           type: string
-          description: Identifier of the existing applied modification to update.
+          description: Identifier of the base add-on or discount definition to inherit from.
         amount:
           type: string
-          description: New amount override for this modification.
+          description: Override the base amount for this add-on or discount on this subscription.
           example: '1.00'
         number_of_billing_cycles:
           type: integer
-          description: New number of billing cycles for this modification.
+          description: Override the number of billing cycles for this add-on or discount.
           minimum: 1
         never_expires:
           type: boolean
-          description: If true, this modification applies indefinitely.
+          description: If true, override to apply this modification indefinitely.
         quantity:
           type: integer
-          description: Updated quantity for this add-on.
+          description: Number of times this add-on is applied per billing cycle.
           minimum: 1
+    Descriptor:
+      type: object
+      description: Dynamic descriptor fields that appear on the customer's bank statement to identify the merchant and charge.
+      properties:
+        name:
+          type: string
+          description: Merchant name as it appears on the customer's statement. Maximum 22 characters.
+          maxLength: 22
+        phone:
+          type: string
+          description: Merchant phone number as it appears on the customer's statement.
+          maxLength: 14
+        url:
+          type: string
+          description: Merchant URL as it appears on the customer's statement.
+          maxLength: 13
+    AppliedModification:
+      type: object
+      description: An add-on or discount currently applied to a subscription, including the inherited or overridden values.
+      properties:
+        id:
+          type: string
+          description: Identifier of the base add-on or discount definition.
+        name:
+          type: string
+          description: Name of the modification.
+        description:
+          type: string
+          description: Description of the modification.
+        amount:
+          type: string
+          description: Amount applied per billing cycle as a decimal string.
+          example: '1.00'
+        never_expires:
+          type: boolean
+          description: If true, this modification applies indefinitely.
+        number_of_billing_cycles:
+          type: integer
+          description: Number of billing cycles this modification will apply.
+        current_billing_cycle:
+          type: integer
+          description: The billing cycle on which this modification began.
   responses:
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request. The request body or parameters are invalid.
       content:
@@ -523,6 +517,12 @@ components:
             $ref: '#/components/schemas/Error'
     UnprocessableEntity:
       description: Unprocessable entity. The request was well-formed but failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

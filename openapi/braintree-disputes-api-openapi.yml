@@ -181,14 +181,14 @@ components:
           description: Nested object containing field-level validation errors organized by resource type.
           additionalProperties: true
   responses:
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
+    NotFound:
+      description: Not found. The requested resource does not exist.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Not found. The requested resource does not exist.
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
