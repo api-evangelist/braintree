@@ -298,6 +298,9 @@ apis:
   - type: Documentation
     url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
 common:
+- type: CapabilityMap
+  url: capabilities/braintree-capability-edges.yml
+  name: Braintree Business Capability Map
 - type: AgenticAccess
   url: agentic-access/braintree-agentic-access.yml
 - type: Sandbox
@@ -342,3 +345,4 @@ tags:
 - Transaction
 - Mobile
 - Subscription
+- Payment Processing
