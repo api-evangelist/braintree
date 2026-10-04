@@ -75,17 +75,6 @@ components:
         current_billing_cycle:
           type: integer
           description: The billing cycle on which this modification began.
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
     Plan:
       type: object
       description: Represents a billing plan template defined in the Braintree Control Panel. Plans specify the recurring price, currency, billing frequency, and optional trial period that subscriptions inherit.
@@ -144,6 +133,17 @@ components:
           type: string
           format: date-time
           description: Timestamp when the plan was last updated.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
   responses:
     Unauthorized:
       description: Unauthorized. Authentication credentials are missing or invalid.

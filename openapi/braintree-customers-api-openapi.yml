@@ -116,20 +116,8 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    BadRequest:
-      description: Bad request. The request body or parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Not found. The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
       content:
         application/json:
           schema:
@@ -140,18 +128,92 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CustomerId:
+      name: customerId
+      in: path
+      required: true
+      description: The unique identifier of the customer record.
+      schema:
+        type: string
   schemas:
-    Error:
+    PaymentMethod:
       type: object
-      description: Standard error response returned by the Braintree API.
+      description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
       properties:
-        message:
+        token:
           type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
+          description: Unique token identifying this vaulted payment method. Used as a reference for future transactions.
+        customer_id:
+          type: string
+          description: The identifier of the customer who owns this payment method.
+        default:
+          type: boolean
+          description: Indicates whether this is the customer's default payment method.
+        image_url:
+          type: string
+          format: uri
+          description: URL of an image representing the payment method type.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was vaulted, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    Address:
+      type: object
+      description: A billing or shipping address associated with a transaction or customer.
+      properties:
+        first_name:
+          type: string
+          description: First name of the address holder.
+          maxLength: 255
+        last_name:
+          type: string
+          description: Last name of the address holder.
+          maxLength: 255
+        company:
+          type: string
+          description: Company or organization name at this address.
+          maxLength: 255
+        street_address:
+          type: string
+          description: Primary street address line.
+          maxLength: 255
+        extended_address:
+          type: string
+          description: Secondary address line such as apartment or suite number.
+          maxLength: 255
+        locality:
+          type: string
+          description: City or locality of the address.
+          maxLength: 255
+        region:
+          type: string
+          description: State, province, or region code of the address.
+          maxLength: 255
+        postal_code:
+          type: string
+          description: Postal or ZIP code of the address.
+          maxLength: 9
+        country_code_alpha2:
+          type: string
+          description: Two-letter ISO 3166-1 alpha-2 country code.
+          pattern: ^[A-Z]{2}$
     CustomerRequest:
       type: object
       description: Request body for creating or updating a customer record in the Braintree Vault. All fields are optional.
@@ -247,79 +309,17 @@ components:
           description: Custom key-value pairs associated with this customer.
           additionalProperties:
             type: string
-    PaymentMethod:
+    Error:
       type: object
-      description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
+      description: Standard error response returned by the Braintree API.
       properties:
-        token:
+        message:
           type: string
-          description: Unique token identifying this vaulted payment method. Used as a reference for future transactions.
-        customer_id:
-          type: string
-          description: The identifier of the customer who owns this payment method.
-        default:
-          type: boolean
-          description: Indicates whether this is the customer's default payment method.
-        image_url:
-          type: string
-          format: uri
-          description: URL of an image representing the payment method type.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when this payment method was vaulted, in ISO 8601 format.
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when this payment method was last updated, in ISO 8601 format.
-    Address:
-      type: object
-      description: A billing or shipping address associated with a transaction or customer.
-      properties:
-        first_name:
-          type: string
-          description: First name of the address holder.
-          maxLength: 255
-        last_name:
-          type: string
-          description: Last name of the address holder.
-          maxLength: 255
-        company:
-          type: string
-          description: Company or organization name at this address.
-          maxLength: 255
-        street_address:
-          type: string
-          description: Primary street address line.
-          maxLength: 255
-        extended_address:
-          type: string
-          description: Secondary address line such as apartment or suite number.
-          maxLength: 255
-        locality:
-          type: string
-          description: City or locality of the address.
-          maxLength: 255
-        region:
-          type: string
-          description: State, province, or region code of the address.
-          maxLength: 255
-        postal_code:
-          type: string
-          description: Postal or ZIP code of the address.
-          maxLength: 9
-        country_code_alpha2:
-          type: string
-          description: Two-letter ISO 3166-1 alpha-2 country code.
-          pattern: ^[A-Z]{2}$
-  parameters:
-    CustomerId:
-      name: customerId
-      in: path
-      required: true
-      description: The unique identifier of the customer record.
-      schema:
-        type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
   securitySchemes:
     basicAuth:
       type: http

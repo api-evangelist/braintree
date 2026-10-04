@@ -115,17 +115,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    PaymentMethodToken:
-      name: paymentMethodToken
-      in: path
-      required: true
-      description: The unique token identifying the vaulted payment method.
-      schema:
-        type: string
   responses:
     NotFound:
       description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -142,24 +140,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
     PaymentMethodUpdateRequest:
       type: object
       description: Request body for updating an existing vaulted payment method.
@@ -179,42 +160,17 @@ components:
             update_existing_token:
               type: string
               description: Token of an existing payment method to update rather than creating a new one.
-    PaymentMethodRequest:
+    Error:
       type: object
-      required:
-      - customer_id
-      - payment_method_nonce
-      description: Request body for vaulting a new payment method for an existing customer.
+      description: Standard error response returned by the Braintree API.
       properties:
-        customer_id:
+        message:
           type: string
-          description: The identifier of the customer to associate this payment method with.
-          maxLength: 36
-        payment_method_nonce:
-          type: string
-          description: A one-time-use reference to payment information provided by the Braintree client SDK. Consumed upon vaulting.
-        token:
-          type: string
-          description: Custom token to assign to this payment method. If omitted, Braintree generates a unique token.
-          maxLength: 36
-        billing_address:
-          $ref: '#/components/schemas/Address'
-        options:
+          description: Human-readable description of the error.
+        errors:
           type: object
-          description: Options that modify the payment method vaulting behavior.
-          properties:
-            make_default:
-              type: boolean
-              description: If true, this payment method becomes the customer's default payment method.
-              default: false
-            fail_on_duplicate_payment_method:
-              type: boolean
-              description: If true, the request fails if a duplicate payment method already exists in the customer's vault.
-              default: false
-            verify_card:
-              type: boolean
-              description: If true, runs a card verification before vaulting the payment method.
-              default: false
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
     PaymentMethod:
       type: object
       description: Represents a payment method stored in the Braintree Vault. This is a polymorphic object that may represent a credit card, PayPal account, Venmo account, or other supported payment type.
@@ -280,6 +236,50 @@ components:
           type: string
           description: Two-letter ISO 3166-1 alpha-2 country code.
           pattern: ^[A-Z]{2}$
+    PaymentMethodRequest:
+      type: object
+      required:
+      - customer_id
+      - payment_method_nonce
+      description: Request body for vaulting a new payment method for an existing customer.
+      properties:
+        customer_id:
+          type: string
+          description: The identifier of the customer to associate this payment method with.
+          maxLength: 36
+        payment_method_nonce:
+          type: string
+          description: A one-time-use reference to payment information provided by the Braintree client SDK. Consumed upon vaulting.
+        token:
+          type: string
+          description: Custom token to assign to this payment method. If omitted, Braintree generates a unique token.
+          maxLength: 36
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        options:
+          type: object
+          description: Options that modify the payment method vaulting behavior.
+          properties:
+            make_default:
+              type: boolean
+              description: If true, this payment method becomes the customer's default payment method.
+              default: false
+            fail_on_duplicate_payment_method:
+              type: boolean
+              description: If true, the request fails if a duplicate payment method already exists in the customer's vault.
+              default: false
+            verify_card:
+              type: boolean
+              description: If true, runs a card verification before vaulting the payment method.
+              default: false
+  parameters:
+    PaymentMethodToken:
+      name: paymentMethodToken
+      in: path
+      required: true
+      description: The unique token identifying the vaulted payment method.
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http

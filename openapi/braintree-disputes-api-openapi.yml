@@ -123,7 +123,39 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    DisputeId:
+      name: disputeId
+      in: path
+      required: true
+      description: The unique identifier of the dispute.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
     Dispute:
       type: object
       description: Represents a chargeback or retrieval dispute filed by a cardholder or issuing bank against a Braintree transaction.
@@ -169,38 +201,6 @@ components:
           type: string
           format: date-time
           description: Timestamp when the dispute was last updated, in ISO 8601 format.
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
-  responses:
-    NotFound:
-      description: Not found. The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    DisputeId:
-      name: disputeId
-      in: path
-      required: true
-      description: The unique identifier of the dispute.
-      schema:
-        type: string
   securitySchemes:
     basicAuth:
       type: http
