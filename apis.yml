@@ -298,6 +298,12 @@ apis:
   - type: Documentation
     url: https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview
 common:
+- type: Plans
+  url: plans/braintree-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/braintree-rate-limits.yml
+- type: FinOps
+  url: finops/braintree-finops.yml
 - type: CapabilityMap
   url: capabilities/braintree-capability-edges.yml
   name: Braintree Business Capability Map
