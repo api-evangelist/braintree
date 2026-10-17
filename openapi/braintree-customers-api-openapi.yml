@@ -115,39 +115,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    NotFound:
-      description: Not found. The requested resource does not exist.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized. Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request. The request body or parameters are invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    CustomerId:
-      name: customerId
-      in: path
-      required: true
-      description: The unique identifier of the customer record.
-      schema:
-        type: string
   schemas:
     PaymentMethod:
       type: object
@@ -174,6 +141,65 @@ components:
           type: string
           format: date-time
           description: Timestamp when this payment method was last updated, in ISO 8601 format.
+    Error:
+      type: object
+      description: Standard error response returned by the Braintree API.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        errors:
+          type: object
+          description: Nested object containing field-level validation errors organized by resource type.
+          additionalProperties: true
+    Customer:
+      type: object
+      description: Represents a customer record stored in the Braintree Vault. Customers serve as containers for vaulted payment methods and provide a way to associate transaction history with individuals.
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the customer assigned by Braintree.
+        first_name:
+          type: string
+          description: Customer's first name.
+        last_name:
+          type: string
+          description: Customer's last name.
+        email:
+          type: string
+          description: Customer's email address.
+        phone:
+          type: string
+          description: Customer's phone number.
+        company:
+          type: string
+          description: Customer's company or organization name.
+        website:
+          type: string
+          description: Customer's website URL.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was created, in ISO 8601 format.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the customer was last updated, in ISO 8601 format.
+        payment_methods:
+          type: array
+          description: Collection of vaulted payment methods associated with this customer.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        addresses:
+          type: array
+          description: Collection of addresses associated with this customer.
+          items:
+            $ref: '#/components/schemas/Address'
+        custom_fields:
+          type: object
+          description: Custom key-value pairs associated with this customer.
+          additionalProperties:
+            type: string
     Address:
       type: object
       description: A billing or shipping address associated with a transaction or customer.
@@ -261,65 +287,39 @@ components:
           description: Custom key-value pairs. Keys must be pre-configured in the Braintree Control Panel.
           additionalProperties:
             type: string
-    Customer:
-      type: object
-      description: Represents a customer record stored in the Braintree Vault. Customers serve as containers for vaulted payment methods and provide a way to associate transaction history with individuals.
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the customer assigned by Braintree.
-        first_name:
-          type: string
-          description: Customer's first name.
-        last_name:
-          type: string
-          description: Customer's last name.
-        email:
-          type: string
-          description: Customer's email address.
-        phone:
-          type: string
-          description: Customer's phone number.
-        company:
-          type: string
-          description: Customer's company or organization name.
-        website:
-          type: string
-          description: Customer's website URL.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the customer was created, in ISO 8601 format.
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the customer was last updated, in ISO 8601 format.
-        payment_methods:
-          type: array
-          description: Collection of vaulted payment methods associated with this customer.
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-        addresses:
-          type: array
-          description: Collection of addresses associated with this customer.
-          items:
-            $ref: '#/components/schemas/Address'
-        custom_fields:
-          type: object
-          description: Custom key-value pairs associated with this customer.
-          additionalProperties:
-            type: string
-    Error:
-      type: object
-      description: Standard error response returned by the Braintree API.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        errors:
-          type: object
-          description: Nested object containing field-level validation errors organized by resource type.
-          additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Unauthorized. Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Not found. The requested resource does not exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request. The request body or parameters are invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: Unprocessable entity. The request was well-formed but the transaction was declined or failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    CustomerId:
+      name: customerId
+      in: path
+      required: true
+      description: The unique identifier of the customer record.
+      schema:
+        type: string
   securitySchemes:
     basicAuth:
       type: http
