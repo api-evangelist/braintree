@@ -1,4 +1,4 @@
-# braintree (braintree)
+# Braintree
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,198 +66,185 @@
 
 Our mission is to empower developers with the tools, resources, and simple-to-use SDKs and APIs to build on one platform, so they can serve merchants from around the world.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/braintree/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/braintree/refs/heads/main/apis.yml)
+**Areas:** Payments · Transaction · Mobile · Subscription · Payment Processing
 
-## Timestamps
+## Braintree on APIs.io
 
-- **Modified:** 2026-05-19
+Everything profiled for Braintree is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/braintree/](https://apis.io/providers/braintree/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (14)
 
-### Braintree Payments API
+- [Braintree GraphQL API](https://apis.io/apis/braintree/graphql-api/) — The Braintree GraphQL API provides a modern, flexible interface for interacting with the Braintree payment gateway. It exposes a single HTTP endpoint that…
+- [Braintree JavaScript Client SDK](https://apis.io/apis/braintree/javascript-client-sdk/) — The Braintree JavaScript Client SDK enables secure collection of payment information directly in the browser without sensitive card data touching your…
+- [Braintree iOS SDK](https://apis.io/apis/braintree/ios-sdk/) — The Braintree iOS SDK is a native library for accepting card and alternative payments within iOS applications. It supports Swift and Objective-C and…
+- [Braintree Android SDK](https://apis.io/apis/braintree/android-sdk/) — The Braintree Android SDK provides a native library for integrating payment acceptance into Android applications. It supports Java and Kotlin and includes…
+- [Braintree Webhooks](https://apis.io/apis/braintree/webhooks/) — Braintree Webhooks deliver automated HTTP POST notifications to your server when specific events occur within the payment gateway. Supported event types…
+- [braintree Add-Ons API](https://apis.io/apis/braintree/braintree-add-ons-api/) — Operations for retrieving add-on definitions that can be applied to subscriptions to increase their price.
+- [braintree Client Tokens API](https://apis.io/apis/braintree/braintree-client-tokens-api/) — Operations for generating client tokens used to initialize Braintree client SDKs on web and mobile.
+- [braintree Customers API](https://apis.io/apis/braintree/braintree-customers-api/) — Operations for creating, retrieving, updating, and deleting customer records in the Braintree Vault.
+- [braintree Discounts API](https://apis.io/apis/braintree/braintree-discounts-api/) — Operations for retrieving discount definitions that can be applied to subscriptions to reduce their price.
+- [braintree Disputes API](https://apis.io/apis/braintree/braintree-disputes-api/) — Operations for retrieving and managing payment disputes and chargebacks.
+- [braintree Payment Methods API](https://apis.io/apis/braintree/braintree-payment-methods-api/) — Operations for creating, retrieving, updating, and deleting vaulted payment methods associated with customers.
+- [braintree Plans API](https://apis.io/apis/braintree/braintree-plans-api/) — Operations for retrieving billing plan definitions configured in the Braintree Control Panel.
+- [braintree Subscriptions API](https://apis.io/apis/braintree/braintree-subscriptions-api/) — Operations for creating, retrieving, updating, canceling, and retrying customer subscriptions to recurring billing plans.
+- [braintree Transactions API](https://apis.io/apis/braintree/braintree-transactions-api/) — Operations for creating, capturing, voiding, refunding, and retrieving payment transactions.
 
-The Braintree Payments API is the core server-side interface for accepting and processing payments through Braintree's gateway. It enables developers to create and manage transactions, handle authorizations and captures, and process refunds and voids. The API supports a wide range of payment methods including credit and debit cards, PayPal, Apple Pay, Google Pay, and Venmo. Server SDKs are available for Ruby, Python, PHP, Java, Node.js, and .NET to simplify integration with the REST-based API.
+### Published properties
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/](https://developer.paypal.com/braintree/docs/)
-- **Base URL:** `https://api.braintreegateway.com`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### Tags
+#### AsyncAPI (1)
 
-- Credit Cards
-- Payments
-- PayPal
-- Transactions
+Event-driven and webhook contracts.
 
-#### Properties
+- [Braintree Webhooks](https://apis.io/asyncapis/braintree/braintree-webhooks-asyncapi/)
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/overview)
-- [OpenAPI](openapi/braintree-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Event channels (1)
 
-### Braintree GraphQL API
+Individual events and webhooks the provider emits.
 
-The Braintree GraphQL API provides a modern, flexible interface for interacting with the Braintree payment gateway. It exposes a single HTTP endpoint that handles all queries and mutations, allowing developers to request only the data they need. The API supports tokenizing payment methods, creating transactions, managing customer vaults, and handling disputes. A sandbox environment is available at payments.sandbox.braintree-api.com/graphql for testing integrations before going live.
+- [/webhook](https://apis.io/channels/braintree/webhook/)
 
-- **Human URL:** [https://developer.paypal.com/braintree/graphql/](https://developer.paypal.com/braintree/graphql/)
-- **Base URL:** `https://payments.braintree-api.com/graphql`
+#### GraphQL (1)
 
-#### Tags
+GraphQL schemas.
 
-- GraphQL
-- Payment Methods
-- Payments
-- Transactions
+- [braintree GraphQL API](https://apis.io/graphqls/braintree/braintree-graphql/)
 
-#### Properties
+#### MCP servers (1)
 
-- [Documentation](https://developer.paypal.com/braintree/graphql/guides/concepts/)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Model Context Protocol servers that expose the API to agents.
 
-### Braintree JavaScript Client SDK
+- [braintree](https://apis.io/servers/braintree/braintree/)
 
-The Braintree JavaScript Client SDK enables secure collection of payment information directly in the browser without sensitive card data touching your servers. It is organized into standalone modules for different payment methods including hosted fields, PayPal, Apple Pay, Google Pay, and three-D Secure. The SDK provides both a Drop-In UI component for rapid integration and lower-level APIs for fully customized payment forms.
+#### Agentic access (1)
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/)
-- **Base URL:** `https://api.example.com`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Braintree Agentic Access](https://apis.io/agentic-access/braintree/braintree-agentic-access/)
 
-- Browser
-- Client SDK
-- Drop-In UI
-- JavaScript
-- Payments
+#### JSON Schema (23)
 
-#### Properties
+The data models the API reads and writes.
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/javascript/v3/)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Address](https://apis.io/schemas/braintree/braintree-address/)
+- [AppliedModification](https://apis.io/schemas/braintree/braintree-appliedmodification/)
+- [CreditCardDetails](https://apis.io/schemas/braintree/braintree-creditcarddetails/)
+- [Braintree Customer](https://apis.io/schemas/braintree/braintree-customer/)
+- [CustomerRequest](https://apis.io/schemas/braintree/braintree-customerrequest/)
+- [Descriptor](https://apis.io/schemas/braintree/braintree-descriptor/)
+- [Dispute](https://apis.io/schemas/braintree/braintree-dispute/)
+- [Error](https://apis.io/schemas/braintree/braintree-error/)
+- [LineItem](https://apis.io/schemas/braintree/braintree-lineitem/)
+- [Modification](https://apis.io/schemas/braintree/braintree-modification/)
+- [ModificationAdd](https://apis.io/schemas/braintree/braintree-modificationadd/)
+- [ModificationCollection](https://apis.io/schemas/braintree/braintree-modificationcollection/)
+- [ModificationUpdate](https://apis.io/schemas/braintree/braintree-modificationupdate/)
+- [PaymentMethod](https://apis.io/schemas/braintree/braintree-paymentmethod/)
+- [PaymentMethodRequest](https://apis.io/schemas/braintree/braintree-paymentmethodrequest/)
+- [PaymentMethodUpdateRequest](https://apis.io/schemas/braintree/braintree-paymentmethodupdaterequest/)
+- [Plan](https://apis.io/schemas/braintree/braintree-plan/)
+- [Braintree Subscription](https://apis.io/schemas/braintree/braintree-subscription/)
+- [SubscriptionRequest](https://apis.io/schemas/braintree/braintree-subscriptionrequest/)
+- [SubscriptionUpdateRequest](https://apis.io/schemas/braintree/braintree-subscriptionupdaterequest/)
+- [Braintree Transaction](https://apis.io/schemas/braintree/braintree-transaction/)
+- [TransactionOptions](https://apis.io/schemas/braintree/braintree-transactionoptions/)
+- [TransactionRequest](https://apis.io/schemas/braintree/braintree-transactionrequest/)
 
-### Braintree iOS SDK
+#### JSON Structure (1)
 
-The Braintree iOS SDK is a native library for accepting card and alternative payments within iOS applications. It supports Swift and Objective-C and provides modules for credit and debit card processing, PayPal, Venmo, Apple Pay, and three-D Secure authentication. The SDK tokenizes payment information collected from users and returns a payment method nonce that your server uses to complete the transaction. It is distributed via CocoaPods, Carthage, and Swift Package Manager.
+Data models expressed in JSON Structure.
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6)
-- **Base URL:** `https://api.example.com`
+- [Braintree Structure](https://apis.io/json-structure/braintree/braintree-structure/)
 
-#### Tags
+#### JSON-LD (1)
 
-- iOS
-- Mobile
-- Objective-C
-- Payments
-- Swift
+Linked-data contexts for the provider's vocabulary.
 
-#### Properties
+- [Braintree Context](https://apis.io/jsonld/braintree/braintree-context/)
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/ios/v6)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Vocabulary (1)
 
-### Braintree Android SDK
+The provider's domain terms, defined.
 
-The Braintree Android SDK provides a native library for integrating payment acceptance into Android applications. It supports Java and Kotlin and includes modules for card payments, PayPal, Venmo, Google Pay, and three-D Secure verification. Like the iOS counterpart, the Android SDK tokenizes payment data on the client side and returns a payment method nonce for server-side transaction processing. The SDK is distributed through Maven Central and supports Android API level 21 and above.
+- [Braintree Domain Vocabulary](https://apis.io/vocabularies/braintree/braintree-vocabulary/)
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4)
-- **Base URL:** `https://api.example.com`
+#### Collections (11)
 
-#### Tags
+Postman and Open Collection request collections.
 
-- Android
-- Java
-- Kotlin
-- Mobile
-- Payments
+- [Braintree Payments Add-Ons API](https://apis.io/collections/braintree/open-braintree-add-ons-api/)
+- [Braintree Payments Add-Ons Client Tokens API](https://apis.io/collections/braintree/open-braintree-client-tokens-api/)
+- [Braintree Payments Add-Ons Customers API](https://apis.io/collections/braintree/open-braintree-customers-api/)
+- [Braintree Payments Add-Ons Discounts API](https://apis.io/collections/braintree/open-braintree-discounts-api/)
+- [Braintree Payments Add-Ons Disputes API](https://apis.io/collections/braintree/open-braintree-disputes-api/)
+- [Braintree Payments Add-Ons Payment Methods API](https://apis.io/collections/braintree/open-braintree-payment-methods-api/)
+- [Braintree Payments API](https://apis.io/collections/braintree/open-braintree-payments/)
+- [Braintree Payments Add-Ons Plans API](https://apis.io/collections/braintree/open-braintree-plans-api/)
+- [Braintree Subscriptions API](https://apis.io/collections/braintree/open-braintree-subscriptions/)
+- [Braintree Payments Add-Ons Subscriptions API](https://apis.io/collections/braintree/open-braintree-subscriptions-api/)
+- [Braintree Payments Add-Ons Transactions API](https://apis.io/collections/braintree/open-braintree-transactions-api/)
 
-#### Properties
+#### Governance rules (2)
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/client-sdk/setup/android/v4)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Spectral rulesets for the provider's contracts.
 
-### Braintree Webhooks
+- [Braintree — asyncapi rules](https://apis.io/rules/braintree/braintree-asyncapi-spectral-rules/)
+- [Braintree — jsonschema rules](https://apis.io/rules/braintree/braintree-jsonschema-spectral-rules/)
 
-Braintree Webhooks deliver automated HTTP POST notifications to your server when specific events occur within the payment gateway. Supported event types include subscription status changes, transaction settlements, disbursements, dispute openings and resolutions, and sub-merchant account status updates for Braintree Marketplace. Each webhook notification contains the event kind and the full Braintree object associated with the triggering event.
+#### Security (4)
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/webhooks/overview](https://developer.paypal.com/braintree/docs/guides/webhooks/overview)
-- **Base URL:** `https://api.example.com`
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Tags
+- [Braintree Authentication](https://apis.io/security/braintree/braintree-authentication/)
+- [Braintree Domain Security](https://apis.io/security/braintree/braintree-domain-security/)
+- [Braintree Trust Center](https://apis.io/security/braintree/braintree-trust-center/)
+- [Braintree Vulnerability Disclosure](https://apis.io/security/braintree/braintree-vulnerability-disclosure/)
 
-- Disputes
-- Events
-- Notifications
-- Subscriptions
-- Webhooks
+#### OAuth scopes (1)
 
-#### Properties
+The permissions the API asks for.
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/webhooks/overview)
-- [AsyncAPI](asyncapi/braintree-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Braintree Scopes](https://apis.io/scopes/braintree/braintree-scopes/)
 
-### Braintree Vault API
+#### Plans and pricing (1)
 
-The Braintree Vault API provides secure, PCI-compliant long-term storage of customer payment method data. It allows merchants to store credit card numbers, PayPal accounts, and other payment methods so that returning customers do not need to re-enter their information. The Vault supports customer records that can hold multiple payment methods, billing addresses, and associated transaction history.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/customers/overview](https://developer.paypal.com/braintree/docs/guides/customers/overview)
-- **Base URL:** `https://api.braintreegateway.com`
+- [Braintree Plans Pricing](https://apis.io/plans/braintree/braintree-plans-pricing/)
 
-#### Tags
+#### Rate limits (1)
 
-- Customers
-- Payment Methods
-- PCI Compliance
-- Storage
-- Vault
+Published request limits.
 
-#### Properties
+- [Braintree Rate Limits](https://apis.io/rate-limits/braintree/braintree-rate-limits/)
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/customers/overview)
-- [OpenAPI](openapi/braintree-payments-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/braintree-payments.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-payments.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### FinOps (1)
 
-### Braintree Subscriptions API
+What the API costs to run, by operation.
 
-The Braintree Subscriptions API enables merchants to manage recurring billing plans and customer subscriptions. Merchants define billing plans with configurable pricing, billing cycles, and trial periods, then subscribe customers using vaulted payment methods. The API handles automatic charge retries, prorated billing for mid-cycle changes, add-ons and discounts, and subscription lifecycle events.
+- [Braintree Finops](https://apis.io/finops/braintree/braintree-finops/)
 
-- **Human URL:** [https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview](https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview)
-- **Base URL:** `https://api.braintreegateway.com`
+## Where to find this API
 
-#### Tags
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-- Payments
-- Plans
-- Recurring Billing
-- Subscriptions
+- [GitHub](https://github.com/braintree)
 
-#### Properties
+## API Evangelist rating
 
-- [Documentation](https://developer.paypal.com/braintree/docs/guides/recurring-billing/overview)
-- [OpenAPI](openapi/braintree-subscriptions-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/braintree-subscriptions.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/braintree-subscriptions.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+**Unrated** — no public website could be reached for this company, so there was almost nothing to measure and nothing a reader could check.
 
-## Common Properties
+This is not a score of zero. No rating is published for this company. If that is wrong because something public exists that we missed, say so on this repository or email [info@apievangelist.com](mailto:info@apievangelist.com) and it will be re-run — free, and no justification needed.
 
-- [GitHub Organization](https://github.com/braintree)
-- [LinkedIn](https://www.linkedin.com/company/braintree)
-- [JSON-LD](json-ld/braintree-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [JSON Schema](json-schema/braintree-transaction-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/braintree-customer-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/braintree-subscription-schema.json) — [JSON Schema](https://json-schema.org/specification)
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Braintree: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/braintree/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
